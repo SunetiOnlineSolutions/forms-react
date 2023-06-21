@@ -15,21 +15,20 @@ import { UnsavedSectionsProvider } from './context/UnsavedSectionsContext';
 
 const App: React.FunctionComponent = () => {
 
- // const { actions } = React.useContext(DataStore);
+ const { actions } = React.useContext(DataStore);
 
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [newFormName, setNewFormName] = React.useState('');
-  const version = useCurrentVersion();
-  
+    
   const loadAll = () => {
-    // actions.screens.load();
-    // actions.versions.load();
-    // actions.sections.load();
-    // actions.questions.load();
-    // actions.inputDataSets.load();
-    // actions.answers.load();
-    // actions.valueLists.load();
-    // actions.valueListItems.load();
+    actions.screens.load();
+    actions.versions.load();
+    actions.sections.load();
+    actions.questions.load();
+    actions.inputDataSets.load();
+    actions.answers.load();
+    actions.valueLists.load();
+    actions.valueListItems.load();
   };
 
   useEffect(() => {
@@ -49,12 +48,12 @@ const App: React.FunctionComponent = () => {
   const createNewForm = async () => {
     setIsModalOpen(false);
 
-     //await actions.screens.store({ name: newFormName })
-   // .then(async (res) => {
-     // await actions.versions.store({ data_input_screen_id: res.id, form_version_status: 'DRAFT' });
+    await actions.screens.store({ name: newFormName })
+    .then(async (res) => {
+     await actions.versions.store({ data_input_screen_id: res.id, form_version_status: 'DRAFT' });
 
-   // window.location.href = `/form-templates/edit?type=builder&screenID=${res.id}`;
-    //});
+     window.location.href = `/form-templates/edit?type=builder&screenID=${res.id}`;
+    });
 
     
   }

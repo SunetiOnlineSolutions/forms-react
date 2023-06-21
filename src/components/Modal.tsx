@@ -7,6 +7,7 @@ interface Props {
   onClose: () => void;
   onOkay?: () => void;
   buttons?: React.ReactNode;
+  children?: any;
 }
 
 const Modal: React.FunctionComponent<Props> = ({ title, isOpen, onClose, buttons, onOkay, children }) => {

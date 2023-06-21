@@ -11,7 +11,7 @@ export type UnsavedQuestionsContextParams = {
 
 const UnsavedQuestionsContext = React.createContext<UnsavedQuestionsContextParams>({} as any);
 
-export const UnsavedQuestionsProvider: React.FunctionComponent = ({ children }) => {
+export const UnsavedQuestionsProvider = ({ children }: any) => {
   const [questions, setQuestions] = React.useState<Array<StoredQuestion>>([]);
 
   const addQuestion = React.useCallback((question: StoredQuestion) => setQuestions([...questions, question]), [questions]);

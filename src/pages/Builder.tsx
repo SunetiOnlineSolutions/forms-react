@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import React from 'react';
 import Section from '../components/Builder/Section';
 import { DataStore } from '../context/DataStore';
@@ -55,7 +56,7 @@ const Builder: React.FunctionComponent = () => {
 
     console.log('We should not edit this version but create a new one and edit thate one.');
 
-    // actions.versions.store({ form_version_status: 'DRAFT', data_input_screen_id: version.dataInputScreen.id });
+     actions.versions.store({ form_version_status: 'DRAFT', data_input_screen_id: version.dataInputScreen.id });
   }, [version?.formVersionStatus]);
 
   const onDragEnd = (dropResult: DropResultWithType) => {
@@ -73,7 +74,7 @@ const Builder: React.FunctionComponent = () => {
 
     const sectionID: Identifier = dropResult.draggableId.replace('section__', '');
 
-    let section = sections.find(section => section.id == sectionID) as StoredSection;
+    const section = sections.find(section => section.id == sectionID) as StoredSection;
 
     if (section.sort_order === dropResult.destination.index) {
       return;
@@ -116,7 +117,7 @@ const Builder: React.FunctionComponent = () => {
 
     const questionID: Identifier = dropResult.draggableId.replace('question__', '');
 
-    let question = questions.find(question => question.id == questionID) as StoredQuestion;
+    const question = questions.find(question => question.id == questionID) as StoredQuestion;
 
     const originSection: Identifier = question.section_id;
     const destinationSection: Identifier = dropResult.destination.droppableId.replace('section__', '');
@@ -191,17 +192,17 @@ const Builder: React.FunctionComponent = () => {
       return;
     }
 
-   // await actions.screens.update({ id: version?.dataInputScreen?.id as Identifier, name: name as string });
+   await actions.screens.update({ id: version?.dataInputScreen?.id , name: name as string });
 
-   // if (sections.length > 0) {
-   //   await actions.sections.bulkUpdate(sections);
-   // }
+   if (sections.length > 0) {
+   await actions.sections.bulkUpdate(sections);
+    }
 
-   /* if (questions.length > 0) {
+   if (questions.length > 0) {
       await actions.questions.bulkUpdate(questions);
-    } */
+    }
 
-    // document.location.href = '/web-solution?type=index';
+    document.location.href = '/web-solution?type=index';
   }, [name, sections, questions]);
 
   const back = React.useCallback(() => window.history.back(), []);

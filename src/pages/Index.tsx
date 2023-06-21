@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 
 import React from 'react';
 import DataInputScreen from '../classes/DataInputScreen';
@@ -34,7 +35,7 @@ const Index: React.FunctionComponent = () => {
           // If the latest version isn't draft it cannot be edited and we have to:
           //   1. Create a new version.
           //   2. Redirect to the edit page of the newly created version.
-        //  await actions.versions.store({ form_version_status: 'DRAFT', data_input_screen_id: latestVersion.dataInputScreen.id });
+          await actions.versions.store({ form_version_status: 'DRAFT', data_input_screen_id: latestVersion.dataInputScreen.id });
 
           const params = new URLSearchParams(window.location.search);
           params.set('type', 'builder');

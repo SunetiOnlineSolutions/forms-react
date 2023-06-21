@@ -19,7 +19,8 @@ const App: React.FunctionComponent = () => {
 
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [newFormName, setNewFormName] = React.useState('');
-    
+  const version = useCurrentVersion();
+
   const loadAll = () => {
     actions.screens.load();
     actions.versions.load();
@@ -72,13 +73,14 @@ const App: React.FunctionComponent = () => {
 
   const type = params.get('type');
 
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const publish = React.useCallback(() => {
     if (!version) {
       alert('No version is set, cannot save.');
       return;
     }
 
-  //  actions.versions.update({ ...version.toStored(), form_version_status: 'PUBLISHED' });
+  actions.versions.update({ ...version.toStored(), form_version_status: 'PUBLISHED' });
   }, [version]);
 
   switch (type) {

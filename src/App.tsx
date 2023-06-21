@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { DataStore } from './context/DataStore';
 import Builder from './pages/Builder';
+import './App.css';
 import './Forms.css';
 import Panel from './components/Panel';
 import { useCurrentVersion, useEffectOnce } from './hooks';
@@ -89,7 +90,7 @@ const App: React.FunctionComponent = () => {
         <div>
           <UnsavedQuestionsProvider>
             <UnsavedSectionsProvider>
-              <Builder />
+                <Builder />
             </UnsavedSectionsProvider>
           </UnsavedQuestionsProvider>
           </div>

@@ -137,7 +137,7 @@ export default class APIPersistence implements DataPersistence {
   }
 
   getAllValueLists() {
-    return this.get("/value-lists");
+    return this.get("/api/forms/value-lists");
   }
 
   storeValueList(list: Without<StoredValueList, "id">) {
@@ -170,10 +170,7 @@ export default class APIPersistence implements DataPersistence {
 
   protected async get(url: string) {
     const response = await fetch(
-      this.prefixWithDomain(url),
-      { headers: { "Content-Type": "application/json", 
-      "Accept": "application/json", 
-      "Access-Control-Allow-Origin": "*" } }
+      this.prefixWithDomain(url), {headers: {"Content-Type": "application/json", "Accept": "application/json"} }
     );
 
     return await response.json();

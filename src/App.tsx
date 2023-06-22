@@ -13,6 +13,7 @@ import Modal from './components/Modal';
 import TextField from './components/FormElements/TextField';
 import { UnsavedQuestionsProvider } from './context/UnsavedQuestionsContext';
 import { UnsavedSectionsProvider } from './context/UnsavedSectionsContext';
+import Preview from './pages/Preview';
 
 const App: React.FunctionComponent = () => {
 
@@ -90,7 +91,13 @@ const App: React.FunctionComponent = () => {
         <div>
           <UnsavedQuestionsProvider>
             <UnsavedSectionsProvider>
-                <Builder />
+              <div className="row justify-content-center">
+                <div className="col-md-11">
+                  <Panel title="Builder">
+                    <Builder />
+                  </Panel>
+                </div>
+              </div>
             </UnsavedSectionsProvider>
           </UnsavedQuestionsProvider>
           </div>
@@ -98,22 +105,7 @@ const App: React.FunctionComponent = () => {
 
     case 'index':
       return (
-        <Panel title="Forms" buttons={
-          <button className="btn btn-xs btn-primary" onClick={() => setIsModalOpen(true)}>
-            <i className="fal fa-plus mr-2"></i>
-            Form
-          </button>
-        }>
-          <Modal title="Create a new form" isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} buttons={
-            <>
-              <button className="btn btn-secondary" onClick={() => setIsModalOpen(false)}>Cancel</button>
-              <button className="btn btn-primary" onClick={() => createNewForm()}>Create new form</button>
-            </>
-          }>
-            <div className="form-group">
-              <TextField label="Name" value={newFormName} onChange={(value) => setNewFormName(value)}></TextField>
-            </div>
-          </Modal>
+        <Panel title="Forms">
           <Index />
         </Panel>
       );
@@ -122,7 +114,7 @@ const App: React.FunctionComponent = () => {
       return (
         <UnsavedAnswersProvider>
           <div className="row justify-content-center">
-            <div className="col-md-5">
+            <div className="col-md-11">
               <Panel title="Form fill out">
                 <FillOut />
               </Panel>
@@ -131,6 +123,15 @@ const App: React.FunctionComponent = () => {
         </UnsavedAnswersProvider>
       );
 
+    case 'preview':
+      return (
+        <UnsavedAnswersProvider>
+          <Panel title="Form preview">
+            <Preview />
+          </Panel>
+        </UnsavedAnswersProvider>
+      );
+      
     case 'show':
       return (
         <Panel title="Form show">

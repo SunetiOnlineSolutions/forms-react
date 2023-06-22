@@ -25,7 +25,7 @@ const AnswerTypePicker: React.FunctionComponent = () => {
         <span className={"text-primary m-r-5 fal fa-lg fa-fw " + options.find(option => option.label === friendlyType)?.icon}></span>
         {friendlyType}
       </div>
-      <div className="dropdown-toggle px-3 h-100 d-flex align-items-center cursor-pointer" data-bs-toggle="dropdown">
+      <div className="dropdown-toggle px-3 h-100 d-flex align-items-center cursor-pointer" data-toggle="dropdown">
         <span className="sr-only">Toggle dropdown</span>
       </div>
 

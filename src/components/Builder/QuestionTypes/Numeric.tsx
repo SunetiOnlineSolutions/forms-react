@@ -2,9 +2,11 @@ import React from 'react';
 import { useQuestion, useQuestionEdit, useToggle } from '../../../hooks';
 import Checkbox from '../../FormElements/Checkbox';
 import TextField from '../../FormElements/TextField';
+import UnsavedQuestionsContext from '../../../context/UnsavedQuestionsContext';
 
 const Numeric: React.FunctionComponent = () => {
   const question = useQuestion();
+  const { removeQuestion } = React.useContext(UnsavedQuestionsContext);
   const [editQuestion] = useQuestionEdit(question);
 
   // Question parameters
@@ -12,10 +14,6 @@ const Numeric: React.FunctionComponent = () => {
 
   // Quesiton validation
   const [required, toggleRequired] = useToggle(question.options?.validation?.required);
-  const [min, setMin] = React.useState(question.options?.validation?.min ?? 0);
-  const [max, setMax] = React.useState(question.options?.validation?.max ?? 0);
-  const [allowDecimal, toggleAllowDecimal] = useToggle(question.options?.validation?.allowDecimal ?? false);
-  const [allowNegative, toggleAllowNegative] = useToggle(question.options?.validation?.allowNegative ?? false);
 
   React.useEffect(() => {
     editQuestion({
@@ -23,14 +21,10 @@ const Numeric: React.FunctionComponent = () => {
       options: {
         validation: {
           required,
-          min,
-          max,
-          allowDecimal,
-          allowNegative,
         }
       }
     });
-  }, [phrase, required, min, max, allowDecimal, allowNegative]);
+  }, [phrase, required]);
 
   return <>
     <div className="d-flex justify-items-between flex-column">
@@ -40,31 +34,17 @@ const Numeric: React.FunctionComponent = () => {
           <TextField label="Question" value={phrase} onChange={setPhrase} />
         </div>
       </div>
-      <h5>Validation</h5>
+      <h6>Validation</h6>
       <div className="row">
-        <div className="col-md-1">
-          <Checkbox label="Required" checked={required} onChange={toggleRequired} />
+        <div className="row col-md-10">
+            <div>
+              <Checkbox label="Required" checked={required} onChange={toggleRequired} />
+            </div>
         </div>
-
-        <div className="col-md-2">
-          <Checkbox label="Allow decimal values" checked={allowDecimal} onChange={toggleAllowDecimal} />
-        </div>
-
-        <div className="col-md-2">
-          <Checkbox label="Allow negative values" checked={allowNegative} onChange={toggleAllowNegative} />
-        </div>
-
-      </div>
-
-      <div className="row mt-3">
-        <div className="col-md-1">
-          <label>Min</label>
-          <input type="number" className="form-control mb-3" value={min} onChange={event => setMin(parseInt(event.target.value, 10))} />
-        </div>
-
-        <div className="col-md-1">
-          <label>Max</label>
-          <input type="number" className="form-control mb-3" value={max} onChange={event => setMax(parseInt(event.target.value, 10))} />
+        <div className="col-md-2">        
+            <button className="btn btn-xs btn-danger float-right" onClick={() => removeQuestion(question)}>
+              <i className="fas fa-trash-alt pr-1"> </i> Delete question
+            </button>
         </div>
       </div>
     </div>

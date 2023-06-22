@@ -2,11 +2,12 @@ import React from 'react';
 import { QuestionOptions } from '../../../DataPersistence';
 import { useQuestion, useQuestionEdit, useToggle } from '../../../hooks';
 import Checkbox from '../../FormElements/Checkbox';
-import DateTimePicker from '../../FormElements/DateTimePicker';
 import TextField from '../../FormElements/TextField';
+import UnsavedQuestionsContext from '../../../context/UnsavedQuestionsContext';
 
 const DateTime: React.FunctionComponent = () => {
   const question = useQuestion();
+  const { removeQuestion } = React.useContext(UnsavedQuestionsContext);
   const [editQuestion] = useQuestionEdit(question);
 
   // Question parameters
@@ -15,8 +16,6 @@ const DateTime: React.FunctionComponent = () => {
 
   // Question validation
   const [required, toggleRequired] = useToggle(question.options?.validation?.required ?? false);
-  const [after, setAfter] = React.useState<string>(question.options?.validation?.after ?? '');
-  const [before, setBefore] = React.useState<string>(question.options?.validation?.before ?? '');
 
   const isRadioSelected = (option: NonNullable<QuestionOptions['datetime']>['type']) => type === option;
 
@@ -29,12 +28,10 @@ const DateTime: React.FunctionComponent = () => {
         },
         validation: {
           required,
-          after,
-          before,
         }
       }
     });
-  }, [phrase, type, required, after, before]);
+  }, [phrase, type, required]);
 
   return <>
     <div className="d-flex justify-items-between flex-column">
@@ -43,7 +40,7 @@ const DateTime: React.FunctionComponent = () => {
         <div className="col-md-7">
           <TextField value={phrase} onChange={setPhrase} label="Question" />
         </div>
-        <div className="col-md-7 form-group">
+        <div className="col-md-5 form-group">
           <label>Date/time kind</label>
           <div>
             <div className="radio radio-css radio-inline no-select" onClick={event => setType('DATE')}>
@@ -61,18 +58,18 @@ const DateTime: React.FunctionComponent = () => {
           </div>
         </div>
       </div>
-      <h5>Validation</h5>
+
+      <h6>Validation</h6>
       <div className="row">
-        <div className="col-md-2">
-          <Checkbox label="Required" checked={required} onChange={toggleRequired} />
-        </div>
-      </div>
-      <div className="row mt-3">
-        <div className="col-md-2">
-          <DateTimePicker label="After" value={after} onChange={setAfter} />
+        <div className="row col-md-10">
+            <div>
+              <Checkbox label="Required" checked={required} onChange={toggleRequired} />
+            </div>
         </div>
         <div className="col-md-2">
-          <DateTimePicker label="Before" value={before} onChange={setBefore} />
+            <button className="btn btn-xs btn-danger float-right" onClick={() => removeQuestion(question)}>
+              <i className="fas fa-trash-alt pr-1"> </i> Delete question
+            </button>
         </div>
       </div>
     </div>

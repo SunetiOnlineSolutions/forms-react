@@ -38,7 +38,7 @@ const Question: React.ForwardRefRenderFunction<null, QuestionProps> = ({ dragHan
 
   return (
     <div ref={ref} {...draggableProps} className={"row p-0 m-0 question" + (isDragging ? ' dragging' : '')}>
-      <div className="col-lg-9 col-xs-12 order-sm-2 order-md-1 order-lg-1 order-xl-1 p-r-0 border-right">
+      <div className="col-lg-10 col-xs-12 order-sm-2 order-md-1 order-lg-1 order-xl-1 p-r-0 border-right">
 
         <div className="card-header question--header w-100 d-flex justify-content-between">
 
@@ -61,7 +61,7 @@ const Question: React.ForwardRefRenderFunction<null, QuestionProps> = ({ dragHan
         </AnimateHeight>
       </div>
 
-      <div className="col-lg-3 col-xs-12 order-sm-1 order-md-2 order-lg-2 order-xl-2 col-right px-0">
+      <div className="col-lg-2 col-xs-12 order-sm-1 order-md-2 order-lg-2 order-xl-2 col-right px-0">
         <AnswerTypePicker />
       </div>
 

@@ -56,7 +56,7 @@ const Builder: React.FunctionComponent = () => {
 
     console.log('We should not edit this version but create a new one and edit thate one.');
 
-     actions.versions.store({ form_version_status: 'DRAFT', data_input_screen_id: version.dataInputScreen.id });
+    actions.versions.store({ form_version_status: 'DRAFT', data_input_screen_id: version.dataInputScreen.id });
   }, [version?.formVersionStatus]);
 
   const onDragEnd = (dropResult: DropResultWithType) => {
@@ -192,17 +192,17 @@ const Builder: React.FunctionComponent = () => {
       return;
     }
 
-   await actions.screens.update({ id: version?.dataInputScreen?.id , name: name as string });
+    await actions.screens.update({ id: version?.dataInputScreen?.id, name: name as string });
 
-   if (sections.length > 0) {
-   await actions.sections.bulkUpdate(sections);
+    if (sections.length > 0) {
+      await actions.sections.bulkUpdate(sections);
     }
 
-   if (questions.length > 0) {
+    if (questions.length > 0) {
       await actions.questions.bulkUpdate(questions);
     }
 
-    document.location.href = '/web-solution?type=index';
+    // document.location.href = '/web-solution?type=index';
   }, [name, sections, questions]);
 
   const back = React.useCallback(() => window.history.back(), []);
@@ -222,7 +222,7 @@ const Builder: React.FunctionComponent = () => {
             <TextField label="Total number of fillouts across all versions" value={version.dataInputScreen.versions.flatMap(version => version.inputDataSets).length.toString()} onChange={() => { }} readOnly />
           </div>
           <div className="form-group col-md-2">
-            <TextField label="Form version status" value={version.formVersionStatus[0].toUpperCase()+version.formVersionStatus.substring(1).toLowerCase()} onChange={() => { }} readOnly />
+            <TextField label="Form version status" value={version.formVersionStatus[0].toUpperCase() + version.formVersionStatus.substring(1).toLowerCase()} onChange={() => { }} readOnly />
           </div>
         </div>
 

@@ -1,7 +1,8 @@
 import React from 'react';
 
 export interface TabProps {
-  label: string;
+  label: string,
+  children?: React.ReactNode
 }
 
 const Tab: React.FunctionComponent<TabProps> = ({ children }) => {

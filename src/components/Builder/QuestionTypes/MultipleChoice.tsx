@@ -7,6 +7,7 @@ import CreatableSelect from 'react-select/creatable';
 import { Identifier } from '../../../types';
 import { QuestionOptions } from '../../../DataPersistence';
 import { onEnter } from '../../../helpers';
+import UnsavedQuestionsContext from '../../../context/UnsavedQuestionsContext';
 
 interface CreatableOption {
   readonly label: string;
@@ -20,6 +21,7 @@ const createOption = (label: string): CreatableOption => ({
 
 const MultipleChoice: React.FunctionComponent = () => {
   const question = useQuestion();
+  const { removeQuestion } = React.useContext(UnsavedQuestionsContext);
   const [editQuestion] = useQuestionEdit(question);
   const { selectors } = React.useContext(DataStore);
 
@@ -95,7 +97,7 @@ const MultipleChoice: React.FunctionComponent = () => {
           </div>
         </div>
         {isRadioSelected('VALUE_LIST') &&
-          <div className="col-md-7 form-group mb-0 mt-3">
+          <div className="col-md-7 form-group mb-0 mt-3 ml-3">
             <label>Select value list</label>
             <Select options={options} value={options.find(option => option.value === valueListID)} onChange={option => setValueListID(option?.value)} />
           </div>
@@ -119,16 +121,24 @@ const MultipleChoice: React.FunctionComponent = () => {
         }
       </div>
 
-      <h5 className="mt-3">Validation</h5>
+      <h6 className="mt-3">Validation</h6>
       <div className="row">
-        <div className="col-md-1">
-          <Checkbox label="Required" checked={required} onChange={toggleRequired} />
+        <div className="row col-md-10">
+            <div>
+              <Checkbox label="Required" checked={required} onChange={toggleRequired} />
+            </div>
+            <div style={{paddingLeft: '10px'}}>
+              <Checkbox label="Allow multiple answers" checked={allowMultipleAnswers} onChange={toggleAllowMultipleAnswers} />
+            </div>
         </div>
-        <div className="col-md-2">
-          <Checkbox label="Allow multiple answers" checked={allowMultipleAnswers} onChange={toggleAllowMultipleAnswers} />
+        <div className="col-md-2">        
+            <button className="btn btn-xs btn-danger float-right" onClick={() => removeQuestion(question)}>
+              <i className="fas fa-trash-alt pr-1"> </i> Delete question
+            </button>
         </div>
       </div>
     </div>
+    
   </>;
 };
 

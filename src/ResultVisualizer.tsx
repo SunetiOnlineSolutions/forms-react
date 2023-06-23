@@ -1,6 +1,5 @@
 import React from "react";
 import Answer from "./classes/Answer";
-import InputDataSet from "./classes/InputDataSet";
 import Question from "./classes/Question";
 
 interface Visualizer {

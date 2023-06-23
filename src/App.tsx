@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
 import { DataStore } from './context/DataStore';
 import Builder from './pages/Builder';
-import './App.css';
 import './Forms.css';
 import Panel from './components/Panel';
-import { useCurrentVersion, useEffectOnce } from './hooks';
+import { useEffectOnce } from './hooks';
 import FillOut from './pages/FillOut';
 import { UnsavedAnswersProvider } from './context/UnsavedAnswersContext';
 import Index from './pages/Index';
@@ -17,7 +16,6 @@ const App: React.FunctionComponent = () => {
 
   const { actions } = React.useContext(DataStore);
 
-  const version = useCurrentVersion();
 
   const loadAll = () => {
     actions.screens.load();
@@ -38,8 +36,9 @@ const App: React.FunctionComponent = () => {
     };
   }, []);
 
-  const handleMessage = (event: any) => {
-    const data = event?.data?.payload;
+  const handleMessage = (event:any) => {
+      const data = event?.data?.payload;
+      console.log(data?.message);
   };
 
   useEffectOnce(() => loadAll());
@@ -56,15 +55,6 @@ const App: React.FunctionComponent = () => {
 
   const type = params.get('type');
 
-  const publish = React.useCallback(() => {
-    if (!version) {
-      alert('No version is set, cannot save.');
-      return;
-    }
-
-    actions.versions.update({ ...version.toStored(), form_version_status: 'PUBLISHED' });
-  }, [version]);
-
   switch (type) {
     case 'builder':
       return (
@@ -72,7 +62,7 @@ const App: React.FunctionComponent = () => {
           <UnsavedQuestionsProvider>
             <UnsavedSectionsProvider>
               <div className="row justify-content-center">
-                <div className="col-md-11">
+                <div className="col-md-10">
                   <Panel title="Builder">
                     <Builder />
                   </Panel>
@@ -94,7 +84,7 @@ const App: React.FunctionComponent = () => {
       return (
         <UnsavedAnswersProvider>
           <div className="row justify-content-center">
-            <div className="col-md-11">
+            <div className="col-md-10">
               <Panel title="Form fill out">
                 <FillOut />
               </Panel>

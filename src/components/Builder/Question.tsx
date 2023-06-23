@@ -25,7 +25,7 @@ const Question: React.ForwardRefRenderFunction<null, QuestionProps> = ({ dragHan
   const [phrase, setPhrase] = React.useState<string>(question.phrase);
 
   const handleTitleClick = () => {
-    document.querySelectorAll('.input-editable').forEach((question) => {
+    document.querySelectorAll('.input-editable').forEach((_question) => {
 
       setIsEditing(false);
 
@@ -78,7 +78,7 @@ const Question: React.ForwardRefRenderFunction<null, QuestionProps> = ({ dragHan
                 <input
                   className="input-editable"
                   value={phrase}
-                  style={{ width: '70vw', height: '35px', border: 'dotted 2px #2a72b5', borderRadius: '5px', padding: '5px 5px 5px 10px' }}
+                  style={{ width: '60vw', height: '35px', border: 'dotted 2px #2a72b5', borderRadius: '5px', padding: '5px 5px 5px 10px' }}
                   contentEditable
                   suppressContentEditableWarning
                   onBlur={handleTitleBlur}
@@ -88,7 +88,7 @@ const Question: React.ForwardRefRenderFunction<null, QuestionProps> = ({ dragHan
                 <input
                   className="editable-input"
                   value={question.answer_type !== 'INSTRUCTION' ? question.phrase : 'Instruction'}
-                  style={{ width: '70vw', height: '35px', border: 'none', borderRadius: '5px', padding: '5px 5px 5px 10px' }}
+                  style={{ width: '60vw', height: '35px', border: 'none', borderRadius: '5px', padding: '5px 5px 5px 10px' }}
                   onClick={handleTitleClick}
                   readOnly
                 />

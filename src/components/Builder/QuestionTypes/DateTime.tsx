@@ -41,15 +41,15 @@ const DateTime: React.FunctionComponent = () => {
       </div>
         <label className="col-sm-1 col-form-label">Type</label>
         <div className="col-sm-3 ">
-          <div className="radio radio-css radio-inline no-select" onClick={event => setType('DATE')}>
+          <div className="radio radio-css radio-inline no-select" onClick={() => setType('DATE')}>
             <input type="radio" readOnly checked={isRadioSelected('DATE')} />
             <label>Date</label>
           </div>
-          <div className="radio radio-css radio-inline no-select" onClick={event => setType('TIME')}>
+          <div className="radio radio-css radio-inline no-select" onClick={() => setType('TIME')}>
             <input type="radio" readOnly checked={isRadioSelected('TIME')} />
             <label>Time</label>
           </div>
-          <div className="radio radio-css radio-inline no-select" onClick={event => setType('DATETIME')}>
+          <div className="radio radio-css radio-inline no-select" onClick={() => setType('DATETIME')}>
             <input type="radio" readOnly checked={isRadioSelected('DATETIME')} />
             <label>Date + time</label>
           </div>

@@ -23,7 +23,7 @@ const Index: React.FunctionComponent = () => {
     },
     {
       name: "Actions",
-      selector: (row: any) => {
+      cell: (row: any) => {
         return (
           <div className="btn-group">
             <button className="btn btn-table bg-primary" onClick={() => { (window as any).ReactBridge_Index.show(row.id) }}>Show</button>

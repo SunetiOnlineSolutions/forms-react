@@ -2,7 +2,7 @@ import React from 'react';
 import { DataStore } from '../../../context/DataStore';
 import { useQuestion, useQuestionEdit, useToggle } from '../../../hooks';
 import Checkbox from '../../FormElements/Checkbox';
-import Select, { ActionMeta, OnChangeValue } from 'react-select';
+import Select, {  OnChangeValue } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import { Identifier } from '../../../types';
 import { QuestionOptions } from '../../../DataPersistence';
@@ -59,7 +59,7 @@ const MultipleChoice: React.FunctionComponent = () => {
     });
   }, [phrase, using, valueListID, required, allowMultipleAnswers]);
 
-  const onCreatableChange = (value: OnChangeValue<CreatableOption, true>, actionMeta: ActionMeta<CreatableOption>) => {
+  const onCreatableChange = (value: OnChangeValue<CreatableOption, true>) => {
     setCustomValues(value.map(({ label }) => createOption(label)));
   };
 
@@ -84,15 +84,15 @@ const MultipleChoice: React.FunctionComponent = () => {
       <label className="col-sm-1 col-form-label">Values</label>
       <div className="col-sm-4 ">
         <div>
-          <div className="radio radio-css radio-inline no-select" onClick={event => setUsing('VALUE_LIST')}>
+          <div className="radio radio-css radio-inline no-select" onClick={() => setUsing('VALUE_LIST')}>
             <input type="radio" readOnly checked={isRadioSelected('VALUE_LIST')} />
             <label>Use value list</label>
           </div>
-          <div className="radio radio-css radio-inline no-select" onClick={event => setUsing('CUSTOM')}>
+          <div className="radio radio-css radio-inline no-select" onClick={() => setUsing('CUSTOM')}>
             <input type="radio" readOnly checked={isRadioSelected('CUSTOM')} />
             <label>Use custom values</label>
           </div>
-          <div className="radio radio-css radio-inline no-select" onClick={event => setUsing('REFERENCE_DATA')}>
+          <div className="radio radio-css radio-inline no-select" onClick={() => setUsing('REFERENCE_DATA')}>
             <input type="radio" readOnly checked={isRadioSelected('REFERENCE_DATA')} />
             <label>Use reference data</label>
           </div>
@@ -129,8 +129,9 @@ const MultipleChoice: React.FunctionComponent = () => {
     </div>
     <div className="form-group row">
       <label className="col-sm-1 col-form-label">Validation</label>
-      <div className="col-sm-10">
+      <div className="col-sm-4">
         <Checkbox label="Required" checked={required} onChange={toggleRequired} />
+        <Checkbox label="Allow multiple answers" checked={allowMultipleAnswers} onChange={toggleAllowMultipleAnswers} />
       </div>
       <div className="col-sm-11">
         <button className="btn btn-xs btn-danger float-right" onClick={() => removeQuestion(question)}>

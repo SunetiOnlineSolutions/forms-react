@@ -4,7 +4,7 @@ import { useArray, useEffectOnce, useQuestion, useUnsavedAnswer } from '../../..
 
 const List: React.FunctionComponent = () => {
   const question = useQuestion();
-  const [answer, setAnswer, isValid, validationMessage, registerCallback] = useUnsavedAnswer<string[]>(question.id);
+  const [_answer, setAnswer, isValid, validationMessage, registerCallback] = useUnsavedAnswer<string[]>(question.id);
   const [values, add, remove, update] = useArray<string>();
   const [value, setValue] = React.useState('');
   const [showInvalid, setShowInvalid] = React.useState(false);

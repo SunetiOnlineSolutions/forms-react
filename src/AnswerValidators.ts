@@ -110,7 +110,7 @@ class SignatureValidator extends Validator {
 }
 
 class AlwaysValidValidator extends Validator {
-  isValid(value: any): true | string {
+  isValid(_value: any): true | string {
     return true;
   }
 }

@@ -24,15 +24,7 @@ const FreeText: React.FunctionComponent = () => {
   }, [phrase, required]);
 
   return <>
-    <div className="d-flex justify-items-between flex-column">
-
-      <h6>Question</h6>
-
-      <div className="row mb-3">
-        <div className="col-md-7">
-          <TextField placeholder="What would you like to ask?" value={phrase} onChange={setPhrase} />
-        </div>
-      </div>
+    <div className="d-flex justify-items-between flex-column" style={{background: 'lightGrey', padding: '10px', borderRadius: '5px', marginTop: '-10px'}}>
 
       <h6>Validation</h6>
       <div className="row">

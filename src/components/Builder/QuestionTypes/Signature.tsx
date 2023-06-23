@@ -9,7 +9,6 @@ const Signature: React.FunctionComponent = () => {
   const { removeQuestion } = React.useContext(UnsavedQuestionsContext);
   const [editQuestion] = useQuestionEdit(question);
 
-
   const [phrase, setPhrase] = React.useState<string>(question.phrase);
   const [required, toggleRequired] = useToggle(question.options?.validation?.required ?? false);
 

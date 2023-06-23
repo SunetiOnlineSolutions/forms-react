@@ -53,5 +53,4 @@ const List: React.FunctionComponent = () => {
     </div>
   </>;
 }
-1
 export default List;

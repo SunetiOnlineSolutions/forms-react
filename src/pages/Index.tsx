@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-
 import React from 'react';
 import DataInputScreen from '../classes/DataInputScreen';
 import { DataStore } from '../context/DataStore';
@@ -40,7 +38,7 @@ const Index: React.FunctionComponent = () => {
 
   React.useMemo(() => {
     (window as any).ReactBridge_Index = {
-      show: (screenID: Identifier) => {        
+      show: (screenID: Identifier) => {
         const params = new URLSearchParams(window.location.search);
           params.set('type', 'show');
           params.append('screenID', screenID.toString());

@@ -18,7 +18,7 @@ const MultipleChoice: React.FunctionComponent = () => {
   const [selectedOption, setSelectedOption] = React.useState<Nullable<Option>>();
   const [showInvalid, setShowInvalid] = React.useState(false);
 
-  const [value, setValue, isValid, validationMessage, registerCallback] = useUnsavedAnswer<Nullable<Option | Options>>(question.id);
+  const [_value, setValue, isValid, validationMessage, registerCallback] = useUnsavedAnswer<Nullable<Option | Options>>(question.id);
 
 
   useEffectOnce(() => registerCallback(() => setShowInvalid(true)));
@@ -29,7 +29,7 @@ const MultipleChoice: React.FunctionComponent = () => {
     } else {
       setValue(selectedOption as Nullable<Option>);
     }
-  }, [selectedOption, selectedOptions]);
+  }, [multiSelect, selectedOption, selectedOptions, setValue]);
 
   const options = React.useMemo<Options>(() => {
 

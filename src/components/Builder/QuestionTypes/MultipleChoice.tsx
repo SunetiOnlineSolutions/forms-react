@@ -2,7 +2,7 @@ import React from 'react';
 import { DataStore } from '../../../context/DataStore';
 import { useQuestion, useQuestionEdit, useToggle } from '../../../hooks';
 import Checkbox from '../../FormElements/Checkbox';
-import Select, { ActionMeta, OnChangeValue } from 'react-select';
+import Select, {OnChangeValue } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import { Identifier } from '../../../types';
 import { QuestionOptions } from '../../../DataPersistence';
@@ -54,9 +54,9 @@ const MultipleChoice: React.FunctionComponent = () => {
         }
       }
     });
-  }, [phrase, using, valueListID, required, allowMultipleAnswers]);
+  }, [phrase, using, valueListID, required, allowMultipleAnswers, editQuestion]);
 
-  const onCreatableChange = (value: OnChangeValue<CreatableOption, true>, actionMeta: ActionMeta<CreatableOption>) => {
+  const onCreatableChange = (value: OnChangeValue<CreatableOption, true>) => {
     setCustomValues(value.map(({ label }) => createOption(label)));
   };
 
@@ -80,15 +80,15 @@ const MultipleChoice: React.FunctionComponent = () => {
         <div className="col-md-7 form-group mb-0">
           <label>Multiple choice values</label>
           <div>
-            <div className="radio radio-css radio-inline no-select" onClick={event => setUsing('VALUE_LIST')}>
+            <div className="radio radio-css radio-inline no-select" onClick={() => setUsing('VALUE_LIST')}>
               <input type="radio" readOnly checked={isRadioSelected('VALUE_LIST')} />
               <label>Use value list</label>
             </div>
-            <div className="radio radio-css radio-inline no-select" onClick={event => setUsing('CUSTOM')}>
+            <div className="radio radio-css radio-inline no-select" onClick={() => setUsing('CUSTOM')}>
               <input type="radio" readOnly checked={isRadioSelected('CUSTOM')} />
               <label>Use custom values</label>
             </div>
-            <div className="radio radio-css radio-inline no-select" onClick={event => setUsing('REFERENCE_DATA')}>
+            <div className="radio radio-css radio-inline no-select" onClick={() => setUsing('REFERENCE_DATA')}>
               <input type="radio" readOnly checked={isRadioSelected('REFERENCE_DATA')} />
               <label>Use reference data</label>
             </div>

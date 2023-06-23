@@ -228,7 +228,7 @@ const Builder: React.FunctionComponent = () => {
 
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId={'version__' + version.id} type="section">
-            {(provided, snapshot) => (
+            {(provided) => (
               <div
                 {...provided.droppableProps}
                 ref={provided.innerRef}

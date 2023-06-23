@@ -48,7 +48,7 @@ export const DataStoreProvider = ({ children }: any) => {
 
   const [state, dispatch] = React.useReducer(reducer, { ...initialState });
   const selectors = React.useMemo(() => new Selectors(state), [state]);
-  const actions = React.useMemo(() => createActions(dispatch, selectors), [dispatch, selectors]);
+  const actions = React.useMemo(() => createActions(dispatch), [dispatch]);
 
   return (
     <DataStore.Provider value={{ state, selectors, actions }}>

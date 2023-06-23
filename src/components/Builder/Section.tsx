@@ -47,7 +47,7 @@ const Section: React.FunctionComponent<SectionProps> = ({ draggableProvided, dra
         </div>
 
         <Droppable droppableId={'section__' + section.id} type="question">
-          {(provided, snapshot) => (
+          {(provided) => (
             <div {...provided.droppableProps} ref={provided.innerRef}>
               {questions.filter(q => q.section_id == section.id).sort((a, b) => a.sort_order - b.sort_order).map(question => (
                 <Draggable key={question.id} draggableId={'question__' + question.id} index={question.sort_order}>

@@ -8,14 +8,13 @@ import DataPersistence, {
   StoredValueList,
   StoredValueListItem
 } from "../../DataPersistence";
-import Selectors from "./selectors";
 import { ObjectWithID } from "../../types";
 import { Without } from "../../helpers";
 import APIPersistence from "../../APIDataPersistence";
 
 const storage: DataPersistence = new APIPersistence();
 
-export const createActions = (dispatch: (param: Action) => void, selectors: Selectors) => ({
+export const createActions = (dispatch: (param: Action) => void) => ({
   async reset() {
     await storage.purgeAllData();
 

@@ -1,19 +1,17 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 
 import React from 'react';
-import DataInputScreen from '../classes/DataInputScreen';
 import { DataStore } from '../context/DataStore';
 import { Identifier } from '../types';
 
-type RenderType = 'display' | 'sort' | 'filter' | 'type' | 'search';
 
-const Index: React.FunctionComponent = () => {
+const Index= () => {
 
   const { selectors, actions } = React.useContext(DataStore);
 
   React.useMemo(() => {
     (window as any).ReactBridge_Index = {
-      show: (screenID: Identifier) => { },
+      show: () => { },
       edit: async (screenID: Identifier) => {
         const screen = selectors.screenByID(screenID);
         const latestVersion = screen.latestVersion();
@@ -44,7 +42,7 @@ const Index: React.FunctionComponent = () => {
           document.location.reload();
         }
       },
-      preview: (screenID: Identifier) => { },
+      preview: () => { },
       fillOut: (screenID: Identifier) => {
         const params = new URLSearchParams(window.location.search);
           params.set('type', 'fillout');
@@ -52,9 +50,9 @@ const Index: React.FunctionComponent = () => {
           window.history.pushState(null, '', "?" + params.toString());
           document.location.reload();
       },
-      delete: (screenID: Identifier) => { },
+      delete: () => { },
     };
-  }, [selectors]);
+  }, [actions.versions, selectors]);
 }
 
 export default Index;

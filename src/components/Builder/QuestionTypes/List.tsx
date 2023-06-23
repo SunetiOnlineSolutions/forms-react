@@ -27,26 +27,21 @@ const List: React.FunctionComponent = () => {
   }, [phrase, required]);
 
   return <>
-    <div className="d-flex justify-items-between flex-column">
-
-      <div className="row">
-        <div className="col-md-7">
-          <TextField label="Question" value={phrase} onChange={setPhrase} />
-        </div>
+    <div className="form-group row">
+      <label className="col-sm-1 col-form-label">Question</label>
+      <div className="col-sm-7">
+        <TextField placeholder="Question" value={phrase} onChange={setPhrase} />
       </div>
-      
-      <h6>Validation</h6>
-      <div className="row">
-        <div className="row col-md-10">
-            <div>
-              <Checkbox label="Required" checked={required} onChange={toggleRequired} />
-            </div>
-        </div>
-        <div className="col-md-2">
-            <button className="btn btn-xs btn-danger float-right" onClick={() => removeQuestion(question)}>
-              <i className="fas fa-trash-alt pr-1"> </i> Delete question
-            </button>
-        </div>
+    </div>
+    <div className="form-group row">
+      <label className="col-sm-1 col-form-label">Validation</label>
+      <div className="col-sm-10">
+        <Checkbox label="Required" checked={required} onChange={toggleRequired} />
+      </div>
+      <div className="col-sm-11">
+        <button className="btn btn-xs btn-danger float-right" onClick={() => removeQuestion(question)}>
+          <i className="fas fa-trash-alt pr-1"> </i> Delete question
+        </button>
       </div>
     </div>
   </>;

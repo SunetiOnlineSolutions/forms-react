@@ -90,6 +90,7 @@ const Question: React.ForwardRefRenderFunction<null, QuestionProps> = ({ dragHan
                   value={question.answer_type !== 'INSTRUCTION' ? question.phrase : 'Instruction'}
                   style={{ width: '70vw', height: '35px', border: 'none', borderRadius: '5px', padding: '5px 5px 5px 10px' }}
                   onClick={handleTitleClick}
+                  readOnly
                 />
               )}
             </div>

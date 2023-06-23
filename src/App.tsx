@@ -9,18 +9,14 @@ import FillOut from './pages/FillOut';
 import { UnsavedAnswersProvider } from './context/UnsavedAnswersContext';
 import Index from './pages/Index';
 import Show from './pages/Show';
-import Modal from './components/Modal';
-import TextField from './components/FormElements/TextField';
 import { UnsavedQuestionsProvider } from './context/UnsavedQuestionsContext';
 import { UnsavedSectionsProvider } from './context/UnsavedSectionsContext';
 import Preview from './pages/Preview';
 
 const App: React.FunctionComponent = () => {
 
- const { actions } = React.useContext(DataStore);
+  const { actions } = React.useContext(DataStore);
 
-  const [isModalOpen, setIsModalOpen] = React.useState(false);
-  const [newFormName, setNewFormName] = React.useState('');
   const version = useCurrentVersion();
 
   const loadAll = () => {
@@ -42,24 +38,9 @@ const App: React.FunctionComponent = () => {
     };
   }, []);
 
-  const handleMessage = (event:any) => {
-      const data = event?.data?.payload;
-      console.log(data?.message);
-      console.log('Lukaa');
+  const handleMessage = (event: any) => {
+    const data = event?.data?.payload;
   };
-
-  const createNewForm = async () => {
-    setIsModalOpen(false);
-
-    await actions.screens.store({ name: newFormName })
-    .then(async (res) => {
-     await actions.versions.store({ data_input_screen_id: res.id, form_version_status: 'DRAFT' });
-
-     window.location.href = `/form-templates/edit?type=builder&screenID=${res.id}`;
-    });
-
-    
-  }
 
   useEffectOnce(() => loadAll());
 
@@ -75,14 +56,13 @@ const App: React.FunctionComponent = () => {
 
   const type = params.get('type');
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const publish = React.useCallback(() => {
     if (!version) {
       alert('No version is set, cannot save.');
       return;
     }
 
-  actions.versions.update({ ...version.toStored(), form_version_status: 'PUBLISHED' });
+    actions.versions.update({ ...version.toStored(), form_version_status: 'PUBLISHED' });
   }, [version]);
 
   switch (type) {
@@ -100,7 +80,7 @@ const App: React.FunctionComponent = () => {
               </div>
             </UnsavedSectionsProvider>
           </UnsavedQuestionsProvider>
-          </div>
+        </div>
       );
 
     case 'index':
@@ -131,7 +111,7 @@ const App: React.FunctionComponent = () => {
           </Panel>
         </UnsavedAnswersProvider>
       );
-      
+
     case 'show':
       return (
         <Panel title="Form show">

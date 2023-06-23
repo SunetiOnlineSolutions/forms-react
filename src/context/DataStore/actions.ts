@@ -38,6 +38,9 @@ export const createActions = (dispatch: (param: Action) => void, selectors: Sele
       const updated = await storage.updateDataInputScreen({ id: screen.id, name: screen.name });
 
       dispatch({ type: "UPDATE_SCREEN", payload: updated });
+
+
+
     },
     async delete(screen: ObjectWithID) {
       await storage.deleteDataInputScreen(screen);
@@ -104,6 +107,8 @@ export const createActions = (dispatch: (param: Action) => void, selectors: Sele
       const updated = await storage.bulkUpdateSections(sections);
 
       dispatch({ type: "BULK_UPDATE_SECTIONS", payload: updated });
+
+
     },
     reOrder(section: StoredSection) {
       storage.reOrderSection(section);

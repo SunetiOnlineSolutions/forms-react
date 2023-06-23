@@ -191,7 +191,6 @@ const Builder: React.FunctionComponent = () => {
     if (!version) {
       return;
     }
-
     await actions.screens.update({ id: version?.dataInputScreen?.id, name: name as string });
 
     if (sections.length > 0) {

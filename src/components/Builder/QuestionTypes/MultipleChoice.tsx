@@ -8,6 +8,7 @@ import { Identifier } from '../../../types';
 import { QuestionOptions } from '../../../DataPersistence';
 import { onEnter } from '../../../helpers';
 import UnsavedQuestionsContext from '../../../context/UnsavedQuestionsContext';
+import TextField from '../../FormElements/TextField';
 
 interface CreatableOption {
   readonly label: string;
@@ -72,39 +73,44 @@ const MultipleChoice: React.FunctionComponent = () => {
   const isRadioSelected = (option: NonNullable<QuestionOptions['multipleChoice']>['using']) => using === option;
 
   return <>
-    <div className="d-flex justify-items-between flex-column">
+    <div className="form-group row">
+      <label className="col-sm-1 col-form-label">Question</label>
+      <div className="col-sm-10">
+        <TextField placeholder="Question" value={phrase} onChange={setPhrase} />
+      </div>
+    </div>
+    <div className="form-group row">
 
-      <div className="row">
-        <div className="col-md-7 form-group mb-0">
-          <label>Question</label>
-          <input type="text" className="form-control mb-3" value={phrase} onChange={event => setPhrase(event.target.value)} />
-        </div>
-        <div className="col-md-7 form-group mb-0">
-          <label>Multiple choice values</label>
-          <div>
-            <div className="radio radio-css radio-inline no-select" onClick={event => setUsing('VALUE_LIST')}>
-              <input type="radio" readOnly checked={isRadioSelected('VALUE_LIST')} />
-              <label>Use value list</label>
-            </div>
-            <div className="radio radio-css radio-inline no-select" onClick={event => setUsing('CUSTOM')}>
-              <input type="radio" readOnly checked={isRadioSelected('CUSTOM')} />
-              <label>Use custom values</label>
-            </div>
-            <div className="radio radio-css radio-inline no-select" onClick={event => setUsing('REFERENCE_DATA')}>
-              <input type="radio" readOnly checked={isRadioSelected('REFERENCE_DATA')} />
-              <label>Use reference data</label>
-            </div>
+      <label className="col-sm-1 col-form-label">Values</label>
+      <div className="col-sm-4 ">
+        <div>
+          <div className="radio radio-css radio-inline no-select" onClick={event => setUsing('VALUE_LIST')}>
+            <input type="radio" readOnly checked={isRadioSelected('VALUE_LIST')} />
+            <label>Use value list</label>
+          </div>
+          <div className="radio radio-css radio-inline no-select" onClick={event => setUsing('CUSTOM')}>
+            <input type="radio" readOnly checked={isRadioSelected('CUSTOM')} />
+            <label>Use custom values</label>
+          </div>
+          <div className="radio radio-css radio-inline no-select" onClick={event => setUsing('REFERENCE_DATA')}>
+            <input type="radio" readOnly checked={isRadioSelected('REFERENCE_DATA')} />
+            <label>Use reference data</label>
           </div>
         </div>
-        {isRadioSelected('VALUE_LIST') &&
-          <div className="col-md-7 form-group mb-0 mt-3 ml-3">
-            <label>Select value list</label>
+      </div>
+
+      {isRadioSelected('VALUE_LIST') &&
+        <>
+          <label className="col-sm-1 col-form-label">Select value list</label>
+          <div className="col-sm-5">
             <Select options={options} value={options.find(option => option.value === valueListID)} onChange={option => setValueListID(option?.value)} />
           </div>
-        }
-        {isRadioSelected('CUSTOM') &&
-          <div className="col-md-7 form-group mb-0 mt-3">
-            <label>Set custom values</label>
+        </>
+      }
+      {isRadioSelected('CUSTOM') &&
+        <>
+          <label className="col-sm-1 col-form-label">Custom values</label>
+          <div className="col-sm-5">
             <CreatableSelect
               components={{ DropdownIndicator: null }}
               inputValue={inputValue}
@@ -118,27 +124,21 @@ const MultipleChoice: React.FunctionComponent = () => {
               placeholder="Type something and press enter..."
             />
           </div>
-        }
+        </>
+      }
+    </div>
+    <div className="form-group row">
+      <label className="col-sm-1 col-form-label">Validation</label>
+      <div className="col-sm-10">
+        <Checkbox label="Required" checked={required} onChange={toggleRequired} />
       </div>
-
-      <h6 className="mt-3">Validation</h6>
-      <div className="row">
-        <div className="row col-md-10">
-            <div>
-              <Checkbox label="Required" checked={required} onChange={toggleRequired} />
-            </div>
-            <div style={{paddingLeft: '10px'}}>
-              <Checkbox label="Allow multiple answers" checked={allowMultipleAnswers} onChange={toggleAllowMultipleAnswers} />
-            </div>
-        </div>
-        <div className="col-md-2">        
-            <button className="btn btn-xs btn-danger float-right" onClick={() => removeQuestion(question)}>
-              <i className="fas fa-trash-alt pr-1"> </i> Delete question
-            </button>
-        </div>
+      <div className="col-sm-11">
+        <button className="btn btn-xs btn-danger float-right" onClick={() => removeQuestion(question)}>
+          <i className="fas fa-trash-alt pr-1"> </i> Delete question
+        </button>
       </div>
     </div>
-    
+
   </>;
 };
 

@@ -96,28 +96,6 @@ const App: React.FunctionComponent = () => {
           </div>
       );
 
-    case 'index':
-      return (
-        <Panel title="Forms" buttons={
-          <button className="btn btn-xs btn-primary" onClick={() => setIsModalOpen(true)}>
-            <i className="fal fa-plus mr-2"></i>
-            Form
-          </button>
-        }>
-          <Modal title="Create a new form" isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} buttons={
-            <>
-              <button className="btn btn-secondary" onClick={() => setIsModalOpen(false)}>Cancel</button>
-              <button className="btn btn-primary" onClick={() => createNewForm()}>Create new form</button>
-            </>
-          }>
-            <div className="form-group">
-              <TextField label="Name" value={newFormName} onChange={(value) => setNewFormName(value)}></TextField>
-            </div>
-          </Modal>
-          <Index />
-        </Panel>
-      );
-
     case 'fillout':
       return (
         <UnsavedAnswersProvider>

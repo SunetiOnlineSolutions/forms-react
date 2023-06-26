@@ -1,0 +1,236 @@
+.forms-builder {
+    .dropdown>button.btn-light.dropdown-toggle:not(:hover) {
+        background-color: transparent;
+        border-color: transparent;
+    }
+
+    .dropdown>button.btn-light.dropdown-toggle {
+        padding-left: 5px;
+        padding-right: 3px;
+        text-align: center;
+    }
+
+    .btn-group.split-btn>.btn-group:not(:first-child)>.btn,
+    .btn-group.split-btn>.btn:not(:first-child) {
+        border-top-left-radius: 0 !important;
+        border-bottom-left-radius: 0 !important;
+    }
+
+    .btn-group.split-btn>.btn-group:not(:last-child)>.btn,
+    .btn-group.split-btn>.btn:not(:last-child):not(.dropdown-toggle) {
+        border-top-right-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+    }
+
+    .answer-type-picker {
+        .dropdown-toggle {
+            border-left: 1px solid rgba(0, 0, 0, .125);
+
+            &:hover {
+                background-color: rgba(0, 0, 0, .125);
+            }
+        }
+
+        .dropdown-item {
+            font-size: 14px;
+            border-bottom: 1px solid rgba(0, 0, 0, .125);
+            padding-left: 10px;
+        }
+
+        .dropdown-menu {
+            padding: 0;
+            border-radius: 0;
+        }
+    }
+
+    .section {
+
+        .section--header {
+            padding: 10px 15px;
+            font-weight: 600;
+            border-top: 1px solid rgba(0, 0, 0, .125);
+
+            background-color: darken(white, 4%);
+
+            .title {
+                font-size: 15px;
+            }
+
+            &.dragging {
+                border: 1px dashed rgba(0, 0, 0, .40);
+            }
+        }
+
+        .section--questions-header {
+            border-top: 1px solid #b7b7b7;
+
+            .row {
+                margin: 0;
+
+                .section--questions-container,
+                .section--type-container {
+                    padding: 10px;
+                }
+            }
+        }
+    }
+
+    .question {
+        border-bottom: 1px solid rgba(0, 0, 0, .125);
+
+        &:first-of-type {
+            border-top: 1px solid rgba(0, 0, 0, .125);
+        }
+
+        &:last-of-type {
+            border-bottom: none;
+        }
+
+        &.dragging {
+            border: 1px dashed rgba(0, 0, 0, .40);
+        }
+
+        .question--header {
+            background-color: white;
+            border-radius: 0;
+            margin: 5px 0;
+            border: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        .question--content {
+            padding: 10px;
+            padding-left: 55px;
+        }
+    }
+}
+
+
+.forms-fillout {
+
+    .forms-fillout--header {
+        border-bottom: 1px solid rgba(0, 0, 0, .125);
+
+        .forms-fillout--header--main {
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        .forms-fillout--header--sub {
+            font-size: .9rem;
+            font-weight: 400;
+            color: rgb(155, 155, 155);
+        }
+    }
+
+    .section {
+        margin: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+
+        &:not(:last-child) {
+            margin-bottom: 40px;
+        }
+
+        &:first-child {
+            margin-top: 20px;
+        }
+
+        .section--legend {
+            font-size: 1.4rem;
+            font-weight: 600;
+            padding-left: 3px;
+            border-bottom: 1px solid rgba(0, 0, 0, .125);
+        }
+    }
+
+    .question {
+        border: 1px solid darken(#e2e7eb, 5%);
+        background-color: darken(#fbfbfb, 1%);
+        padding: 10px;
+        border-radius: 5px;
+
+        .question--phrase {
+            font-weight: 600;
+            color: black;
+            font-size: 14px;
+        }
+
+        .forms-fillout--list ul li button {
+            width: 69px;
+        }
+
+        .form-group {
+            margin-bottom: 0;
+        }
+    }
+
+    .forms-fillout--list .input-group-append>button:hover>span.text-danger {
+        color: white !important;
+    }
+}
+
+
+/**
+ * Utility
+ */
+.hide-dropdown-toggle::after {
+    border: 0 !important;
+}
+
+span.drag-handle::after {
+    content: "....";
+    display: inline-block;
+    color: #707478;
+    font-style: normal;
+    font-family: sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    transform: rotate(90deg);
+    text-shadow: 0px -4px 0px #707478;
+    cursor: move;
+    margin-right: 5px;
+}
+
+.h-0 {
+    height: 0;
+    max-height: 0;
+    overflow: hidden;
+}
+
+.height-animated {
+    transition: all .5s ease;
+}
+
+.no-select {
+    user-select: none;
+}
+
+.animate-rotation {
+    transition: transform .5s ease-in-out;
+}
+
+.chevron-rotated {
+    transform: rotate(90deg);
+}
+
+ul.no-bullets {
+    list-style: none;
+    padding-inline-start: 0;
+}
+
+.btn-group>.btn.btn-xs {
+    height: auto;
+}
+
+.bg-whitesmoke {
+    background-color: whitesmoke;
+}
+
+// TODO: This may be removed once blade-components#219 is merged
+.checkbox.checkbox-css label:before,
+.radio.radio-css label:before {
+    background-color: lighten(#dee2e6, 100%);
+    border: 1px solid darken(#84909c, 1%);
+}

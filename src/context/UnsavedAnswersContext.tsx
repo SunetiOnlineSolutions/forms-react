@@ -19,14 +19,14 @@ export type UnsavedAnswersContextParams<T> = {
 
 const UnsavedAnswersContext = React.createContext<UnsavedAnswersContextParams<any>>({} as any);
 
-export const UnsavedAnswersProvider: React.FunctionComponent = ({ children }) => {
+export const UnsavedAnswersProvider = ({ children }: any) => {
 
   const { selectors, actions } = React.useContext(DataStore);
 
   const [unsavedAnswers, setUnsavedAnswers] = React.useState<UnsavedAnswer<unknown>[]>([]);
   const [beforeSaveCallbacks, setBeforeSaveCallbacks] = React.useState<(() => boolean | void)[]>([]);
 
-  const setUnsavedAnswer = <T extends unknown>(questionID: Identifier, answer: T) => {
+  const setUnsavedAnswer = <T,>(questionID: Identifier, answer: T) => {
 
     const newUnsavedAnswers = [...unsavedAnswers];
 
@@ -67,15 +67,15 @@ export const UnsavedAnswersProvider: React.FunctionComponent = ({ children }) =>
       return 'invalid_answer';
     }
 
-  //  const dataset = await actions.inputDataSets.store({ data_input_screen_version_id: version.id });
-  //  await actions.answers.bulkStore(unsavedAnswers.map(unsaved => ({
-  //    input_data_set_id: dataset.id,
-   //   question_id: unsaved.questionID,
-     // value: unsaved.value,
-  //  })));
+  const dataset = await actions.inputDataSets.store({ data_input_screen_version_id: version.id });
+   await actions.answers.bulkStore(unsavedAnswers.map(unsaved => ({
+  input_data_set_id: dataset.id,
+     question_id: unsaved.questionID,
+      value: unsaved.value,
+ })));
 
- //   return true;
-  //};
+  return true;
+  };
 
   const registerBeforeSaveCallback = (callback: () => boolean | void) => {
     setBeforeSaveCallbacks(prev => [...prev, callback]);
@@ -97,5 +97,4 @@ export const UnsavedAnswersProvider: React.FunctionComponent = ({ children }) =>
     </UnsavedAnswersContext.Provider>
   );
 };
-}
 export default UnsavedAnswersContext;

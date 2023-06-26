@@ -4,7 +4,7 @@ import { useEffectOnce, useQuestion, useUnsavedAnswer } from '../../../hooks';
 
 const Signature: React.FunctionComponent = () => {
   const question = useQuestion();
-  const [signature, setSignature, isValid, validationMessage, registerCallback] = useUnsavedAnswer(question.id);
+  const [_signature, setSignature, isValid, validationMessage, registerCallback] = useUnsavedAnswer(question.id);
 
   const [forceShowInvalid, setForceShowInvalid] = React.useState(false);
 

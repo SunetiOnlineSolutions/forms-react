@@ -1,10 +1,6 @@
-import React from 'react';
 
-export interface TabProps {
-  label: string;
-}
 
-const Tab: React.FunctionComponent<TabProps> = ({ children }) => {
+const Tab = ({ children }: any) => {
   return <>
     {children}
   </>;

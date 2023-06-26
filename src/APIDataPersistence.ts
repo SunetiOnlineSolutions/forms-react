@@ -170,8 +170,7 @@ export default class APIPersistence implements DataPersistence {
 
   protected async get(url: string) {
     const response = await fetch(
-      this.prefixWithDomain(url),
-      { headers: { "Content-Type": "application/json", "Accept": "application/json" } }
+      this.prefixWithDomain(url), {headers: {"Content-Type": "application/json", "Accept": "application/json"} }
     );
 
     return await response.json();
@@ -205,8 +204,6 @@ export default class APIPersistence implements DataPersistence {
   }
 
   protected prefixWithDomain(uri: string) {
-    //console.log(process.env.MIX_APP_URL);
-    // return `${process.env.MIX_APP_URL}${uri}`;
-    return '';
+    return `${import.meta.env.VITE_APP_URL_ENV}${uri}`;
   }
 }

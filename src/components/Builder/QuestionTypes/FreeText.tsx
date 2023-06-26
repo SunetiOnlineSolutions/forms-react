@@ -51,7 +51,7 @@ const FreeText: React.FunctionComponent = () => {
                     <i className={"text-primary fa-lg fa-fw mr-1 " + icon}></i>
                     {label}
                   </div>
-                  <i className="fas fa-times-circle text-danger fa-lg cursor-pointer" onClick={() => setValidationRules(validationRules.filter((x, i) => i !== index))}></i>
+                  <i className="fas fa-times-circle text-danger fa-lg cursor-pointer" onClick={() => setValidationRules(validationRules.filter((_, i) => i !== index))}></i>
                 </td>
               </tr>
             ))}

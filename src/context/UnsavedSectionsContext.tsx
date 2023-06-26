@@ -11,7 +11,7 @@ export type UnsavedSectionsContextParams = {
 
 const UnsavedSectionsContext = React.createContext<UnsavedSectionsContextParams>({} as any);
 
-export const UnsavedSectionsProvider: React.FunctionComponent = ({ children }) => {
+export const UnsavedSectionsProvider = ({ children }: any) => {
   const [sections, setSections] = React.useState<Array<StoredSection>>([]);
 
   const addSection = React.useCallback((section: StoredSection) => setSections([...sections, section]), [sections]);

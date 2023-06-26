@@ -1,3 +1,4 @@
+/* eslint-disable no-prototype-builtins */
 import Question from "./classes/Question";
 import { Option, Options } from "./components/FillOut/Questiontypes/MultipleChoice";
 import { AnswerType, Nullable } from "./types";
@@ -110,7 +111,7 @@ class SignatureValidator extends Validator {
 }
 
 class AlwaysValidValidator extends Validator {
-  isValid(value: any): true | string {
+  isValid(): true | string {
     return true;
   }
 }

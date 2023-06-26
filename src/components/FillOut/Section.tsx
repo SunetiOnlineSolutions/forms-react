@@ -32,14 +32,8 @@ export default Section;
 
 export const Component: React.FC<{ count: number }> = ({ count }) => {
 
-  const callback = React.useCallback(() => {
-
-  }, []);
 
   React.useEffect(() => {
-
-
-
     return () => {
       console.log('Removing callback...');
     };

@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 import { DataStore, initialState } from ".";
 import {
   StoredAnswer,
@@ -87,7 +88,7 @@ const reducer = (state: DataStore, action: Action): DataStore => {
       return { ...state, sections: [...action.payload] };
 
     case "REORDER_SECTION":
-      let sections: StoredSection[] = [...state.sections];
+      const sections: StoredSection[] = [...state.sections];
       const sectionToEdit = sections.find(section => section.id === action.payload.id) as StoredSection;
 
       if (sectionToEdit.sort_order == action.payload.sort_order) {
@@ -137,7 +138,7 @@ const reducer = (state: DataStore, action: Action): DataStore => {
       return { ...state, questions: [...action.payload] };
 
     case "REORDER_QUESTION":
-      let questions: StoredQuestion[] = [...state.questions];
+      const questions: StoredQuestion[] = [...state.questions];
       const questionToEdit = questions.find(question => question.id === action.payload.id) as StoredQuestion;
 
       if (questionToEdit.section_id == action.payload.section_id && questionToEdit.sort_order == action.payload.sort_order) {

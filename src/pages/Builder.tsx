@@ -202,8 +202,8 @@ const Builder: React.FunctionComponent = () => {
       await actions.questions.bulkUpdate(questions);
     }
 
-    document.location.href = '/web-solution?type=index';
-  }, [name, sections, questions]);
+   // document.location.href = '/web-solution?type=fillout';
+  }, [version, actions.screens, actions.sections, actions.questions, name, sections, questions]);
 
   const back = React.useCallback(() => window.history.back(), []);
 

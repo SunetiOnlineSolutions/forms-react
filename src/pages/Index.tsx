@@ -52,7 +52,7 @@ const Index= () => {
       },
       delete: () => { },
     };
-  }, [actions.versions, selectors]);
+  }, [selectors]);
 }
 
 export default Index;

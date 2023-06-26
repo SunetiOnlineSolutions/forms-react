@@ -1,8 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import { DataStore } from '../../../context/DataStore';
 import { useQuestion, useQuestionEdit, useToggle } from '../../../hooks';
 import Checkbox from '../../FormElements/Checkbox';
-import Select, {OnChangeValue } from 'react-select';
+import Select from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import { Identifier } from '../../../types';
 import { QuestionOptions } from '../../../DataPersistence';
@@ -30,6 +31,7 @@ const MultipleChoice: React.FunctionComponent = () => {
 
   const [inputValue, setInputValue] = React.useState<string>('');
   const [customValues, setCustomValues] = React.useState<CreatableOption[]>(question.options?.multipleChoice?.customValues?.map(createOption) ?? []);
+  const [updatedValues, setUpdatedValues] = React.useState([] as CreatableOption[]);
 
   // Question parameters
   const [phrase, setPhrase] = React.useState<string>(question.phrase);
@@ -41,28 +43,27 @@ const MultipleChoice: React.FunctionComponent = () => {
   const [allowMultipleAnswers, toggleAllowMultipleAnswers] = useToggle(question.options?.validation?.allowMultipleAnswers ?? false);
 
   React.useEffect(() => {
-    editQuestion({
-      phrase,
-      options: {
-        multipleChoice: {
-          using,
-          valueListID,
-        },
-        validation: {
-          required,
-          allowMultipleAnswers,
-        }
-      }
-    });
-  }, [phrase, using, valueListID, required, allowMultipleAnswers, editQuestion]);
-
-  const onCreatableChange = (value: OnChangeValue<CreatableOption, true>) => {
-    setCustomValues(value.map(({ label }) => createOption(label)));
-  };
+  const editedQuestion ={ phrase,
+  options: {
+    multipleChoice: {
+      using,
+      customValues: updatedValues.map(x => x.value),
+      valueListID
+    },
+    validation: {
+      required,
+      allowMultipleAnswers,
+    }
+  }};
+    editQuestion(editedQuestion);
+  }, [phrase, using, valueListID, required, allowMultipleAnswers, customValues]);
 
   const onCreateOption = () => {
-    if (inputValue) {
+    console.log(inputValue)
+    console.log(customValues)
+    if (inputValue && !customValues.some(x => x.value === inputValue)) {
       setCustomValues([...customValues, createOption(inputValue)]);
+      setUpdatedValues([... updatedValues, createOption(inputValue)])
       setInputValue('');
     }
   };
@@ -110,7 +111,6 @@ const MultipleChoice: React.FunctionComponent = () => {
               isMulti
               menuIsOpen={false}
               value={customValues}
-              onChange={onCreatableChange}
               onInputChange={(val) => setInputValue(val)}
               onKeyDown={onEnter(onCreateOption)}
               placeholder="Type something and press enter..."

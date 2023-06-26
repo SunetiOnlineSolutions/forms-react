@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 import path from 'path';
 
 // https://vitejs.dev/config/
-// define config that takes App.tsx as entry point
+// define config that takes Compiler.tsx as entry point
 export default defineConfig({
   plugins: [react()],
   build: {

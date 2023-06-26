@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import './App.css';
+import './assets/css/App.css';
 import App from './App.tsx'
 import { DataStoreProvider } from './context/DataStore'
 

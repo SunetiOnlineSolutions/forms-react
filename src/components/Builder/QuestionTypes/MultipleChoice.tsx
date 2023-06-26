@@ -59,8 +59,6 @@ const MultipleChoice: React.FunctionComponent = () => {
   }, [phrase, using, valueListID, required, allowMultipleAnswers, customValues]);
 
   const onCreateOption = () => {
-    console.log(inputValue)
-    console.log(customValues)
     if (inputValue && !customValues.some(x => x.value === inputValue)) {
       setCustomValues([...customValues, createOption(inputValue)]);
       setUpdatedValues([... updatedValues, createOption(inputValue)])

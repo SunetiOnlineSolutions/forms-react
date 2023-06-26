@@ -6,16 +6,15 @@ import Panel from './components/Panel';
 import { useEffectOnce } from './hooks';
 import FillOut from './pages/FillOut';
 import { UnsavedAnswersProvider } from './context/UnsavedAnswersContext';
-import Index from './pages/Index';
 import Show from './pages/Show';
 import { UnsavedQuestionsProvider } from './context/UnsavedQuestionsContext';
 import { UnsavedSectionsProvider } from './context/UnsavedSectionsContext';
 import Preview from './pages/Preview';
+import Index from './pages/Index';
 
 const App: React.FunctionComponent = () => {
 
   const { actions } = React.useContext(DataStore);
-
 
   const loadAll = () => {
     actions.screens.load();

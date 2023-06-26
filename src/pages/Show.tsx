@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import React from 'react';
 import Chart from 'react-google-charts';
 import Answer from '../classes/Answer';
@@ -31,6 +32,7 @@ const Show: React.FunctionComponent = () => {
 
     return [
       ['Question', 'Answer'],
+      // eslint-disable-next-line no-unsafe-optional-chaining
       ...options?.map(option => {
         return [option, version?.inputDataSets.flatMap(set => set.answers).filter(answer => answer.question.id === question.id && (answer.value as any).label === option).length];
       })

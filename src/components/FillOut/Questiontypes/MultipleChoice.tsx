@@ -29,7 +29,7 @@ const MultipleChoice: React.FunctionComponent = () => {
     } else {
       setValue(selectedOption as Nullable<Option>);
     }
-  }, [selectedOption, selectedOptions]);
+  }, [multiSelect, selectedOption, selectedOptions, setValue]);
 
   const options = React.useMemo<Options>(() => {
 

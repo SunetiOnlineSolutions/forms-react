@@ -34,9 +34,6 @@ export const Component: React.FC<{ count: number }> = ({ count }) => {
 
 
   React.useEffect(() => {
-
-
-
     return () => {
       console.log('Removing callback...');
     };

@@ -1,8 +1,7 @@
 import React from 'react';
-import { TabProps } from './Tab';
 
 interface Props {
-  children: React.ReactElement<TabProps>[];
+  children: React.ReactElement[];
 }
 
 const Tabs: React.FunctionComponent<Props> = ({ children }) => {

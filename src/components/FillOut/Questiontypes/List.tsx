@@ -18,7 +18,7 @@ const List: React.FunctionComponent = () => {
     setValue('');
   }
 
-  React.useEffect(() => setAnswer(values), [values]);
+  React.useEffect(() => setAnswer(values), [setAnswer, values]);
 
   useEffectOnce(() => registerCallback(() => setShowInvalid(true)));
 

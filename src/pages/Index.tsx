@@ -1,10 +1,10 @@
 import React from 'react';
-import DataInputScreen from '../classes/DataInputScreen';
 import { DataStore } from '../context/DataStore';
 import { Identifier } from '../types';
 import DataTable, { TableColumn} from 'react-data-table-component';
+import DataInputScreen from '../classes/DataInputScreen';
 
-const Index: React.FunctionComponent = () => {
+const Index= () => {
 
   const { selectors, actions } = React.useContext(DataStore);
 

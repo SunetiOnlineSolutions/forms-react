@@ -3,7 +3,7 @@ import React from 'react';
 import { DataStore } from '../../../context/DataStore';
 import { useQuestion, useQuestionEdit, useToggle } from '../../../hooks';
 import Checkbox from '../../FormElements/Checkbox';
-import Select from 'react-select';
+import Select, { OnChangeValue } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import { Identifier } from '../../../types';
 import { QuestionOptions } from '../../../DataPersistence';
@@ -58,6 +58,11 @@ const MultipleChoice: React.FunctionComponent = () => {
     editQuestion(editedQuestion);
   }, [phrase, using, valueListID, required, allowMultipleAnswers, customValues]);
 
+  const onCreatableChange = (value: OnChangeValue<CreatableOption, true>) => {
+    setCustomValues(value.map(({ label }) => createOption(label)));
+  };
+
+
   const onCreateOption = () => {
     if (inputValue && !customValues.some(x => x.value === inputValue)) {
       setCustomValues([...customValues, createOption(inputValue)]);
@@ -109,6 +114,7 @@ const MultipleChoice: React.FunctionComponent = () => {
               isMulti
               menuIsOpen={false}
               value={customValues}
+              onChange={onCreatableChange}
               onInputChange={(val) => setInputValue(val)}
               onKeyDown={onEnter(onCreateOption)}
               placeholder="Type something and press enter..."

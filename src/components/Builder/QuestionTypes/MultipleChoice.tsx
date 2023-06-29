@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import { DataStore } from '../../../context/DataStore';
 import { useQuestion, useQuestionEdit, useToggle } from '../../../hooks';

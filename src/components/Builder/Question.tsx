@@ -1,4 +1,3 @@
-/* eslint-disable react-refresh/only-export-components */
 import React from 'react';
 import AnswerTypePicker from './AnswerTypePicker';
 import QuestionHamburgerMenu from './QuestionHamburgerMenu';

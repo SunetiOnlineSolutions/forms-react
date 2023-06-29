@@ -50,14 +50,14 @@ const Builder: React.FunctionComponent = () => {
   }, [version]);
 
   React.useEffect(() => {
-    if (!version || version.formVersionStatus === 'DRAFT') {
+    if (!version || version.versionStatusType === 'DRAFT') {
       return;
     }
 
     console.log('We should not edit this version but create a new one and edit thate one.');
 
-    actions.versions.store({ form_version_status: 'DRAFT', data_input_screen_id: version.dataInputScreen.id });
-  }, [version?.formVersionStatus]);
+    actions.versions.store({ version_status_type: 'DRAFT', data_input_screen_id: version.dataInputScreen.id });
+  }, [version?.versionStatusType]);
 
   const onDragEnd = (dropResult: DropResultWithType) => {
     if (dropResult.type === 'section') {
@@ -221,7 +221,7 @@ const Builder: React.FunctionComponent = () => {
             <TextField label="Total number of fillouts across all versions" value={version.dataInputScreen.versions.flatMap(version => version.inputDataSets).length.toString()} onChange={() => { }} readOnly />
           </div>
           <div className="form-group col-md-2">
-            <TextField label="Form version status" value={version.formVersionStatus[0].toUpperCase() + version.formVersionStatus.substring(1).toLowerCase()} onChange={() => { }} readOnly />
+            <TextField label="Form version status" value={version.versionStatusType[0].toUpperCase() + version.versionStatusType.substring(1).toLowerCase()} onChange={() => { }} readOnly />
           </div>
         </div>
 
@@ -253,7 +253,7 @@ const Builder: React.FunctionComponent = () => {
           <div className="row">
             <div className="col-lg-12">
               <button className="btn btn-primary" style={defaultFooterButtonStyle} onClick={save}>
-                {version?.formVersionStatus === 'PUBLISHED' ? 'Save as new version' : 'Save'}
+                {version?.versionStatusType === 'PUBLISHED' ? 'Save as new version' : 'Save'}
               </button>
               <button className="btn btn-secondary" style={defaultFooterButtonStyle} onClick={back}>Cancel</button>
             </div>

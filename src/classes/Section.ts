@@ -7,7 +7,7 @@ import Question from "./Question";
 export default class Section {
   constructor(
     public id: Identifier,
-    public label: string,
+    public name: string,
     public version: DataInputScreenVersion,
     public sortOrder: number,
     public questions: Question[],
@@ -17,7 +17,7 @@ export default class Section {
   toStored(): StoredSection {
     return {
       id: this.id,
-      label: this.label,
+      name: this.name,
       data_input_screen_version_id: this.version.id,
       sort_order: this.sortOrder,
     };

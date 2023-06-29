@@ -1,5 +1,5 @@
 import { Without } from "./helpers";
-import { AnswerType, ObjectWithID, Identifier, FormVersionStatus } from "./types";
+import { AnswerType, ObjectWithID, Identifier, VersionStatusType } from "./types";
 
 export type StoredDataInputScreen = {
   id: Identifier,
@@ -10,13 +10,13 @@ export type StoredDataInputScreenVersion = {
   id: Identifier,
   data_input_screen_id: Identifier,
   version: number,
-  form_version_status: FormVersionStatus,
+  version_status_type: VersionStatusType,
 }
 
 export type StoredSection = {
   id: Identifier,
   data_input_screen_version_id: Identifier,
-  label: string,
+  name: string,
   sort_order: number,
 }
 

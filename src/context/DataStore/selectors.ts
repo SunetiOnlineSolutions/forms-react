@@ -144,13 +144,13 @@ export default class Selectors {
   protected buildVersions(screen: DataInputScreen): DataInputScreenVersion[] {
     return this.state.versions
       .filter(v => v.data_input_screen_id === screen.id)
-      .map(stored => new DataInputScreenVersion(stored.id, screen, [], [], stored.version, stored.form_version_status));
+      .map(stored => new DataInputScreenVersion(stored.id, screen, [], [], stored.version, stored.version_status_type));
   }
 
   protected buildSections(version: DataInputScreenVersion): Section[] {
     return this.state.sections
       .filter(s => s.data_input_screen_version_id === version.id)
-      .map(stored => new Section(stored.id, stored.label, version, stored.sort_order, []));
+      .map(stored => new Section(stored.id, stored.name, version, stored.sort_order, []));
   }
 
   protected buildInputDataSets(version: DataInputScreenVersion): InputDataSet[] {

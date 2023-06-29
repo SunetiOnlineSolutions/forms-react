@@ -11,7 +11,7 @@ interface SectionProps {
 const Section: React.FunctionComponent<SectionProps> = ({ section }) => {
   return <>
     <div className="section">
-      <header className="section--legend mb-2">Section {section.sortOrder + 1}: {section.label}</header>
+      <header className="section--legend mb-2">Section {section.sortOrder + 1}: {section.name}</header>
       <div className="section--content">
         {section.questions.map(question => (
           <CurrentQuestionContext.Provider key={question.id} value={question.toStored()}>

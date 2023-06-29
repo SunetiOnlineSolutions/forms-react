@@ -54,7 +54,7 @@ const Index= () => {
           throw new Error('No latest version could be found when trying to navigate to the edit page.');
         }
 
-        if (latestVersion?.formVersionStatus === 'DRAFT') {
+        if (latestVersion?.versionStatusType === 'DRAFT') {
           // If the latest version is in draft, we can simply edit that version.
 
           const params = new URLSearchParams(window.location.search);
@@ -66,7 +66,7 @@ const Index= () => {
           // If the latest version isn't draft it cannot be edited and we have to:
           //   1. Create a new version.
           //   2. Redirect to the edit page of the newly created version.
-          await actions.versions.store({ form_version_status: 'DRAFT', data_input_screen_id: latestVersion.dataInputScreen.id });
+          await actions.versions.store({ version_status_type: 'DRAFT', data_input_screen_id: latestVersion.dataInputScreen.id });
 
           const params = new URLSearchParams(window.location.search);
           params.set('type', 'builder');

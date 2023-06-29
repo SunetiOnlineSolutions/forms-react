@@ -26,7 +26,7 @@ const Section: React.FunctionComponent<SectionProps> = ({ draggableProvided, dra
           <div className="pointer-cursor d-flex align-items-center" onClick={() => setIsOpen(!isOpen)}>
             <i className={"mr-1 fa fa-fw " + (isOpen ? 'fa-chevron-down' : 'fa-chevron-right')}></i>
             <span className="title no-select">
-              <strong>{section.label}</strong>
+              <strong>{section.name}</strong>
             </span>
           </div>
         </div>

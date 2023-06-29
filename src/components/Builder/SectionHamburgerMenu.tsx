@@ -10,12 +10,12 @@ const SectionHamburgerMenu: React.FunctionComponent = () => {
   const [editSection] = useSectionEdit(section);
 
   const [isRenameModalOpen, setIsRenameModalOpen] = React.useState(false);
-  const [newLabel, setNewLabel] = React.useState(section.label);
+  const [newName, setNewName] = React.useState(section.name);
 
   const renameSection = () => {
     editSection({
       ...section,
-      label: newLabel,
+      name: newName,
     });
 
     setIsRenameModalOpen(false);
@@ -42,7 +42,7 @@ const SectionHamburgerMenu: React.FunctionComponent = () => {
       </div>
     </div >
     <Modal title="Rename section" isOpen={isRenameModalOpen} onClose={() => setIsRenameModalOpen(false)} onOkay={renameSection}>
-      <TextField label="Section name" value={newLabel} onChange={newVal => setNewLabel(newVal)}></TextField>
+      <TextField label="Section name" value={newName} onChange={newVal => setNewName(newVal)}></TextField>
     </Modal>
   </>);
 };

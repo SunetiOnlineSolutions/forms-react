@@ -56,7 +56,7 @@ export const createActions = (dispatch: (param: Action) => void) => ({
     async store(version: Without<StoredDataInputScreenVersion, "id" | "version">) {
       const stored = await storage.storeDataInputScreenVersion({
         data_input_screen_id: version.data_input_screen_id,
-        form_version_status: version.form_version_status,
+        version_status_type: version.version_status_type,
       });
 
       if ('id' in stored) {
@@ -90,7 +90,7 @@ export const createActions = (dispatch: (param: Action) => void) => ({
     async store(section: Without<StoredSection, "id" | "sort_order">) {
       const stored = await storage.storeSection({
         data_input_screen_version_id: section.data_input_screen_version_id,
-        label: section.label,
+        name: section.name,
       });
 
       dispatch({ type: "STORE_SECTION", payload: stored });

@@ -8,6 +8,7 @@ export default defineConfig({
   plugins: [react()],
   build: {
     outDir: 'dist',
+    chunkSizeWarningLimit: 1000,
     rollupOptions: {
       input: {
         forms: path.resolve(__dirname, './src/Compiler.tsx')

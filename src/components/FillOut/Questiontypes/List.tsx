@@ -4,7 +4,7 @@ import { useArray, useEffectOnce, useQuestion, useUnsavedAnswer } from '../../..
 
 const List: React.FunctionComponent = () => {
   const question = useQuestion();
-  const [_answer, setAnswer, isValid, validationMessage, registerCallback] = useUnsavedAnswer<string[]>(question.id);
+  const [, setAnswer, isValid, validationMessage, registerCallback] = useUnsavedAnswer<string[]>(question.id);
   const [values, add, remove, update] = useArray<string>();
   const [value, setValue] = React.useState('');
   const [showInvalid, setShowInvalid] = React.useState(false);
@@ -18,7 +18,7 @@ const List: React.FunctionComponent = () => {
     setValue('');
   }
 
-  React.useEffect(() => setAnswer(values), [setAnswer, values]);
+  React.useEffect(() => setAnswer(values), [values]);
 
   useEffectOnce(() => registerCallback(() => setShowInvalid(true)));
 
@@ -53,4 +53,5 @@ const List: React.FunctionComponent = () => {
     </div>
   </>;
 }
+1
 export default List;

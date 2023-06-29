@@ -26,7 +26,7 @@ const Section: React.FunctionComponent<SectionProps> = ({ draggableProvided, dra
           <div className="pointer-cursor d-flex align-items-center" onClick={() => setIsOpen(!isOpen)}>
             <i className={"mr-1 fa fa-fw " + (isOpen ? 'fa-chevron-down' : 'fa-chevron-right')}></i>
             <span className="title no-select">
-              <strong>{section.label}</strong>
+              <strong>{section.name}</strong>
             </span>
           </div>
         </div>
@@ -35,16 +35,6 @@ const Section: React.FunctionComponent<SectionProps> = ({ draggableProvided, dra
         </div>
       </div>
       <AnimateHeight height={isOpen ? 'auto' : 0} duration={500}>
-        <div className="card-body p-0 section--questions-header">
-          <div className="row">
-            <div className="col-lg-9 section--questions-container border-right d-flex justify-content-between align-items-center">
-              <h4 className="mb-0 ml-3">Questions</h4>
-            </div>
-            <div className="col-lg-3 section--type-container col-xs-12 d-flex justify-content-start align-items-center">
-              <h4 className="mb-0">Type</h4>
-            </div>
-          </div>
-        </div>
 
         <Droppable droppableId={'section__' + section.id} type="question">
           {(provided) => (

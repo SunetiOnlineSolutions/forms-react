@@ -62,7 +62,7 @@ const Show: React.FunctionComponent = () => {
       <Tab label="Results">
         {version.sections.flatMap(section => section.questions).map((question, i) => (
           <div key={i}>
-            <h6>{question.phrase}</h6>
+            <h6>{question.name}</h6>
 
             {question.answerType === 'MULTIPLE_CHOICE' &&
               <Chart
@@ -107,7 +107,7 @@ const Show: React.FunctionComponent = () => {
 
             {dataset && dataset.answers.map((answer: Answer) => (
               <tr key={answer.id}>
-                <td>{answer.question.phrase}</td>
+                <td>{answer.question.name}</td>
                 <td>
                   {AnswerVisualizerFactory.create(answer).visualize()}
                 </td>

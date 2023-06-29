@@ -28,8 +28,8 @@ const Question: React.FunctionComponent = () => {
 
   return <>
     <div className="question mb-3">
-      <h6 className="question--phrase">
-        {question.phrase}
+      <h6 className="question--name">
+        {question.name}
         {question.options?.validation?.required && <span className="text-danger">&nbsp;*</span>}
       </h6>
       {/* <sub>{question.friendlyAnswerType()}</sub> */}

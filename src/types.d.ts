@@ -1,6 +1,6 @@
 export type AnswerType = "FREE_TEXT" | "MULTIPLE_CHOICE" | "NUMERIC" | "DATE" | "LIST" | "SIGNATURE" | "INSTRUCTION";
 
-export type FormVersionStatus = "DRAFT" | "PUBLISHED";
+export type VersionStatusType = "DRAFT" | "PUBLISHED" | "ARCHIVED" | "DELETED";
 
 export type ObjectWithID = {
   id: string | number;

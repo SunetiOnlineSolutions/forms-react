@@ -18,7 +18,7 @@ const MultipleChoice: React.FunctionComponent = () => {
   const [selectedOption, setSelectedOption] = React.useState<Nullable<Option>>();
   const [showInvalid, setShowInvalid] = React.useState(false);
 
-  const [_value, setValue, isValid, validationMessage, registerCallback] = useUnsavedAnswer<Nullable<Option | Options>>(question.id);
+  const [, setValue, isValid, validationMessage, registerCallback] = useUnsavedAnswer<Nullable<Option | Options>>(question.id);
 
 
   useEffectOnce(() => registerCallback(() => setShowInvalid(true)));
@@ -29,7 +29,7 @@ const MultipleChoice: React.FunctionComponent = () => {
     } else {
       setValue(selectedOption as Nullable<Option>);
     }
-  }, [multiSelect, selectedOption, selectedOptions, setValue]);
+  }, [selectedOption, selectedOptions]);
 
   const options = React.useMemo<Options>(() => {
 
@@ -40,7 +40,7 @@ const MultipleChoice: React.FunctionComponent = () => {
     if (question.options.multipleChoice?.using === 'VALUE_LIST') {
       try {
         return selectors.getValueListByID(question.options.multipleChoice?.valueListID as Identifier)
-          .items.map(item => ({ id: item.id as number, label: item.label }));
+          .items.map(item => ({ id: item.id as number, label: item.name }));
       } catch (error) {
         return [];
       }

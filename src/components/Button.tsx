@@ -5,7 +5,7 @@ interface ButtonProps {
   children?: React.ReactNode;
   onClick?: () => void;
   color?: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark' | 'link' | string;
-  size?: 'sm' | 'lg' | '' | string;
+  size?: 'xs' | 'sm' | 'lg' | '' | string;
   disabled?: boolean;
   style?: object;
 }

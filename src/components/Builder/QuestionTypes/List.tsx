@@ -2,55 +2,46 @@ import React from 'react';
 import { useQuestion, useQuestionEdit, useToggle } from '../../../hooks';
 import Checkbox from '../../FormElements/Checkbox';
 import TextField from '../../FormElements/TextField';
+import UnsavedQuestionsContext from '../../../context/UnsavedQuestionsContext';
 
 const List: React.FunctionComponent = () => {
   const question = useQuestion();
+  const { removeQuestion } = React.useContext(UnsavedQuestionsContext);
   const [editQuestion] = useQuestionEdit(question);
 
   // Question parameters
-  const [phrase, setPhrase] = React.useState<string>(question.phrase);
+  const [name, setName] = React.useState<string>(question.name);
 
   // Question validation
   const [required, toggleRequired] = useToggle(question.options?.validation?.required ?? false);
-  const [min, setMin] = React.useState(question.options?.validation?.min ?? 0);
-  const [max, setMax] = React.useState(question.options?.validation?.max ?? 0);
 
   React.useEffect(() => {
     editQuestion({
-      phrase,
+      name,
       options: {
         validation: {
           required,
-          min,
-          max,
         }
       }
     });
-  }, [phrase, required, min, max]);
+  }, [name, required]);
 
   return <>
-    <div className="d-flex justify-items-between flex-column">
-
-      <div className="row">
-        <div className="col-md-7">
-          <TextField label="Question" value={phrase} onChange={setPhrase} />
-        </div>
+    <div className="form-group row">
+      <label className="col-sm-1 col-form-label">Question</label>
+      <div className="col-sm-7">
+        <TextField placeholder="Question" value={name} onChange={setName} />
       </div>
-      <h5>Validation</h5>
-      <div className="row">
-        <div className="col-md-2">
-          <Checkbox label="Required" checked={required} onChange={toggleRequired} />
-        </div>
+    </div>
+    <div className="form-group row">
+      <label className="col-sm-1 col-form-label">Validation</label>
+      <div className="col-sm-10">
+        <Checkbox label="Required" checked={required} onChange={toggleRequired} />
       </div>
-      <div className="row mt-3">
-        <div className="col-md-1">
-          <label>Min list items</label>
-          <input type="number" className="form-control mb-3" value={min} onChange={event => setMin(parseInt(event.target.value, 10))} />
-        </div>
-        <div className="col-md-1">
-          <label>Max list items</label>
-          <input type="number" className="form-control mb-3" value={max} onChange={event => setMax(parseInt(event.target.value, 10))} />
-        </div>
+      <div className="col-sm-11">
+        <button className="btn btn-xs btn-danger float-right" onClick={() => removeQuestion(question)}>
+          <i className="fas fa-trash-alt pr-1"> </i> Delete question
+        </button>
       </div>
     </div>
   </>;

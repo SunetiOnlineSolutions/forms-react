@@ -24,3 +24,5 @@ dist-ssr
 *.sw?
 
 .env
+dist/assets/*
+dist/index.html

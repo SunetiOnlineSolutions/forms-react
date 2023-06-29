@@ -1,4 +1,3 @@
-/* eslint-disable react-refresh/only-export-components */
 import React from 'react';
 import AnswerTypePicker from './AnswerTypePicker';
 import QuestionHamburgerMenu from './QuestionHamburgerMenu';
@@ -22,6 +21,29 @@ interface QuestionProps {
 const Question: React.ForwardRefRenderFunction<null, QuestionProps> = ({ dragHandleProps, draggableProps, isDragging }, ref) => {
   const question = useQuestion();
   const [isOpen, setIsOpen] = React.useState(typeof question.id !== 'number');
+  const [isEditing, setIsEditing] = React.useState(false);
+  const [name, setName] = React.useState<string>(question.name);
+
+  const handleTitleClick = () => {
+    document.querySelectorAll('.input-editable').forEach((_question) => {
+
+      setIsEditing(false);
+
+
+    });
+    if (question.answer_type !== 'INSTRUCTION') {
+      setIsEditing(true);
+    }
+  };
+
+  const handleTitleChange = (event: React.FormEvent<HTMLInputElement>): void => {
+    question.name = event.currentTarget.value;
+    setName(event.currentTarget.value);
+  };
+
+  const handleTitleBlur = () => {
+    setIsEditing(false);
+  };
 
   const renderQuestion = () => {
     switch (question.answer_type) {
@@ -39,7 +61,7 @@ const Question: React.ForwardRefRenderFunction<null, QuestionProps> = ({ dragHan
 
   return (
     <div ref={ref} {...draggableProps} className={"row p-0 m-0 question" + (isDragging ? ' dragging' : '')}>
-      <div className="col-lg-9 col-xs-12 order-sm-2 order-md-1 order-lg-1 order-xl-1 p-r-0 border-right">
+      <div className="col-lg-10 col-xs-12 order-sm-2 order-md-1 order-lg-1 order-xl-1 p-r-0 border-right">
 
         <div className="card-header question--header w-100 d-flex justify-content-between">
 
@@ -49,7 +71,28 @@ const Question: React.ForwardRefRenderFunction<null, QuestionProps> = ({ dragHan
             </div>
             <div className="cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
               <i className={"mr-1 fa fa-fw " + (isOpen ? 'fa-chevron-down' : 'fa-chevron-right')}></i>
-              <span className="title no-select">{question.answer_type !== 'INSTRUCTION' ? question.phrase : 'Instruction'}</span>
+            </div>
+            <div>
+
+              {isEditing ? (
+                <input
+                  className="input-editable"
+                  value={name}
+                  style={{ width: '60vw', height: '35px', border: 'dotted 2px #2a72b5', borderRadius: '5px', padding: '5px 5px 5px 10px' }}
+                  contentEditable
+                  suppressContentEditableWarning
+                  onBlur={handleTitleBlur}
+                  onInput={handleTitleChange}
+                />
+              ) : (
+                <input
+                  className="editable-input"
+                  value={question.answer_type !== 'INSTRUCTION' ? question.name : 'Instruction'}
+                  style={{ width: '60vw', height: '35px', border: 'none', borderRadius: '5px', padding: '5px 5px 5px 10px' }}
+                  onClick={handleTitleClick}
+                  readOnly
+                />
+              )}
             </div>
           </div>
           <QuestionHamburgerMenu />
@@ -62,7 +105,7 @@ const Question: React.ForwardRefRenderFunction<null, QuestionProps> = ({ dragHan
         </AnimateHeight>
       </div>
 
-      <div className="col-lg-3 col-xs-12 order-sm-1 order-md-2 order-lg-2 order-xl-2 col-right px-0">
+      <div className="col-lg-2 col-xs-12 order-sm-1 order-md-2 order-lg-2 order-xl-2 col-right px-0">
         <AnswerTypePicker />
       </div>
 

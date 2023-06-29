@@ -1,5 +1,5 @@
 import { StoredDataInputScreenVersion } from "../DataPersistence";
-import { FormVersionStatus, Identifier } from "../types";
+import { VersionStatusType, Identifier } from "../types";
 import DataInputScreen from "./DataInputScreen";
 import InputDataSet from "./InputDataSet";
 import Section from "./Section";
@@ -11,7 +11,7 @@ export default class DataInputScreenVersion {
     public inputDataSets: InputDataSet[],
     public sections: Section[],
     public version: number,
-    public formVersionStatus: FormVersionStatus,
+    public versionStatusType: VersionStatusType,
   ) {
   }
 
@@ -20,7 +20,7 @@ export default class DataInputScreenVersion {
       id: this.id,
       data_input_screen_id: this.dataInputScreen.id,
       version: this.version,
-      form_version_status: this.formVersionStatus,
+      version_status_type: this.versionStatusType,
     };
   }
 }

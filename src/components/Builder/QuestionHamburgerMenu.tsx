@@ -14,10 +14,6 @@ const QuestionHamburgerMenu: React.FunctionComponent = () => {
       </button>
 
       <div className="dropdown-menu dropdown-menu-right" aria-labelledby={"question--hamburger-menu_" + question.id}>
-        <button className="dropdown-item">
-          <span className="fal fa-fw fa-lg fa-language text-primary m-r-5"></span>
-          Translate
-        </button>
 
         <button className="dropdown-item">
           <span className="fal fa-fw fa-lg fa-tags text-primary m-r-5"></span>

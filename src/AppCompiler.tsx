@@ -2,19 +2,19 @@ import React, { useEffect } from 'react';
 import { DataStore } from './context/DataStore';
 import Builder from './pages/Builder';
 import './Forms.css';
-import Panel from './components/Panel';
 import { useEffectOnce } from './hooks';
 import FillOut from './pages/FillOut';
 import { UnsavedAnswersProvider } from './context/UnsavedAnswersContext';
+import Index from './pages/Index';
 import Show from './pages/Show';
 import { UnsavedQuestionsProvider } from './context/UnsavedQuestionsContext';
 import { UnsavedSectionsProvider } from './context/UnsavedSectionsContext';
 import Preview from './pages/Preview';
-import Index from './pages/Index';
 
-const App: React.FunctionComponent = () => {
+const AppCompiler: React.FunctionComponent = () => {
 
   const { actions } = React.useContext(DataStore);
+
 
   const loadAll = () => {
     actions.screens.load();
@@ -35,9 +35,9 @@ const App: React.FunctionComponent = () => {
     };
   }, []);
 
-  const handleMessage = (event:any) => {
-      const data = event?.data?.payload;
-      console.log(data?.message);
+  const handleMessage = (event: any) => {
+    const data = event?.data?.payload;
+    console.log(data?.message);
   };
 
   useEffectOnce(() => loadAll());
@@ -60,13 +60,7 @@ const App: React.FunctionComponent = () => {
         <div>
           <UnsavedQuestionsProvider>
             <UnsavedSectionsProvider>
-              <div className="row justify-content-center">
-                <div className="col-md-10">
-                  <Panel title="Builder">
-                    <Builder />
-                  </Panel>
-                </div>
-              </div>
+              <Builder />
             </UnsavedSectionsProvider>
           </UnsavedQuestionsProvider>
         </div>
@@ -74,38 +68,26 @@ const App: React.FunctionComponent = () => {
 
     case 'index':
       return (
-        <Panel title="Forms">
           <Index />
-        </Panel>
       );
 
     case 'fillout':
       return (
         <UnsavedAnswersProvider>
-          <div className="row justify-content-center">
-            <div className="col-md-10">
-              <Panel title="Form fill out">
-                <FillOut />
-              </Panel>
-            </div>
-          </div>
+          <FillOut />
         </UnsavedAnswersProvider>
       );
 
     case 'preview':
       return (
         <UnsavedAnswersProvider>
-          <Panel title="Form preview">
-            <Preview />
-          </Panel>
+          <Preview />
         </UnsavedAnswersProvider>
       );
 
     case 'show':
       return (
-        <Panel title="Form show">
-          <Show />
-        </Panel>
+        <Show />
       );
 
     default:
@@ -113,4 +95,4 @@ const App: React.FunctionComponent = () => {
   }
 }
 
-export default App;
+export default AppCompiler;

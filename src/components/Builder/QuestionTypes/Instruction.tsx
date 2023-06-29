@@ -8,10 +8,10 @@ const Instruction: React.FunctionComponent = () => {
   const [element, setElement] = React.useState<HTMLElement | null>(null);
 
   useCKEditor({
-    initContent: question.phrase,
+    initContent: question.name,
     element,
     subscribeTo: ['change'],
-    dispatchEvent: ({ payload }) => edit({ phrase: payload.editor.getData() }),
+    dispatchEvent: ({ payload }) => edit({ name: payload.editor.getData() }),
   });
 
   return <div ref={setElement}></div>;

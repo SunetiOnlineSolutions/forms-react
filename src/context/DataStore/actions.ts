@@ -37,6 +37,9 @@ export const createActions = (dispatch: (param: Action) => void) => ({
       const updated = await storage.updateDataInputScreen({ id: screen.id, name: screen.name });
 
       dispatch({ type: "UPDATE_SCREEN", payload: updated });
+
+
+
     },
     async delete(screen: ObjectWithID) {
       await storage.deleteDataInputScreen(screen);
@@ -53,7 +56,7 @@ export const createActions = (dispatch: (param: Action) => void) => ({
     async store(version: Without<StoredDataInputScreenVersion, "id" | "version">) {
       const stored = await storage.storeDataInputScreenVersion({
         data_input_screen_id: version.data_input_screen_id,
-        form_version_status: version.form_version_status,
+        version_status_type: version.version_status_type,
       });
 
       if ('id' in stored) {
@@ -87,7 +90,7 @@ export const createActions = (dispatch: (param: Action) => void) => ({
     async store(section: Without<StoredSection, "id" | "sort_order">) {
       const stored = await storage.storeSection({
         data_input_screen_version_id: section.data_input_screen_version_id,
-        label: section.label,
+        name: section.name,
       });
 
       dispatch({ type: "STORE_SECTION", payload: stored });
@@ -103,6 +106,8 @@ export const createActions = (dispatch: (param: Action) => void) => ({
       const updated = await storage.bulkUpdateSections(sections);
 
       dispatch({ type: "BULK_UPDATE_SECTIONS", payload: updated });
+
+
     },
     reOrder(section: StoredSection) {
       storage.reOrderSection(section);
@@ -123,7 +128,7 @@ export const createActions = (dispatch: (param: Action) => void) => ({
     },
     async store(question: Without<StoredQuestion, "id" | "sort_order">) {
       const stored = await storage.storeQuestion({
-        phrase: question.phrase,
+        name: question.name,
         section_id: question.section_id,
         answer_type: question.answer_type,
         options: question.options,
@@ -136,7 +141,7 @@ export const createActions = (dispatch: (param: Action) => void) => ({
     async update(question: StoredQuestion) {
       const updated = await storage.updateQuestion({
         id: question.id,
-        phrase: question.phrase,
+        name: question.name,
         answer_type: question.answer_type,
         section_id: question.section_id,
         options: question.options,
@@ -259,7 +264,7 @@ export const createActions = (dispatch: (param: Action) => void) => ({
     async store(item: Without<StoredValueListItem, "id">) {
       const stored = await storage.storeValueListItem({
         value_list_id: item.value_list_id,
-        label: item.label,
+        name: item.name,
       });
 
       dispatch({ type: "STORE_VALUE_LIST_ITEM", payload: stored });
@@ -270,7 +275,7 @@ export const createActions = (dispatch: (param: Action) => void) => ({
       const updated = await storage.updateValueListItem({
         id: item.id,
         value_list_id: item.value_list_id,
-        label: item.label,
+        name: item.name,
       });
 
       dispatch({ type: "UPDATE_VALUE_LIST_ITEM", payload: updated });

@@ -1,13 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import './assets/css/App.css';
-import App from './App.tsx'
-import { DataStoreProvider } from './context/DataStore'
+import { DataStoreProvider } from './context/DataStore/index.js'
+import AppCompiler from './AppCompiler.tsx'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
      <DataStoreProvider>
-        <App />
+        <AppCompiler/>
     </DataStoreProvider>
   </React.StrictMode>,
 )

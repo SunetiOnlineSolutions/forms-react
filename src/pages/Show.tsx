@@ -37,7 +37,7 @@ const Show: React.FunctionComponent = () => {
         return [option, version?.inputDataSets.flatMap(set => set.answers).filter(answer => answer.question.id === question.id && (answer.value as any).label === option).length];
       })
     ];
-  }, [dataset, version?.inputDataSets]);
+  }, [dataset]);
 
   if (!version) {
     return <></>;

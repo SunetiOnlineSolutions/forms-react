@@ -5,7 +5,7 @@ export default class ValueListItem {
   constructor(
     public id: Identifier,
     public valueList: ValueList,
-    public label: string,
+    public name: string,
   ) {
   }
 }

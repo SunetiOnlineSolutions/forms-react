@@ -11,7 +11,7 @@ const DateTime: React.FunctionComponent = () => {
   const [editQuestion] = useQuestionEdit(question);
 
   // Question parameters
-  const [phrase, setPhrase] = React.useState<string>(question.phrase);
+  const [name, setName] = React.useState<string>(question.name);
   const [type, setType] = React.useState<NonNullable<QuestionOptions['datetime']>['type']>(question.options?.datetime?.type ?? 'DATETIME');
 
   // Question validation
@@ -21,7 +21,7 @@ const DateTime: React.FunctionComponent = () => {
 
   React.useEffect(() => {
     editQuestion({
-      phrase,
+      name,
       options: {
         datetime: {
           type,
@@ -31,13 +31,13 @@ const DateTime: React.FunctionComponent = () => {
         }
       }
     });
-  }, [phrase, type, required]);
+  }, [name, type, required]);
 
   return <>
     <div className="form-group row">
       <label className="col-sm-1 col-form-label">Question</label>
       <div className="col-sm-7">
-        <TextField placeholder="Question" value={phrase} onChange={setPhrase} />
+        <TextField placeholder="Question" value={name} onChange={setName} />
       </div>
         <label className="col-sm-1 col-form-label">Type</label>
         <div className="col-sm-3 ">

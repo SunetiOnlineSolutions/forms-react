@@ -47,7 +47,7 @@ export type QuestionOptions = {
 export type StoredQuestion = {
   id: Identifier,
   section_id: Identifier,
-  phrase: string,
+  name: string,
   answer_type: AnswerType,
   options: QuestionOptions,
   sort_order: number,
@@ -72,7 +72,7 @@ export type StoredValueList = {
 export type StoredValueListItem = {
   id: Identifier,
   value_list_id: Identifier,
-  label: string,
+  name: string,
 }
 
 export type StoredNewVersionResponse = StoredDataInputScreenVersion | { new_version: StoredDataInputScreenVersion, previous_version: StoredDataInputScreenVersion, sections: StoredSection[], questions: StoredQuestion[] };

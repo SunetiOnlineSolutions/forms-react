@@ -28,7 +28,7 @@ const MultipleChoice: React.FunctionComponent = () => {
   const { selectors } = React.useContext(DataStore);
 
   const options = selectors.valueLists().map(valueList => ({
-    label: valueList.items.map(item => item.label).join(', '),
+    label: valueList.items.map(item => item.name).join(', '),
     value: valueList.id as number,
   }));
 
@@ -37,7 +37,7 @@ const MultipleChoice: React.FunctionComponent = () => {
   const [updatedValues, setUpdatedValues] = React.useState([] as CreatableOption[]);
 
   // Question parameters
-  const [phrase, setPhrase] = React.useState<string>(question.phrase);
+  const [name, setName] = React.useState<string>(question.name);
   const [using, setUsing] = React.useState<NonNullable<QuestionOptions['multipleChoice']>['using']>(question.options?.multipleChoice?.using ?? 'VALUE_LIST');
   const [valueListID, setValueListID] = React.useState<Identifier | undefined>(question.options?.multipleChoice?.valueListID);
 
@@ -46,7 +46,7 @@ const MultipleChoice: React.FunctionComponent = () => {
   const [allowMultipleAnswers, toggleAllowMultipleAnswers] = useToggle(question.options?.validation?.allowMultipleAnswers ?? false);
 
   React.useEffect(() => {
-  const editedQuestion ={ phrase,
+  const editedQuestion ={ name,
   options: {
     multipleChoice: {
       using,
@@ -59,7 +59,7 @@ const MultipleChoice: React.FunctionComponent = () => {
     }
   }};
     editQuestion(editedQuestion);
-  }, [phrase, using, valueListID, required, allowMultipleAnswers, customValues]);
+  }, [name, using, valueListID, required, allowMultipleAnswers, customValues]);
 
   const onCreateOption = () => {
     if (inputValue && !customValues.some(x => x.value === inputValue)) {
@@ -75,7 +75,7 @@ const MultipleChoice: React.FunctionComponent = () => {
     <div className="form-group row">
       <label className="col-sm-1 col-form-label">Question</label>
       <div className="col-sm-10">
-        <TextField placeholder="Question" value={phrase} onChange={setPhrase} />
+        <TextField placeholder="Question" value={name} onChange={setName} />
       </div>
     </div>
     <div className="form-group row">

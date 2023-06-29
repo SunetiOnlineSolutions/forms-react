@@ -9,26 +9,26 @@ const Signature: React.FunctionComponent = () => {
   const { removeQuestion } = React.useContext(UnsavedQuestionsContext);
   const [editQuestion] = useQuestionEdit(question);
 
-  const [phrase, setPhrase] = React.useState<string>(question.phrase);
+  const [name, setName] = React.useState<string>(question.name);
   const [required, toggleRequired] = useToggle(question.options?.validation?.required ?? false);
 
   React.useEffect(() => {
     editQuestion({
-      phrase,
+      name,
       options: {
         validation: {
           required,
         }
       }
     });
-  }, [phrase, required]);
+  }, [name, required]);
 
 
   return <>
     <div className="form-group row">
         <label className="col-sm-1 col-form-label">Question</label>
         <div className="col-sm-10">
-          <TextField placeholder="What would you like to ask?" value={phrase} onChange={setPhrase} />
+          <TextField placeholder="What would you like to ask?" value={name} onChange={setName} />
         </div>
       </div>
 

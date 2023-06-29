@@ -83,7 +83,7 @@ export default class Selectors {
 
       valueList.items = this.state.valueListItems
         .filter(item => item.value_list_id === valueList.id)
-        .map(item => new ValueListItem(item.id, valueList, item.label));
+        .map(item => new ValueListItem(item.id, valueList, item.name));
 
       return valueList;
     });
@@ -164,7 +164,7 @@ export default class Selectors {
       .filter(q => q.section_id === section.id)
       .map(stored => {
 
-        const question = new Question(stored.id, section, stored.phrase, stored.answer_type, stored.options, stored.sort_order, []);
+        const question = new Question(stored.id, section, stored.name, stored.answer_type, stored.options, stored.sort_order, []);
 
         return question;
       });

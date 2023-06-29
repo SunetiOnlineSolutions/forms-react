@@ -9,26 +9,26 @@ const FreeText: React.FunctionComponent = () => {
   const question = useQuestion();
   const { removeQuestion } = React.useContext(UnsavedQuestionsContext);
   const [editQuestion] = useQuestionEdit(question);
-  const [phrase, setPhrase] = React.useState(question.phrase);
+  const [name, setName] = React.useState(question.name);
   const [required, toggleRequired] = useToggle(question.options?.validation?.required ?? false);
 
   React.useEffect(() => {
     editQuestion({
-      phrase,
+      name,
       options: {
         validation: {
           required,
         }
       }
     });
-  }, [phrase, required]);
+  }, [name, required]);
 
   return <>
 
       <div className="form-group row">
         <label className="col-sm-1 col-form-label">Question</label>
         <div className="col-sm-10">
-          <TextField placeholder="What would you like to ask?" value={phrase} onChange={setPhrase} />
+          <TextField placeholder="What would you like to ask?" value={name} onChange={setName} />
         </div>
       </div>
 

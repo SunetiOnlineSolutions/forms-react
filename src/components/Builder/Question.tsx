@@ -23,7 +23,7 @@ const Question: React.ForwardRefRenderFunction<null, QuestionProps> = ({ dragHan
   const question = useQuestion();
   const [isOpen, setIsOpen] = React.useState(typeof question.id !== 'number');
   const [isEditing, setIsEditing] = React.useState(false);
-  const [phrase, setPhrase] = React.useState<string>(question.phrase);
+  const [name, setName] = React.useState<string>(question.name);
 
   const handleTitleClick = () => {
     document.querySelectorAll('.input-editable').forEach((_question) => {
@@ -38,8 +38,8 @@ const Question: React.ForwardRefRenderFunction<null, QuestionProps> = ({ dragHan
   };
 
   const handleTitleChange = (event: React.FormEvent<HTMLInputElement>): void => {
-    question.phrase = event.currentTarget.value;
-    setPhrase(event.currentTarget.value);
+    question.name = event.currentTarget.value;
+    setName(event.currentTarget.value);
   };
 
   const handleTitleBlur = () => {
@@ -78,7 +78,7 @@ const Question: React.ForwardRefRenderFunction<null, QuestionProps> = ({ dragHan
               {isEditing ? (
                 <input
                   className="input-editable"
-                  value={phrase}
+                  value={name}
                   style={{ width: '60vw', height: '35px', border: 'dotted 2px #2a72b5', borderRadius: '5px', padding: '5px 5px 5px 10px' }}
                   contentEditable
                   suppressContentEditableWarning
@@ -88,7 +88,7 @@ const Question: React.ForwardRefRenderFunction<null, QuestionProps> = ({ dragHan
               ) : (
                 <input
                   className="editable-input"
-                  value={question.answer_type !== 'INSTRUCTION' ? question.phrase : 'Instruction'}
+                  value={question.answer_type !== 'INSTRUCTION' ? question.name : 'Instruction'}
                   style={{ width: '60vw', height: '35px', border: 'none', borderRadius: '5px', padding: '5px 5px 5px 10px' }}
                   onClick={handleTitleClick}
                   readOnly

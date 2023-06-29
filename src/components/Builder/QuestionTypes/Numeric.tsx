@@ -10,27 +10,27 @@ const Numeric: React.FunctionComponent = () => {
   const [editQuestion] = useQuestionEdit(question);
 
   // Question parameters
-  const [phrase, setPhrase] = React.useState(question.phrase);
+  const [name, setName] = React.useState(question.name);
 
   // Quesiton validation
   const [required, toggleRequired] = useToggle(question.options?.validation?.required);
 
   React.useEffect(() => {
     editQuestion({
-      phrase,
+      name,
       options: {
         validation: {
           required,
         }
       }
     });
-  }, [phrase, required]);
+  }, [name, required]);
 
   return <>
       <div className="form-group row">
         <label className="col-sm-1 col-form-label">Question</label>
         <div className="col-sm-10">
-          <TextField placeholder="Question" value={phrase} onChange={setPhrase} />
+          <TextField placeholder="Question" value={name} onChange={setName} />
         </div>
       </div>
 

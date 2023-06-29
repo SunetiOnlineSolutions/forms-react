@@ -128,7 +128,7 @@ export const createActions = (dispatch: (param: Action) => void) => ({
     },
     async store(question: Without<StoredQuestion, "id" | "sort_order">) {
       const stored = await storage.storeQuestion({
-        phrase: question.phrase,
+        name: question.name,
         section_id: question.section_id,
         answer_type: question.answer_type,
         options: question.options,
@@ -141,7 +141,7 @@ export const createActions = (dispatch: (param: Action) => void) => ({
     async update(question: StoredQuestion) {
       const updated = await storage.updateQuestion({
         id: question.id,
-        phrase: question.phrase,
+        name: question.name,
         answer_type: question.answer_type,
         section_id: question.section_id,
         options: question.options,
@@ -264,7 +264,7 @@ export const createActions = (dispatch: (param: Action) => void) => ({
     async store(item: Without<StoredValueListItem, "id">) {
       const stored = await storage.storeValueListItem({
         value_list_id: item.value_list_id,
-        label: item.label,
+        name: item.name,
       });
 
       dispatch({ type: "STORE_VALUE_LIST_ITEM", payload: stored });
@@ -275,7 +275,7 @@ export const createActions = (dispatch: (param: Action) => void) => ({
       const updated = await storage.updateValueListItem({
         id: item.id,
         value_list_id: item.value_list_id,
-        label: item.label,
+        name: item.name,
       });
 
       dispatch({ type: "UPDATE_VALUE_LIST_ITEM", payload: updated });

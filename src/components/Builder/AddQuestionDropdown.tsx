@@ -13,7 +13,7 @@ const AddQuestionDropdown: React.FunctionComponent = () => {
       section_id: section.id,
       answer_type: type,
       options: {},
-      phrase: '',
+      name: '',
       id: ('temp__' + Math.random()).replace('.', ''),
       sort_order: Math.max(...questions.filter(q => q.section_id === section.id).map(q => q.sort_order), 0) + 1,
     });

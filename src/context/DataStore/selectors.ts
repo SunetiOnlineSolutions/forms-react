@@ -2,7 +2,7 @@ import { DataStore } from ".";
 import Answer from "../../classes/Answer";
 import FormTemplate from "../../classes/FormTemplate";
 import FormTemplateVersion from "../../classes/FormTemplateVersion";
-import InputDataSet from "../../classes/InputDataSet";
+import Form from "../../classes/Form";
 import Question from "../../classes/Question";
 import Section from "../../classes/Section";
 import ValueList from "../../classes/ValueList";
@@ -106,7 +106,7 @@ export default class Selectors {
       template.versions = this.buildVersions(template);
 
       template.versions.forEach(version => {
-        version.inputDataSets = this.buildInputDataSets(version);
+        version.forms = this.buildForms(version);
         version.sections = this.buildSections(version);
 
         version.sections.forEach(section => {
@@ -116,15 +116,15 @@ export default class Selectors {
             question.answers = this.state.answers
               .filter(a => a.question_id === question.id)
               .map(stored => {
-                const inputDataSet = version.inputDataSets.find(i => i.id === stored.form_id);
+                const form = version.forms.find(i => i.id === stored.form_id);
 
-                if (!inputDataSet) {
+                if (!form) {
                   throw new EntityNotFoundError();
                 }
 
-                const answer = new Answer(stored.id, question, inputDataSet, stored.value);
+                const answer = new Answer(stored.id, question, form, stored.value);
 
-                inputDataSet.answers.push(answer);
+                form.answers.push(answer);
 
                 return answer;
               });
@@ -153,10 +153,10 @@ export default class Selectors {
       .map(stored => new Section(stored.id, stored.name, version, stored.sort_order, []));
   }
 
-  protected buildInputDataSets(version: FormTemplateVersion): InputDataSet[] {
-    return this.state.inputDataSets
+  protected buildForms(version: FormTemplateVersion): Form[] {
+    return this.state.forms
       .filter(s => s.form_template_version_id === version.id)
-      .map(stored => new InputDataSet(stored.id, version, []));
+      .map(stored => new Form(stored.id, version, []));
   }
 
   protected buildQuestions(section: Section): Question[] {

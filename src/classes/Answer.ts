@@ -1,13 +1,13 @@
 import { StoredAnswer } from "../DataPersistence";
 import { Identifier } from "../types";
-import InputDataSet from "./InputDataSet";
+import Form from "./Form";
 import Question from "./Question";
 
 export default class Answer {
   constructor(
     public id: Identifier,
     public question: Question,
-    public inputDataSet: InputDataSet,
+    public form: Form,
     public value: any,
   ) {
   }
@@ -16,7 +16,7 @@ export default class Answer {
     return {
       id: this.id,
       question_id: this.question.id,
-      form_id: this.inputDataSet.id,
+      form_id: this.form.id,
       value: this.value,
     };
   }

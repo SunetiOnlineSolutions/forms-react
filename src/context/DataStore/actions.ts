@@ -2,7 +2,7 @@ import DataPersistence, {
   StoredAnswer,
   StoredFormTemplate,
   StoredFormTemplateVersion,
-  StoredInputDataset,
+  StoredForms,
   StoredQuestion,
   StoredSection,
   StoredValueList,
@@ -207,26 +207,26 @@ export const createActions = (dispatch: (param: Action) => void) => ({
       dispatch({ type: "DELETE_ANSWER", payload: answer });
     },
   },
-  inputDataSets: {
+  forms: {
     async load() {
-      const sets = await storage.getAllInputDataSets();
+      const sets = await storage.getAllForms();
 
       dispatch({ type: "LOAD_INPUT_DATA_SETS", payload: sets });
     },
-    async store(set: Without<StoredInputDataset, "id">) {
-      const stored = await storage.storeInputDataSet(set);
+    async store(set: Without<StoredForms, "id">) {
+      const stored = await storage.storeForm(set);
 
       dispatch({ type: "STORE_INPUT_DATA_SET", payload: stored });
 
       return stored;
     },
-    async update(set: StoredInputDataset) {
-      const updated = await storage.updateInputDataSet(set);
+    async update(set: StoredForms) {
+      const updated = await storage.updateForm(set);
 
       dispatch({ type: "UPDATE_INPUT_DATA_SET", payload: updated });
     },
     async delete(set: ObjectWithID) {
-      storage.deleteInputDataSet(set);
+      storage.deleteForm(set);
 
       dispatch({ type: "DELETE_INPUT_DATA_SET", payload: set });
     },
@@ -331,7 +331,7 @@ export type Action =
   | { type: "UPDATE_VALUE_LIST_ITEM", payload: StoredValueListItem }
   | { type: "DELETE_VALUE_LIST_ITEM", payload: ObjectWithID }
 
-  | { type: "LOAD_INPUT_DATA_SETS", payload: StoredInputDataset[] }
-  | { type: "STORE_INPUT_DATA_SET", payload: StoredInputDataset }
-  | { type: "UPDATE_INPUT_DATA_SET", payload: StoredInputDataset }
+  | { type: "LOAD_INPUT_DATA_SETS", payload: StoredForms[] }
+  | { type: "STORE_INPUT_DATA_SET", payload: StoredForms }
+  | { type: "UPDATE_INPUT_DATA_SET", payload: StoredForms }
   | { type: "DELETE_INPUT_DATA_SET", payload: ObjectWithID };

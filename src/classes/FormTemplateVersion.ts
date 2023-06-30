@@ -1,14 +1,14 @@
 import { StoredFormTemplateVersion } from "../DataPersistence";
 import { VersionStatusType, Identifier } from "../types";
 import FormTemplate from "./FormTemplate";
-import InputDataSet from "./InputDataSet";
+import Form from "./Form";
 import Section from "./Section";
 
 export default class FormTemplateVersion {
   constructor(
     public id: Identifier,
     public formTemplate: FormTemplate,
-    public inputDataSets: InputDataSet[],
+    public forms: Form[],
     public sections: Section[],
     public version: number,
     public versionStatusType: VersionStatusType,

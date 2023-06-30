@@ -60,7 +60,7 @@ export type StoredAnswer<T = unknown> = {
   value: T,
 }
 
-export type StoredInputDataset = {
+export type StoredForms = {
   id: Identifier,
   form_template_version_id: Identifier,
 }
@@ -110,10 +110,10 @@ export default interface DataPersistence {
   updateAnswer: (answer: StoredAnswer) => Promise<StoredAnswer>;
   deleteAnswer: (answer: ObjectWithID) => Promise<void>;
 
-  getAllInputDataSets: () => Promise<StoredInputDataset[]>;
-  storeInputDataSet: (set: Without<StoredInputDataset, "id">) => Promise<StoredInputDataset>;
-  updateInputDataSet: (set: StoredInputDataset) => Promise<StoredInputDataset>;
-  deleteInputDataSet: (set: ObjectWithID) => Promise<void>;
+  getAllForms: () => Promise<StoredForms[]>;
+  storeForm: (set: Without<StoredForms, "id">) => Promise<StoredForms>;
+  updateForm: (set: StoredForms) => Promise<StoredForms>;
+  deleteForm: (set: ObjectWithID) => Promise<void>;
 
   getAllValueLists: () => Promise<StoredValueList[]>;
   storeValueList: (list: Without<StoredValueList, "id">) => Promise<StoredValueList>;

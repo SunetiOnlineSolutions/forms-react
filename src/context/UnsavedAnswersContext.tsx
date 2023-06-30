@@ -67,9 +67,9 @@ export const UnsavedAnswersProvider = ({ children }: any) => {
       return 'invalid_answer';
     }
 
-  const dataset = await actions.inputDataSets.store({ form_template_version_id: version.id });
+  const form = await actions.forms.store({ form_template_version_id: version.id });
    await actions.answers.bulkStore(unsavedAnswers.map(unsaved => ({
-  form_id: dataset.id,
+  form_id: form.id,
      question_id: unsaved.questionID,
       value: unsaved.value,
  })));

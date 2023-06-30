@@ -21,7 +21,7 @@ const App: React.FunctionComponent = () => {
     actions.versions.load();
     actions.sections.load();
     actions.questions.load();
-    actions.inputDataSets.load();
+    actions.forms.load();
     actions.answers.load();
     actions.valueLists.load();
     actions.valueListItems.load();

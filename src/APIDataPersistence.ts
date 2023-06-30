@@ -2,7 +2,7 @@ import DataPersistence, {
   StoredAnswer,
   StoredFormTemplate,
   StoredFormTemplateVersion,
-  StoredInputDataset,
+  StoredForms,
   StoredQuestion,
   StoredSection,
   StoredValueList,
@@ -120,20 +120,20 @@ export default class APIPersistence implements DataPersistence {
     return this.delete(`/api/forms/answers/${answer.id}`);
   }
 
-  getAllInputDataSets() {
-    return this.get("/api/forms/input-data-sets");
+  getAllForms() {
+    return this.get("/api/forms/forms");
   }
 
-  storeInputDataSet(set: Without<StoredInputDataset, "id">) {
-    return this.post("/api/forms/input-data-sets", set);
+  storeForm(form: Without<StoredForms, "id">) {
+    return this.post("/api/forms/forms", form);
   }
 
-  updateInputDataSet(set: StoredInputDataset) {
-    return this.patch(`/api/forms/input-data-sets/${set.id}`, set);
+  updateForm(form: StoredForms) {
+    return this.patch(`/api/forms/forms/${form.id}`, form);
   }
 
-  deleteInputDataSet(set: ObjectWithID) {
-    return this.delete(`/api/forms/input-data-sets/${set.id}`);
+  deleteForm(form: ObjectWithID) {
+    return this.delete(`/api/forms/forms/${form.id}`);
   }
 
   getAllValueLists() {

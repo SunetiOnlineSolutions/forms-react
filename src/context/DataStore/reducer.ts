@@ -4,7 +4,7 @@ import {
   StoredAnswer,
   StoredFormTemplate,
   StoredFormTemplateVersion,
-  StoredInputDataset,
+  StoredForms,
   StoredQuestion,
   StoredSection,
   StoredValueList,
@@ -188,22 +188,22 @@ const reducer = (state: DataStore, action: Action): DataStore => {
 
     // Input data sets
     case "LOAD_INPUT_DATA_SETS":
-      return { ...state, inputDataSets: [...action.payload] };
+      return { ...state, forms: [...action.payload] };
 
     case "STORE_INPUT_DATA_SET":
-      return { ...state, inputDataSets: [...state.inputDataSets, action.payload] };
+      return { ...state, forms: [...state.forms, action.payload] };
 
     case "UPDATE_INPUT_DATA_SET":
       return {
-        ...state, inputDataSets: updateElem(
-          state.inputDataSets,
-          (inputDataSet: StoredInputDataset) => inputDataSet.id === action.payload.id,
+        ...state, forms: updateElem(
+          state.forms,
+          (form: StoredForms) => form.id === action.payload.id,
           action.payload
         )
       }
 
     case "DELETE_INPUT_DATA_SET":
-      return { ...state, inputDataSets: state.inputDataSets.filter(inputDataSet => inputDataSet.id !== action.payload.id) };
+      return { ...state, forms: state.forms.filter(form => form.id !== action.payload.id) };
 
 
     // Answers

@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 import React from 'react';
 import Chart from 'react-google-charts';
 import Answer from '../classes/Answer';
-import InputDataSet from '../classes/InputDataSet';
+import Form from '../classes/Form';
 import TextField from '../components/FormElements/TextField';
 import Tabs from '../components/Tabs';
 import Tab from '../components/Tab';
@@ -15,29 +14,28 @@ const Show: React.FunctionComponent = () => {
 
   const [index, setIndex] = React.useState<number>(0);
 
-  const dataset: InputDataSet | undefined = React.useMemo(() => {
+  const form: Form | undefined = React.useMemo(() => {
     if (version) {
-      return version.inputDataSets[index];
+      return version.forms[index];
     }
   }, [index, version]);
 
   const data = React.useMemo(() => {
 
-    if (!dataset) {
+    if (!form) {
       return [['Question', 'Answer']];
     }
 
-    const question = dataset.formTemplateVersion.sections.flatMap(section => section.questions)[0];
+    const question = form.formTemplateVersion.sections.flatMap(section => section.questions)[0];
     const options = question?.options.multipleChoice?.customValues ?? [];
 
     return [
       ['Question', 'Answer'],
-      // eslint-disable-next-line no-unsafe-optional-chaining
       ...options?.map(option => {
-        return [option, version?.inputDataSets.flatMap(set => set.answers).filter(answer => answer.question.id === question.id && (answer.value as any).label === option).length];
+        return [option, version?.forms.flatMap(set => set.answers).filter(answer => answer.question.id === question.id && (answer.value as any).label === option).length];
       })
     ];
-  }, [dataset]);
+  }, [form]);
 
   if (!version) {
     return <></>;
@@ -54,7 +52,7 @@ const Show: React.FunctionComponent = () => {
             <TextField label="Number of versions" value={version.formTemplate.versions.length.toString()} onChange={() => { }} readOnly />
           </div>
           <div className="form-group col-md-2">
-            <TextField label="Number of fillouts" value={version.inputDataSets.length.toString()} onChange={() => { }} readOnly />
+            <TextField label="Number of fillouts" value={version.forms.length.toString()} onChange={() => { }} readOnly />
           </div>
         </div>
       </Tab>
@@ -80,15 +78,15 @@ const Show: React.FunctionComponent = () => {
 
       <Tab label="Fillouts">
         <div className="mt-3 d-flex justify-content-center align-items-center">
-          <button className="btn btn-primary mr-3" disabled={typeof version.inputDataSets[index - 1] === 'undefined'} onClick={() => setIndex(index - 1)}>
+          <button className="btn btn-primary mr-3" disabled={typeof version.forms[index - 1] === 'undefined'} onClick={() => setIndex(index - 1)}>
             <span className="fas fa-chevron-left mr-2"></span>
             Previous
           </button>
           <span className="mr-3">
-            <strong>Dataset: </strong>
-            {(version.inputDataSets.length === 0 ? -1 : index) + 1}/{version.inputDataSets.length}
+            <strong>Form: </strong>
+            {(version.forms.length === 0 ? -1 : index) + 1}/{version.forms.length}
           </span>
-          <button className="btn btn-primary" disabled={typeof version.inputDataSets[index + 1] === 'undefined'} onClick={() => setIndex(index + 1)}>
+          <button className="btn btn-primary" disabled={typeof version.forms[index + 1] === 'undefined'} onClick={() => setIndex(index + 1)}>
             Next
             <span className="fas fa-chevron-right ml-2"></span>
           </button>
@@ -105,7 +103,7 @@ const Show: React.FunctionComponent = () => {
 
           <tbody>
 
-            {dataset && dataset.answers.map((answer: Answer) => (
+            {form && form.answers.map((answer: Answer) => (
               <tr key={answer.id}>
                 <td>{answer.question.name}</td>
                 <td>

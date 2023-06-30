@@ -3,7 +3,7 @@ import {
   StoredAnswer,
   StoredFormTemplate,
   StoredFormTemplateVersion,
-  StoredInputDataset,
+  StoredForms,
   StoredQuestion,
   StoredSection,
   StoredValueList,
@@ -28,7 +28,7 @@ export interface DataStore {
   sections: StoredSection[],
   questions: StoredQuestion[],
   answers: StoredAnswer[],
-  inputDataSets: StoredInputDataset[],
+  forms: StoredForms[],
   valueLists: StoredValueList[],
   valueListItems: StoredValueListItem[],
 }
@@ -39,7 +39,7 @@ export const initialState: DataStore = {
   sections: [],
   questions: [],
   answers: [],
-  inputDataSets: [],
+  forms: [],
   valueLists: [],
   valueListItems: [],
 };

@@ -218,7 +218,7 @@ const Builder: React.FunctionComponent = () => {
             <TextField label="Current version" value={'v' + version.formTemplate.versions.length.toString()} onChange={() => { }} readOnly />
           </div>
           <div className="form-group col-md-2">
-            <TextField label="Total number of fillouts across all versions" value={version.formTemplate.versions.flatMap(version => version.inputDataSets).length.toString()} onChange={() => { }} readOnly />
+            <TextField label="Total number of fillouts across all versions" value={version.formTemplate.versions.flatMap(version => version.forms).length.toString()} onChange={() => { }} readOnly />
           </div>
           <div className="form-group col-md-2">
             <TextField label="Form version status" value={version.versionStatusType[0].toUpperCase() + version.versionStatusType.substring(1).toLowerCase()} onChange={() => { }} readOnly />

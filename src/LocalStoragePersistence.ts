@@ -2,7 +2,7 @@ import DataPersistence, {
   StoredAnswer,
   StoredFormTemplate,
   StoredFormTemplateVersion,
-  StoredInputDataset,
+  StoredForms,
   StoredQuestion,
   StoredSection,
   StoredValueList,
@@ -18,7 +18,7 @@ export default class LocalStoragePersistence implements DataPersistence {
     sections: "forms:sections",
     questions: "forms:questions",
     answers: "forms:answers",
-    inputDataSets: "forms:inputDataSets",
+    forms: "forms:forms",
     valueLists: "forms:valueLists",
     valueListItems: "forms:valueListItems",
   };
@@ -202,27 +202,27 @@ export default class LocalStoragePersistence implements DataPersistence {
 
   // Input data sets
 
-  getAllInputDataSets() {
+  getAllForms() {
     return toPromise(
-      this.get<StoredInputDataset[]>(this.KEYS.inputDataSets, [])
+      this.get<StoredForms[]>(this.KEYS.forms, [])
     );
   }
 
-  storeInputDataSet(set: Without<StoredInputDataset, "id">) {
+  storeForm(set: Without<StoredForms, "id">) {
     return toPromise(
-      this.insert(this.KEYS.inputDataSets, { ...set, id: id() })
+      this.insert(this.KEYS.forms, { ...set, id: id() })
     );
   }
 
-  updateInputDataSet(set: StoredInputDataset) {
+  updateForm(set: StoredForms) {
     return toPromise(
-      this.update(this.KEYS.inputDataSets, s => s.id === set.id, set)
+      this.update(this.KEYS.forms, s => s.id === set.id, set)
     );
   }
 
-  deleteInputDataSet(set: ObjectWithID) {
+  deleteForm(set: ObjectWithID) {
     return toPromise(
-      this.destroy(this.KEYS.inputDataSets, (s: ObjectWithID) => s.id === set.id)
+      this.destroy(this.KEYS.forms, (s: ObjectWithID) => s.id === set.id)
     );
   }
 

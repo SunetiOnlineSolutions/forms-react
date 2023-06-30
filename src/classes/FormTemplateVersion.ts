@@ -1,13 +1,13 @@
-import { StoredDataInputScreenVersion } from "../DataPersistence";
+import { StoredFormTemplateVersion } from "../DataPersistence";
 import { VersionStatusType, Identifier } from "../types";
-import DataInputScreen from "./DataInputScreen";
+import FormTemplate from "./FormTemplate";
 import InputDataSet from "./InputDataSet";
 import Section from "./Section";
 
-export default class DataInputScreenVersion {
+export default class FormTemplateVersion {
   constructor(
     public id: Identifier,
-    public dataInputScreen: DataInputScreen,
+    public formTemplate: FormTemplate,
     public inputDataSets: InputDataSet[],
     public sections: Section[],
     public version: number,
@@ -15,10 +15,10 @@ export default class DataInputScreenVersion {
   ) {
   }
 
-  toStored(): StoredDataInputScreenVersion {
+  toStored(): StoredFormTemplateVersion {
     return {
       id: this.id,
-      data_input_screen_id: this.dataInputScreen.id,
+      form_template_id: this.formTemplate.id,
       version: this.version,
       version_status_type: this.versionStatusType,
     };

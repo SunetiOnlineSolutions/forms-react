@@ -33,11 +33,11 @@ const Builder: React.FunctionComponent = () => {
 
   const version = useCurrentVersion();
 
-  const [name, setName] = React.useState(version?.dataInputScreen?.name);
+  const [name, setName] = React.useState(version?.formTemplate?.name);
 
   // We have to set the name here again, because the name isn't present upon first loading the component.
   // The component isn't reloaded when the name changes, so we have to set it again.
-  React.useEffect(() => setName(version?.dataInputScreen?.name), [version]);
+  React.useEffect(() => setName(version?.formTemplate?.name), [version]);
 
   // We load the in-memory data store with the questions from the database.
   React.useEffect(() => {
@@ -56,7 +56,7 @@ const Builder: React.FunctionComponent = () => {
 
     console.log('We should not edit this version but create a new one and edit thate one.');
 
-    actions.versions.store({ version_status_type: 'DRAFT', data_input_screen_id: version.dataInputScreen.id });
+    actions.versions.store({ version_status_type: 'DRAFT', form_template_id: version.formTemplate.id });
   }, [version?.versionStatusType]);
 
   const onDragEnd = (dropResult: DropResultWithType) => {
@@ -191,7 +191,7 @@ const Builder: React.FunctionComponent = () => {
     if (!version) {
       return;
     }
-    await actions.screens.update({ id: version?.dataInputScreen?.id, name: name as string });
+    await actions.templates.update({ id: version?.formTemplate?.id, name: name as string });
 
     if (sections.length > 0) {
       await actions.sections.bulkUpdate(sections);
@@ -202,7 +202,7 @@ const Builder: React.FunctionComponent = () => {
     }
 
    // document.location.href = '/web-solution?type=fillout';
-  }, [version, actions.screens, actions.sections, actions.questions, name, sections, questions]);
+  }, [version, actions.templates, actions.sections, actions.questions, name, sections, questions]);
 
   const back = React.useCallback(() => window.history.back(), []);
 
@@ -215,10 +215,10 @@ const Builder: React.FunctionComponent = () => {
             <TextField label="Name" value={name} onChange={newVal => setName(newVal)}></TextField>
           </div>
           <div className="form-group col-md-2">
-            <TextField label="Current version" value={'v' + version.dataInputScreen.versions.length.toString()} onChange={() => { }} readOnly />
+            <TextField label="Current version" value={'v' + version.formTemplate.versions.length.toString()} onChange={() => { }} readOnly />
           </div>
           <div className="form-group col-md-2">
-            <TextField label="Total number of fillouts across all versions" value={version.dataInputScreen.versions.flatMap(version => version.inputDataSets).length.toString()} onChange={() => { }} readOnly />
+            <TextField label="Total number of fillouts across all versions" value={version.formTemplate.versions.flatMap(version => version.inputDataSets).length.toString()} onChange={() => { }} readOnly />
           </div>
           <div className="form-group col-md-2">
             <TextField label="Form version status" value={version.versionStatusType[0].toUpperCase() + version.versionStatusType.substring(1).toLowerCase()} onChange={() => { }} readOnly />

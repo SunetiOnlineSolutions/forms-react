@@ -2,24 +2,24 @@ import React from 'react';
 import { DataStore } from '../context/DataStore';
 import { Identifier } from '../types';
 import DataTable, { TableColumn} from 'react-data-table-component';
-import DataInputScreen from '../classes/DataInputScreen';
+import FormTemplate from '../classes/FormTemplate';
 
 const Index= () => {
 
   const { selectors, actions } = React.useContext(DataStore);
 
-  const columns: TableColumn<DataInputScreen>[] = [
+  const columns: TableColumn<FormTemplate>[] = [
     {
       name: "ID",
-      selector: (row: DataInputScreen) => row.id
+      selector: (row: FormTemplate) => row.id
     },
     {
       name: "Name",
-      selector: (row: DataInputScreen) => row.name
+      selector: (row: FormTemplate) => row.name
     },
     {
       name: "Versions",
-      selector: (row: DataInputScreen) => row.versions.length
+      selector: (row: FormTemplate) => row.versions.length
     },
     {
       name: "Actions",
@@ -46,7 +46,7 @@ const Index= () => {
           document.location.reload();
        },
       edit: async (screenID: Identifier) => {
-        const screen = selectors.screenByID(screenID);
+        const screen = selectors.templateByID(screenID);
         const latestVersion = screen.latestVersion();
 
         // If there is no latest version, we cannot navigate to the edit page of the form...
@@ -66,7 +66,7 @@ const Index= () => {
           // If the latest version isn't draft it cannot be edited and we have to:
           //   1. Create a new version.
           //   2. Redirect to the edit page of the newly created version.
-          await actions.versions.store({ version_status_type: 'DRAFT', data_input_screen_id: latestVersion.dataInputScreen.id });
+          await actions.versions.store({ version_status_type: 'DRAFT', form_template_id: latestVersion.formTemplate.id });
 
           const params = new URLSearchParams(window.location.search);
           params.set('type', 'builder');
@@ -97,7 +97,7 @@ const Index= () => {
     <DataTable
       title="Forms"
       columns={columns}
-      data={selectors.screens()}
+      data={selectors.templates()}
       pagination
     />
 

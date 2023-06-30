@@ -1,11 +1,11 @@
 import { Identifier } from "../types";
 import Answer from "./Answer";
-import DataInputScreenVersion from "./DataInputScreenVersion";
+import FormTemplateVersion from "./FormTemplateVersion";
 
 export default class InputDataSet {
   constructor(
     public id: Identifier,
-    public dataInputScreenVersion: DataInputScreenVersion,
+    public formTemplateVersion: FormTemplateVersion,
     public answers: Answer[],
   ) {
   }

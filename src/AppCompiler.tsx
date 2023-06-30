@@ -17,7 +17,7 @@ const AppCompiler: React.FunctionComponent = () => {
 
 
   const loadAll = () => {
-    actions.screens.load();
+    actions.templates.load();
     actions.versions.load();
     actions.sections.load();
     actions.questions.load();

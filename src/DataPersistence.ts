@@ -1,21 +1,21 @@
 import { Without } from "./helpers";
 import { AnswerType, ObjectWithID, Identifier, VersionStatusType } from "./types";
 
-export type StoredDataInputScreen = {
+export type StoredFormTemplate = {
   id: Identifier,
   name: string,
 }
 
-export type StoredDataInputScreenVersion = {
+export type StoredFormTemplateVersion = {
   id: Identifier,
-  data_input_screen_id: Identifier,
+  form_template_id: Identifier,
   version: number,
   version_status_type: VersionStatusType,
 }
 
 export type StoredSection = {
   id: Identifier,
-  data_input_screen_version_id: Identifier,
+  form_template_version_id: Identifier,
   name: string,
   sort_order: number,
 }
@@ -56,13 +56,13 @@ export type StoredQuestion = {
 export type StoredAnswer<T = unknown> = {
   id: Identifier,
   question_id: Identifier,
-  input_data_set_id: Identifier,
+  form_id: Identifier,
   value: T,
 }
 
 export type StoredInputDataset = {
   id: Identifier,
-  data_input_screen_version_id: Identifier,
+  form_template_version_id: Identifier,
 }
 
 export type StoredValueList = {
@@ -75,20 +75,20 @@ export type StoredValueListItem = {
   name: string,
 }
 
-export type StoredNewVersionResponse = StoredDataInputScreenVersion | { new_version: StoredDataInputScreenVersion, previous_version: StoredDataInputScreenVersion, sections: StoredSection[], questions: StoredQuestion[] };
+export type StoredNewVersionResponse = StoredFormTemplateVersion | { new_version: StoredFormTemplateVersion, previous_version: StoredFormTemplateVersion, sections: StoredSection[], questions: StoredQuestion[] };
 
 export default interface DataPersistence {
   purgeAllData: () => Promise<void>;
 
-  getAllDataInputScreens: () => Promise<StoredDataInputScreen[]>;
-  storeDataInputScreen: (screen: Without<StoredDataInputScreen, "id">) => Promise<StoredDataInputScreen>;
-  updateDataInputScreen: (screen: StoredDataInputScreen) => Promise<StoredDataInputScreen>;
-  deleteDataInputScreen: (screen: ObjectWithID) => Promise<void>;
+  getAllFormTemplates: () => Promise<StoredFormTemplate[]>;
+  storeFormTemplate: (screen: Without<StoredFormTemplate, "id">) => Promise<StoredFormTemplate>;
+  updateFormTemplate: (screen: StoredFormTemplate) => Promise<StoredFormTemplate>;
+  deleteFormTemplate: (screen: ObjectWithID) => Promise<void>;
 
-  getAllDataInputScreenVersions: () => Promise<StoredDataInputScreenVersion[]>;
-  storeDataInputScreenVersion: (version: Without<StoredDataInputScreenVersion, "id" | "version">) => Promise<StoredNewVersionResponse>;
-  updateDataInputScreenVersion: (version: StoredDataInputScreenVersion) => Promise<StoredDataInputScreenVersion>;
-  deleteDataInputScreenVersion: (version: ObjectWithID) => Promise<void>;
+  getAllFormTemplateVersions: () => Promise<StoredFormTemplateVersion[]>;
+  storeFormTemplateVersion: (version: Without<StoredFormTemplateVersion, "id" | "version">) => Promise<StoredNewVersionResponse>;
+  updateFormTemplateVersion: (version: StoredFormTemplateVersion) => Promise<StoredFormTemplateVersion>;
+  deleteFormTemplateVersion: (version: ObjectWithID) => Promise<void>;
 
   getAllSections: () => Promise<StoredSection[]>;
   storeSection: (section: Without<StoredSection, "id" | "sort_order">) => Promise<StoredSection>;

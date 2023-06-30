@@ -2,7 +2,7 @@ import React from 'react';
 import { DataStore } from './DataStore';
 import ValidatorFactory from '../AnswerValidators';
 import { Identifier } from '../types';
-import DataInputScreenVersion from '../classes/DataInputScreenVersion';
+import FormTemplateVersion from '../classes/FormTemplateVersion';
 
 export type UnsavedAnswer<T> = {
   questionID: Identifier;
@@ -13,7 +13,7 @@ export type UnsavedAnswersContextParams<T> = {
   unsavedAnswers: UnsavedAnswer<T>[];
   setUnsavedAnswers: (value: UnsavedAnswer<T>[]) => void;
   setUnsavedAnswer: (questionID: Identifier, answer: T) => void;
-  saveAnswers: (version: DataInputScreenVersion | undefined, unsavedAnswers: UnsavedAnswer<unknown>[]) => Promise<true | 'no_version' | 'false_callback' | 'invalid_answer'>;
+  saveAnswers: (version: FormTemplateVersion | undefined, unsavedAnswers: UnsavedAnswer<unknown>[]) => Promise<true | 'no_version' | 'false_callback' | 'invalid_answer'>;
   registerBeforeSaveCallback: (callback: () => boolean | void) => () => void;
 };
 
@@ -42,7 +42,7 @@ export const UnsavedAnswersProvider = ({ children }: any) => {
   };
 
   // TODO: Either move this function outside the component body or make use of useCallback.
-  const saveAnswers = async (version: DataInputScreenVersion | undefined, unsavedAnswers: UnsavedAnswer<unknown>[]): Promise<true | 'no_version' | 'false_callback' | 'invalid_answer'> => {
+  const saveAnswers = async (version: FormTemplateVersion | undefined, unsavedAnswers: UnsavedAnswer<unknown>[]): Promise<true | 'no_version' | 'false_callback' | 'invalid_answer'> => {
     if (!version) {
       console.warn('No version found. Cannot save answers.', version);
       return 'no_version';
@@ -67,9 +67,9 @@ export const UnsavedAnswersProvider = ({ children }: any) => {
       return 'invalid_answer';
     }
 
-  const dataset = await actions.inputDataSets.store({ data_input_screen_version_id: version.id });
+  const dataset = await actions.inputDataSets.store({ form_template_version_id: version.id });
    await actions.answers.bulkStore(unsavedAnswers.map(unsaved => ({
-  input_data_set_id: dataset.id,
+  form_id: dataset.id,
      question_id: unsaved.questionID,
       value: unsaved.value,
  })));

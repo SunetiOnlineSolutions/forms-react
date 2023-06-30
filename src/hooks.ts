@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import ValidatorFactory from './AnswerValidators';
-import DataInputScreen from './classes/DataInputScreen';
-import DataInputScreenVersion from './classes/DataInputScreenVersion';
+import FormTemplate from './classes/FormTemplate';
+import FormTemplateVersion from './classes/FormTemplateVersion';
 import CurrentQuestionContext, { CurrentQuestionContextType } from './context/CurrentQuestionContext';
 import CurrentSectionContext, { CurrentSectionContextType } from './context/CurrentSectionContext';
 import { DataStore } from './context/DataStore';
@@ -110,7 +110,7 @@ export const useFriendlyAnswerType = (type: AnswerType): string => {
 /**
  * Retrieve the current data input screen, based on the URL query params.
  */
-export const useCurrentScreen = (): DataInputScreen | undefined => {
+export const useCurrentScreen = (): FormTemplate | undefined => {
 
   const { selectors } = React.useContext(DataStore);
 
@@ -122,7 +122,7 @@ export const useCurrentScreen = (): DataInputScreen | undefined => {
     const screenID = parseInt(new URLSearchParams(window.location.search).get('screenID') as string, 10);
 
     try {
-      return selectors.screenByID(screenID);
+      return selectors.templateByID(screenID);
     } catch (error) {
       if (error instanceof EntityNotFoundError) {
         return;
@@ -136,7 +136,7 @@ export const useCurrentScreen = (): DataInputScreen | undefined => {
 /**
  * Retrieve the latest screen version, based on the current data input screen as retrieved from the URL query params.
  */
-export const useCurrentVersion = (): DataInputScreenVersion | undefined => {
+export const useCurrentVersion = (): FormTemplateVersion | undefined => {
   return useCurrentScreen()?.latestVersion();
 };
 

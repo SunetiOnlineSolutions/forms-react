@@ -1,7 +1,7 @@
 import { DataStore } from ".";
 import Answer from "../../classes/Answer";
-import DataInputScreen from "../../classes/DataInputScreen";
-import DataInputScreenVersion from "../../classes/DataInputScreenVersion";
+import FormTemplate from "../../classes/FormTemplate";
+import FormTemplateVersion from "../../classes/FormTemplateVersion";
 import InputDataSet from "../../classes/InputDataSet";
 import Question from "../../classes/Question";
 import Section from "../../classes/Section";
@@ -14,31 +14,31 @@ import { Identifier } from "../../types";
  * @todo Lazily construct objects when they're needed, instead of building them all upfront.
  */
 export default class Selectors {
-  protected tree: DataInputScreen[] = [];
+  protected tree: FormTemplate[] = [];
 
   constructor(protected state: DataStore) {
     this.buildTree();
   }
 
-  public screens() {
+  public templates() {
     return this.tree;
   }
 
-  public screenByID(id: Identifier): DataInputScreen {
-    const screen = this.tree.find(screen => screen.id === id);
+  public templateByID(id: Identifier): FormTemplate {
+    const template = this.tree.find(template => template.id === id);
 
-    if (!screen) {
+    if (!template) {
       throw new EntityNotFoundError();
     }
 
-    return screen;
+    return template;
   }
 
   public versions() {
     return this.tree.flatMap(s => s.versions);
   }
 
-  public versionByID(id: Identifier): DataInputScreenVersion {
+  public versionByID(id: Identifier): FormTemplateVersion {
     const version = this.versions()
       .find(version => version.id === id);
 
@@ -100,12 +100,12 @@ export default class Selectors {
   }
 
   protected buildTree(): void {
-    const screens = this.buildScreens();
+    const templates = this.buildTemplates();
 
-    screens.forEach(screen => {
-      screen.versions = this.buildVersions(screen);
+    templates.forEach(template => {
+      template.versions = this.buildVersions(template);
 
-      screen.versions.forEach(version => {
+      template.versions.forEach(version => {
         version.inputDataSets = this.buildInputDataSets(version);
         version.sections = this.buildSections(version);
 
@@ -116,7 +116,7 @@ export default class Selectors {
             question.answers = this.state.answers
               .filter(a => a.question_id === question.id)
               .map(stored => {
-                const inputDataSet = version.inputDataSets.find(i => i.id === stored.input_data_set_id);
+                const inputDataSet = version.inputDataSets.find(i => i.id === stored.form_id);
 
                 if (!inputDataSet) {
                   throw new EntityNotFoundError();
@@ -133,29 +133,29 @@ export default class Selectors {
       });
     });
 
-    this.tree = screens;
+    this.tree = templates;
   }
 
-  protected buildScreens(): DataInputScreen[] {
-    return this.state.screens
-      .map(stored => new DataInputScreen(stored.id, stored.name, []));
+  protected buildTemplates(): FormTemplate[] {
+    return this.state.templates
+      .map(stored => new FormTemplate(stored.id, stored.name, []));
   }
 
-  protected buildVersions(screen: DataInputScreen): DataInputScreenVersion[] {
+  protected buildVersions(template: FormTemplate): FormTemplateVersion[] {
     return this.state.versions
-      .filter(v => v.data_input_screen_id === screen.id)
-      .map(stored => new DataInputScreenVersion(stored.id, screen, [], [], stored.version, stored.version_status_type));
+      .filter(v => v.form_template_id === template.id)
+      .map(stored => new FormTemplateVersion(stored.id, template, [], [], stored.version, stored.version_status_type));
   }
 
-  protected buildSections(version: DataInputScreenVersion): Section[] {
+  protected buildSections(version: FormTemplateVersion): Section[] {
     return this.state.sections
-      .filter(s => s.data_input_screen_version_id === version.id)
+      .filter(s => s.form_template_version_id === version.id)
       .map(stored => new Section(stored.id, stored.name, version, stored.sort_order, []));
   }
 
-  protected buildInputDataSets(version: DataInputScreenVersion): InputDataSet[] {
+  protected buildInputDataSets(version: FormTemplateVersion): InputDataSet[] {
     return this.state.inputDataSets
-      .filter(s => s.data_input_screen_version_id === version.id)
+      .filter(s => s.form_template_version_id === version.id)
       .map(stored => new InputDataSet(stored.id, version, []));
   }
 

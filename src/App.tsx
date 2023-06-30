@@ -17,7 +17,7 @@ const App: React.FunctionComponent = () => {
   const { actions } = React.useContext(DataStore);
 
   const loadAll = () => {
-    actions.screens.load();
+    actions.templates.load();
     actions.versions.load();
     actions.sections.load();
     actions.questions.load();

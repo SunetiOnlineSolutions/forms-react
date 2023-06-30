@@ -1,7 +1,7 @@
 import DataPersistence, {
   StoredAnswer,
-  StoredDataInputScreen,
-  StoredDataInputScreenVersion,
+  StoredFormTemplate,
+  StoredFormTemplateVersion,
   StoredInputDataset,
   StoredQuestion,
   StoredSection,
@@ -20,42 +20,42 @@ export const createActions = (dispatch: (param: Action) => void) => ({
 
     dispatch({ type: "RESET" });
   },
-  screens: {
+  templates: {
     async load() {
-      const screens = await storage.getAllDataInputScreens();
+      const templates = await storage.getAllFormTemplates();
 
-      dispatch({ type: "LOAD_SCREENS", payload: screens });
+      dispatch({ type: "LOAD_TEMPLATES", payload: templates });
     },
-    async store(screen: Without<StoredDataInputScreen, "id">) {
-      const stored = await storage.storeDataInputScreen({ name: screen.name });
+    async store(template: Without<StoredFormTemplate, "id">) {
+      const stored = await storage.storeFormTemplate({ name: template.name });
 
-      dispatch({ type: "STORE_SCREEN", payload: stored });
+      dispatch({ type: "STORE_TEMPLATE", payload: stored });
 
       return stored;
     },
-    async update(screen: StoredDataInputScreen) {
-      const updated = await storage.updateDataInputScreen({ id: screen.id, name: screen.name });
+    async update(template: StoredFormTemplate) {
+      const updated = await storage.updateFormTemplate({ id: template.id, name: template.name });
 
-      dispatch({ type: "UPDATE_SCREEN", payload: updated });
+      dispatch({ type: "UPDATE_TEMPLATE", payload: updated });
 
 
 
     },
-    async delete(screen: ObjectWithID) {
-      await storage.deleteDataInputScreen(screen);
+    async delete(template: ObjectWithID) {
+      await storage.deleteFormTemplate(template);
 
-      dispatch({ type: "DELETE_SCREEN", payload: screen });
+      dispatch({ type: "DELETE_TEMPLATE", payload: template });
     },
   },
   versions: {
     async load() {
-      const versions = await storage.getAllDataInputScreenVersions();
+      const versions = await storage.getAllFormTemplateVersions();
 
       dispatch({ type: "LOAD_VERSIONS", payload: versions });
     },
-    async store(version: Without<StoredDataInputScreenVersion, "id" | "version">) {
-      const stored = await storage.storeDataInputScreenVersion({
-        data_input_screen_id: version.data_input_screen_id,
+    async store(version: Without<StoredFormTemplateVersion, "id" | "version">) {
+      const stored = await storage.storeFormTemplateVersion({
+        form_template_id: version.form_template_id,
         version_status_type: version.version_status_type,
       });
 
@@ -70,13 +70,13 @@ export const createActions = (dispatch: (param: Action) => void) => ({
 
       return stored;
     },
-    async update(version: StoredDataInputScreenVersion) {
-      const updated = await storage.updateDataInputScreenVersion(version);
+    async update(version: StoredFormTemplateVersion) {
+      const updated = await storage.updateFormTemplateVersion(version);
 
       dispatch({ type: "UPDATE_VERSION", payload: updated });
     },
     async delete(version: ObjectWithID) {
-      await storage.deleteDataInputScreenVersion(version);
+      await storage.deleteFormTemplateVersion(version);
 
       dispatch({ type: "DELETE_VERSION", payload: version });
     },
@@ -89,7 +89,7 @@ export const createActions = (dispatch: (param: Action) => void) => ({
     },
     async store(section: Without<StoredSection, "id" | "sort_order">) {
       const stored = await storage.storeSection({
-        data_input_screen_version_id: section.data_input_screen_version_id,
+        form_template_version_id: section.form_template_version_id,
         name: section.name,
       });
 
@@ -175,7 +175,7 @@ export const createActions = (dispatch: (param: Action) => void) => ({
     async store(answer: Without<StoredAnswer, "id">) {
       const stored = await storage.storeAnswer({
         question_id: answer.question_id,
-        input_data_set_id: answer.input_data_set_id,
+        form_id: answer.form_id,
         value: answer.value,
       });
 
@@ -195,7 +195,7 @@ export const createActions = (dispatch: (param: Action) => void) => ({
       const updated = await storage.updateAnswer({
         id: answer.id,
         question_id: answer.question_id,
-        input_data_set_id: answer.input_data_set_id,
+        form_id: answer.form_id,
         value: answer.value,
       });
 
@@ -291,14 +291,14 @@ export const createActions = (dispatch: (param: Action) => void) => ({
 export type Action =
   | { type: "RESET" }
 
-  | { type: "LOAD_SCREENS", payload: StoredDataInputScreen[] }
-  | { type: "STORE_SCREEN", payload: StoredDataInputScreen }
-  | { type: "UPDATE_SCREEN", payload: StoredDataInputScreen }
-  | { type: "DELETE_SCREEN", payload: ObjectWithID }
+  | { type: "LOAD_TEMPLATES", payload: StoredFormTemplate[] }
+  | { type: "STORE_TEMPLATE", payload: StoredFormTemplate }
+  | { type: "UPDATE_TEMPLATE", payload: StoredFormTemplate }
+  | { type: "DELETE_TEMPLATE", payload: ObjectWithID }
 
-  | { type: "LOAD_VERSIONS", payload: StoredDataInputScreenVersion[] }
-  | { type: "STORE_VERSION", payload: StoredDataInputScreenVersion }
-  | { type: "UPDATE_VERSION", payload: StoredDataInputScreenVersion }
+  | { type: "LOAD_VERSIONS", payload: StoredFormTemplateVersion[] }
+  | { type: "STORE_VERSION", payload: StoredFormTemplateVersion }
+  | { type: "UPDATE_VERSION", payload: StoredFormTemplateVersion }
   | { type: "DELETE_VERSION", payload: ObjectWithID }
 
   | { type: "LOAD_SECTIONS", payload: StoredSection[] }

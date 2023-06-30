@@ -1,6 +1,6 @@
 import { StoredSection } from "../DataPersistence";
 import { Identifier } from "../types";
-import DataInputScreenVersion from "./DataInputScreenVersion";
+import FormTemplateVersion from "./FormTemplateVersion";
 import Question from "./Question";
 
 
@@ -8,7 +8,7 @@ export default class Section {
   constructor(
     public id: Identifier,
     public name: string,
-    public version: DataInputScreenVersion,
+    public version: FormTemplateVersion,
     public sortOrder: number,
     public questions: Question[],
   ) {
@@ -18,7 +18,7 @@ export default class Section {
     return {
       id: this.id,
       name: this.name,
-      data_input_screen_version_id: this.version.id,
+      form_template_version_id: this.version.id,
       sort_order: this.sortOrder,
     };
   }

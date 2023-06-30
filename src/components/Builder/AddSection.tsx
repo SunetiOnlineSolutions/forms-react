@@ -20,7 +20,7 @@ const AddSection: React.FunctionComponent<Props> = ({ }) => {
 
     addSection({
       id: ('temp__' + Math.random()).replace('.', ''),
-      data_input_screen_version_id: version.id,
+      form_template_version_id: version.id,
       name: 'Section ' + (sections.length + 1),
       sort_order: Math.max(...sections.map(s => s.sort_order), 0) + 1,
     });

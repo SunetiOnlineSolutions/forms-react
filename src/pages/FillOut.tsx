@@ -31,7 +31,7 @@ const FillOut: React.FunctionComponent = () => {
   return (
     <div className="forms-fillout mb-3">
       <header className="forms-fillout--header mt-2 mb-4 mx-4 text-black">
-        <span className="forms-fillout--header--main">{version.dataInputScreen.name}</span>
+        <span className="forms-fillout--header--main">{version.formTemplate.name}</span>
         <br />
         <span className="forms-fillout--header--sub">
           <strong>Author:</strong> Niek van den Bos <strong>| Version:</strong> {version.version}</span>

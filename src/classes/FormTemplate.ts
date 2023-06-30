@@ -1,15 +1,15 @@
 import { Identifier } from "../types";
-import DataInputScreenVersion from "./DataInputScreenVersion";
+import FormTemplateVersion from "./FormTemplateVersion";
 
-export default class DataInputScreen {
+export default class FormTemplate {
   constructor(
     public id: Identifier,
     public name: string,
-    public versions: DataInputScreenVersion[],
+    public versions: FormTemplateVersion[],
   ) {
   }
 
-  latestVersion(): DataInputScreenVersion | undefined {
+  latestVersion(): FormTemplateVersion | undefined {
     if (this.versions.length === 0) {
       return;
     }

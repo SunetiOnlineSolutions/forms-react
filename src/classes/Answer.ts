@@ -16,7 +16,7 @@ export default class Answer {
     return {
       id: this.id,
       question_id: this.question.id,
-      input_data_set_id: this.inputDataSet.id,
+      form_id: this.inputDataSet.id,
       value: this.value,
     };
   }

@@ -1,7 +1,7 @@
 import DataPersistence, {
   StoredAnswer,
-  StoredDataInputScreen,
-  StoredDataInputScreenVersion,
+  StoredFormTemplate,
+  StoredFormTemplateVersion,
   StoredInputDataset,
   StoredQuestion,
   StoredSection,
@@ -13,7 +13,7 @@ import { ObjectWithID } from "./types";
 
 export default class LocalStoragePersistence implements DataPersistence {
   protected readonly KEYS = {
-    screens: "forms:dataInputScreens",
+    templates: "forms:formTemplates",
     versions: "forms:dataInputScreenVersions",
     sections: "forms:sections",
     questions: "forms:questions",
@@ -31,54 +31,54 @@ export default class LocalStoragePersistence implements DataPersistence {
   }
 
 
-  // Data input screens
+  // templates
 
-  getAllDataInputScreens() {
+  getAllFormTemplates() {
     return toPromise(
-      this.get<StoredDataInputScreen[]>(this.KEYS.screens, [])
+      this.get<StoredFormTemplate[]>(this.KEYS.templates, [])
     );
   }
 
-  storeDataInputScreen(screen: Without<StoredDataInputScreen, "id">) {
+  storeFormTemplate(template: Without<StoredFormTemplate, "id">) {
     return toPromise(
-      this.insert(this.KEYS.screens, { ...screen, id: id() })
+      this.insert(this.KEYS.templates, { ...template, id: id() })
     );
   }
 
-  updateDataInputScreen(screen: StoredDataInputScreen) {
+  updateFormTemplate(template: StoredFormTemplate) {
     return toPromise(
-      this.update(this.KEYS.screens, s => s.id === screen.id, screen)
+      this.update(this.KEYS.templates, s => s.id === template.id, template)
     );
   }
 
-  deleteDataInputScreen(screen: ObjectWithID) {
+  deleteFormTemplate(template: ObjectWithID) {
     return toPromise(
-      this.destroy(this.KEYS.screens, (s: ObjectWithID) => s.id === screen.id)
+      this.destroy(this.KEYS.templates, (s: ObjectWithID) => s.id === template.id)
     );
   }
 
 
-  // Data input screen versions
+  // Template Versions
 
-  getAllDataInputScreenVersions() {
+  getAllFormTemplateVersions() {
     return toPromise(
-      this.get<StoredDataInputScreenVersion[]>(this.KEYS.versions, [])
+      this.get<StoredFormTemplateVersion[]>(this.KEYS.versions, [])
     );
   }
 
-  async storeDataInputScreenVersion(version: Without<StoredDataInputScreenVersion, "id" | "version">) {
+  async storeFormTemplateVersion(version: Without<StoredFormTemplateVersion, "id" | "version">) {
     return toPromise(
-      this.insert(this.KEYS.versions, { ...version, id: id(), version: (await this.getAllDataInputScreenVersions()).length })
+      this.insert(this.KEYS.versions, { ...version, id: id(), version: (await this.getAllFormTemplateVersions()).length })
     );
   }
 
-  updateDataInputScreenVersion(version: StoredDataInputScreenVersion) {
+  updateFormTemplateVersion(version: StoredFormTemplateVersion) {
     return toPromise(
       this.update(this.KEYS.versions, v => v.id === version.id, version)
     );
   }
 
-  deleteDataInputScreenVersion(version: ObjectWithID) {
+  deleteFormTemplateVersion(version: ObjectWithID) {
     return toPromise(
       this.destroy(this.KEYS.versions, (v: ObjectWithID) => v.id === version.id)
     );

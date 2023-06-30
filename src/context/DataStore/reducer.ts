@@ -2,8 +2,8 @@
 import { DataStore, initialState } from ".";
 import {
   StoredAnswer,
-  StoredDataInputScreen,
-  StoredDataInputScreenVersion,
+  StoredFormTemplate,
+  StoredFormTemplateVersion,
   StoredInputDataset,
   StoredQuestion,
   StoredSection,
@@ -28,24 +28,24 @@ const reducer = (state: DataStore, action: Action): DataStore => {
       return { ...initialState };
 
 
-    // Data input screens
-    case "LOAD_SCREENS":
-      return { ...state, screens: [...action.payload] };
+    // Data input templates
+    case "LOAD_TEMPLATES":
+      return { ...state, templates: [...action.payload] };
 
-    case "STORE_SCREEN":
-      return { ...state, screens: [...state.screens, action.payload] };
+    case "STORE_TEMPLATE":
+      return { ...state, templates: [...state.templates, action.payload] };
 
-    case "UPDATE_SCREEN":
+    case "UPDATE_TEMPLATE":
       return {
-        ...state, screens: updateElem(
-          state.screens,
-          (screen: StoredDataInputScreen) => screen.id === action.payload.id,
+        ...state, templates: updateElem(
+          state.templates,
+          (template: StoredFormTemplate) => template.id === action.payload.id,
           action.payload
         )
       }
 
-    case "DELETE_SCREEN":
-      return { ...state, screens: state.screens.filter(screen => screen.id !== action.payload.id) };
+    case "DELETE_TEMPLATE":
+      return { ...state, templates: state.templates.filter(template => template.id !== action.payload.id) };
 
 
     // Data input screen versions
@@ -59,7 +59,7 @@ const reducer = (state: DataStore, action: Action): DataStore => {
       return {
         ...state, versions: updateElem(
           state.versions,
-          (version: StoredDataInputScreenVersion) => version.id === action.payload.id,
+          (version: StoredFormTemplateVersion) => version.id === action.payload.id,
           action.payload
         )
       }

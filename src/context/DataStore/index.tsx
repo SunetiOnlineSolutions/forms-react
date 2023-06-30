@@ -1,8 +1,8 @@
 import React from "react";
 import {
   StoredAnswer,
-  StoredDataInputScreen,
-  StoredDataInputScreenVersion,
+  StoredFormTemplate,
+  StoredFormTemplateVersion,
   StoredInputDataset,
   StoredQuestion,
   StoredSection,
@@ -23,8 +23,8 @@ export type DataStoreParams = {
 export const DataStore = React.createContext({}) as any as React.Context<DataStoreParams>;
 
 export interface DataStore {
-  screens: StoredDataInputScreen[],
-  versions: StoredDataInputScreenVersion[],
+  templates: StoredFormTemplate[],
+  versions: StoredFormTemplateVersion[],
   sections: StoredSection[],
   questions: StoredQuestion[],
   answers: StoredAnswer[],
@@ -34,7 +34,7 @@ export interface DataStore {
 }
 
 export const initialState: DataStore = {
-  screens: [],
+  templates: [],
   versions: [],
   sections: [],
   questions: [],

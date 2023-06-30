@@ -27,7 +27,7 @@ const Show: React.FunctionComponent = () => {
       return [['Question', 'Answer']];
     }
 
-    const question = dataset.dataInputScreenVersion.sections.flatMap(section => section.questions)[0];
+    const question = dataset.formTemplateVersion.sections.flatMap(section => section.questions)[0];
     const options = question?.options.multipleChoice?.customValues ?? [];
 
     return [
@@ -48,10 +48,10 @@ const Show: React.FunctionComponent = () => {
       <Tab label="Details">
         <div className="row mt-3">
           <div className="form-group col-md-3">
-            <TextField label="Name" value={version.dataInputScreen.name} onChange={() => { }} readOnly />
+            <TextField label="Name" value={version.formTemplate.name} onChange={() => { }} readOnly />
           </div>
           <div className="form-group col-md-2">
-            <TextField label="Number of versions" value={version.dataInputScreen.versions.length.toString()} onChange={() => { }} readOnly />
+            <TextField label="Number of versions" value={version.formTemplate.versions.length.toString()} onChange={() => { }} readOnly />
           </div>
           <div className="form-group col-md-2">
             <TextField label="Number of fillouts" value={version.inputDataSets.length.toString()} onChange={() => { }} readOnly />

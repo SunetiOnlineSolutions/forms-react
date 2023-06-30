@@ -1,7 +1,7 @@
 import DataPersistence, {
   StoredAnswer,
-  StoredDataInputScreen,
-  StoredDataInputScreenVersion,
+  StoredFormTemplate,
+  StoredFormTemplateVersion,
   StoredInputDataset,
   StoredQuestion,
   StoredSection,
@@ -18,36 +18,36 @@ export default class APIPersistence implements DataPersistence {
     });
   }
 
-  getAllDataInputScreens() {
-    return this.get("/api/forms/data-input-screens");
+  getAllFormTemplates() {
+    return this.get("/api/forms/form-template");
   }
 
-  storeDataInputScreen(screen: Without<StoredDataInputScreen, "id">) {
-    return this.post("/api/forms/data-input-screens", screen);
+  storeFormTemplate(template: Without<StoredFormTemplate, "id">) {
+    return this.post("/api/forms/form-template", template);
   }
 
-  updateDataInputScreen(screen: StoredDataInputScreen) {
-    return this.patch(`/api/forms/data-input-screens/${screen.id}`, screen);
+  updateFormTemplate(template: StoredFormTemplate) {
+    return this.patch(`/api/forms/form-template/${template.id}`, template);
   }
 
-  deleteDataInputScreen(screen: ObjectWithID) {
-    return this.delete(`/api/forms/data-input-screens/${screen.id}`);
+  deleteFormTemplate(template: ObjectWithID) {
+    return this.delete(`/api/forms/form-template/${template.id}`);
   }
 
-  getAllDataInputScreenVersions() {
-    return this.get("/api/forms/data-input-screen-versions");
+  getAllFormTemplateVersions() {
+    return this.get("/api/forms/form-template-versions");
   }
 
-  storeDataInputScreenVersion(version: Without<StoredDataInputScreenVersion, "id" | "version">) {
-    return this.post("/api/forms/data-input-screen-versions", version);
+  storeFormTemplateVersion(version: Without<StoredFormTemplateVersion, "id" | "version">) {
+    return this.post("/api/forms/form-template-versions", version);
   }
 
-  updateDataInputScreenVersion(version: StoredDataInputScreenVersion) {
-    return this.patch(`/api/forms/data-input-screen-versions/${version.id}`, version);
+  updateFormTemplateVersion(version: StoredFormTemplateVersion) {
+    return this.patch(`/api/forms/form-template-versions/${version.id}`, version);
   }
 
-  deleteDataInputScreenVersion(version: ObjectWithID) {
-    return this.delete(`/api/forms/data-input-screen-versions/${version.id}`);
+  deleteFormTemplateVersion(version: ObjectWithID) {
+    return this.delete(`/api/forms/form-template-versions/${version.id}`);
   }
 
   getAllSections() {

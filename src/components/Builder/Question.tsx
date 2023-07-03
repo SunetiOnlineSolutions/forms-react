@@ -21,29 +21,6 @@ interface QuestionProps {
 const Question: React.ForwardRefRenderFunction<null, QuestionProps> = ({ dragHandleProps, draggableProps, isDragging }, ref) => {
   const question = useQuestion();
   const [isOpen, setIsOpen] = React.useState(typeof question.id !== 'number');
-  const [isEditing, setIsEditing] = React.useState(false);
-  const [name, setName] = React.useState<string>(question.name);
-
-  const handleTitleClick = () => {
-    document.querySelectorAll('.input-editable').forEach((_question) => {
-
-      setIsEditing(false);
-
-
-    });
-    if (question.answer_type !== 'INSTRUCTION') {
-      setIsEditing(true);
-    }
-  };
-
-  const handleTitleChange = (event: React.FormEvent<HTMLInputElement>): void => {
-    question.name = event.currentTarget.value;
-    setName(event.currentTarget.value);
-  };
-
-  const handleTitleBlur = () => {
-    setIsEditing(false);
-  };
 
   const renderQuestion = () => {
     switch (question.answer_type) {
@@ -71,28 +48,7 @@ const Question: React.ForwardRefRenderFunction<null, QuestionProps> = ({ dragHan
             </div>
             <div className="cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
               <i className={"mr-1 fa fa-fw " + (isOpen ? 'fa-chevron-down' : 'fa-chevron-right')}></i>
-            </div>
-            <div>
-
-              {isEditing ? (
-                <input
-                  className="input-editable"
-                  value={name}
-                  style={{ width: '60vw', height: '35px', border: 'dotted 2px #2a72b5', borderRadius: '5px', padding: '5px 5px 5px 10px' }}
-                  contentEditable
-                  suppressContentEditableWarning
-                  onBlur={handleTitleBlur}
-                  onInput={handleTitleChange}
-                />
-              ) : (
-                <input
-                  className="editable-input"
-                  value={question.answer_type !== 'INSTRUCTION' ? question.name : 'Instruction'}
-                  style={{ width: '60vw', height: '35px', border: 'none', borderRadius: '5px', padding: '5px 5px 5px 10px' }}
-                  onClick={handleTitleClick}
-                  readOnly
-                />
-              )}
+              <span className="title no-select">{question.answer_type !== 'INSTRUCTION' ? question.name : 'Instruction'}</span>
             </div>
           </div>
           <QuestionHamburgerMenu />
@@ -114,3 +70,4 @@ const Question: React.ForwardRefRenderFunction<null, QuestionProps> = ({ dragHan
 };
 
 export default React.forwardRef<null, QuestionProps>(Question);
+

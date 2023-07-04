@@ -148,6 +148,9 @@ export const useQuestionEdit = (original: StoredQuestion): [(updated: Partial<St
   const isPersisted = React.useMemo(() => typeof original.id === 'number', [original]);
 
   const edit = (updated: Partial<StoredQuestion>) => {
+    if (original.options.multipleChoice?.customValues) {
+      original.options.multipleChoice.customValues = []
+    }
     setUpdated(
       deepMerge(original, updated)
     );

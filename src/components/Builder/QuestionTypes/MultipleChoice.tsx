@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { DataStore } from '../../../context/DataStore';
 import { useQuestion, useQuestionEdit, useToggle } from '../../../hooks';
 import Checkbox from '../../FormElements/Checkbox';

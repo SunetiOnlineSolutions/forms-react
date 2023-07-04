@@ -49,6 +49,7 @@ const Question: React.ForwardRefRenderFunction<null, QuestionProps> = ({ dragHan
             <div className="cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
               <i className={"mr-1 fa fa-fw " + (isOpen ? 'fa-chevron-down' : 'fa-chevron-right')}></i>
               <span className="title no-select">{question.answer_type !== 'INSTRUCTION' ? question.name : 'Instruction'}</span>
+              <span className='text-danger'>&nbsp;{question.options.validation?.required && '*'}</span>
             </div>
           </div>
           <QuestionHamburgerMenu />

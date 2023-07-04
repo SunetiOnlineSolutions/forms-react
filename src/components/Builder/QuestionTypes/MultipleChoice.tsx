@@ -49,7 +49,7 @@ const MultipleChoice: React.FunctionComponent = () => {
   options: {
     multipleChoice: {
       using,
-      customValues: updatedValues.map(x => x.value),
+      customValues: customValues.map(x => x.value),
       valueListID
     },
     validation: {
@@ -58,10 +58,13 @@ const MultipleChoice: React.FunctionComponent = () => {
     }
   }};
     editQuestion(editedQuestion);
-  }, [name, using, valueListID, required, allowMultipleAnswers, customValues]);
+  }, [name, using, valueListID, required, allowMultipleAnswers, updatedValues]);
+
+
 
   const onCreatableChange = (value: OnChangeValue<CreatableOption, true>) => {
     setCustomValues(value.map(({ label }) => createOption(label)));
+    setUpdatedValues(customValues)
   };
 
 

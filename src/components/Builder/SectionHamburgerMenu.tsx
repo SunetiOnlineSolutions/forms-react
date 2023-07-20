@@ -3,11 +3,14 @@ import Modal from './../Modal';
 import TextField from './../FormElements/TextField';
 import { useSection, useSectionEdit } from '../../hooks';
 import UnsavedSectionsContext from '../../context/UnsavedSectionsContext';
+import { DataStore } from '../../context/DataStore';
 
 const SectionHamburgerMenu: React.FunctionComponent = () => {
   const section = useSection();
-  const { removeSection } = React.useContext(UnsavedSectionsContext);
+  const { sections } = React.useContext(UnsavedSectionsContext);
   const [editSection] = useSectionEdit(section);
+  const { actions } = React.useContext(DataStore);
+
 
   const [isRenameModalOpen, setIsRenameModalOpen] = React.useState(false);
   const [newName, setNewName] = React.useState(section.name);
@@ -21,6 +24,13 @@ const SectionHamburgerMenu: React.FunctionComponent = () => {
     setIsRenameModalOpen(false);
   };
 
+  const duplicateSection = () => {
+    const duplicateSection = {...section, id:('temp__' + Math.random()).replace('.', '')}
+    const currentSectionIndex = sections.findIndex((sec) => sec.id === section.id)
+    sections.splice(currentSectionIndex, 0, duplicateSection)
+    editSection(section)
+  }
+
   return (<>
     <div className="dropdown section--hamburger-menu">
       <button className="btn btn-light dropdown-toggle hide-dropdown-toggle" id={"section--hamburger-menu_" + section.id} data-toggle="dropdown" aria-expanded="false">
@@ -31,11 +41,11 @@ const SectionHamburgerMenu: React.FunctionComponent = () => {
           <span className="text-primary fal fa-fw fa-lg fa-i-cursor m-r-5"></span>
           Rename section
         </button>
-        <button className="dropdown-item">
+        <button className="dropdown-item"  onClick={() => duplicateSection()}>
           <span className="text-primary fal fa-fw fa-lg fa-copy m-r-5"></span>
           Duplicate section
         </button>
-        <button className="dropdown-item" onClick={() => removeSection(section)}>
+        <button className="dropdown-item" onClick={() => actions.sections.delete(section)}>
           <span className="text-danger fal fa-fw fa-lg fa-trash-alt m-r-5"></span>
           Delete section
         </button>

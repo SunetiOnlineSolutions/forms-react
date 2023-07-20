@@ -1,10 +1,10 @@
 import React from 'react';
-import UnsavedQuestionsContext from '../../context/UnsavedQuestionsContext';
 import { useQuestion } from '../../hooks';
+import { DataStore } from '../../context/DataStore';
 
 const QuestionHamburgerMenu: React.FunctionComponent = () => {
   const question = useQuestion();
-  const { removeQuestion } = React.useContext(UnsavedQuestionsContext);
+  const { actions } = React.useContext(DataStore);
 
   return (
     <div className="dropdown question--hamburger-menu">
@@ -20,7 +20,7 @@ const QuestionHamburgerMenu: React.FunctionComponent = () => {
           Tags
         </button>
 
-        <button className="dropdown-item" onClick={() => removeQuestion(question)}>
+        <button className="dropdown-item" onClick={() => actions.questions.delete(question)}>
           <span className="fal fa-fw fa-lg fa-trash-alt text-danger m-r-5"></span>
           Delete question
         </button>

@@ -142,10 +142,11 @@ export const useCurrentVersion = (): FormTemplateVersion | undefined => {
 
 export const useQuestionEdit = (original: StoredQuestion): [(updated: Partial<StoredQuestion>) => void, boolean, boolean] => {
   const { editQuestion } = React.useContext(UnsavedQuestionsContext);
-
   const [updated, setUpdated] = React.useState<StoredQuestion>(original);
   const [hasChanges, setHasChanges] = React.useState(false);
   const isPersisted = React.useMemo(() => typeof original.id === 'number', [original]);
+  const { actions } = React.useContext(DataStore);
+
 
   const edit = (updated: Partial<StoredQuestion>) => {
     if (original.options.multipleChoice?.customValues) {
@@ -157,7 +158,14 @@ export const useQuestionEdit = (original: StoredQuestion): [(updated: Partial<St
   };
 
   React.useEffect(() => setHasChanges(areObjectsDeepEqual(original, updated)), [original, updated]);
-  React.useEffect(() => editQuestion(updated), [updated]);
+  React.useEffect(() => { 
+    editQuestion(updated);
+    if (!hasChanges) {
+      return;
+    }
+    actions.questions.update(updated);
+  },
+   [updated]);
 
   return [edit, hasChanges, isPersisted];
 };

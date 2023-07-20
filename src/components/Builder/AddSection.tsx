@@ -1,6 +1,7 @@
 import React from 'react';
 import UnsavedSectionsContext from '../../context/UnsavedSectionsContext';
 import { useCurrentVersion } from '../../hooks';
+import { DataStore } from '../../context/DataStore';
 
 interface Props {
 
@@ -9,6 +10,7 @@ interface Props {
 const AddSection: React.FunctionComponent<Props> = ({ }) => {
 
   const version = useCurrentVersion();
+  const { actions } = React.useContext(DataStore);
   const { sections, addSection } = React.useContext(UnsavedSectionsContext);
 
   const hasAtLeastOneSection = !!version && version.sections.length > 0;
@@ -17,6 +19,11 @@ const AddSection: React.FunctionComponent<Props> = ({ }) => {
     if (!version) {
       return;
     }
+
+    actions.sections.store({
+      form_template_version_id: version.id,
+      name: 'Section ' + (sections.length + 1),
+    });
 
     addSection({
       id: ('temp__' + Math.random()).replace('.', ''),

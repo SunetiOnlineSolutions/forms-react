@@ -12,6 +12,8 @@ import { StoredQuestion, StoredSection } from './DataPersistence';
 import EntityNotFoundError from './errors/EntityNotFoundError';
 import { areObjectsDeepEqual, deepMerge } from './helpers';
 import { AnswerType, Identifier } from './types';
+import { useDebouncedCallback } from 'use-debounce';
+
 
 export const useToggle = (initialValue = false): [boolean, () => void, (newVal: boolean) => void] => {
   const [value, setValue] = React.useState(initialValue);
@@ -157,15 +159,20 @@ export const useQuestionEdit = (original: StoredQuestion): [(updated: Partial<St
     );
   };
 
+  const onQuestionChange = useDebouncedCallback(
+    () => {
+      actions.questions.update(updated);
+    }, 2000,
+  );
+
   React.useEffect(() => setHasChanges(areObjectsDeepEqual(original, updated)), [original, updated]);
   React.useEffect(() => { 
     editQuestion(updated);
-    if (!hasChanges) {
+    if (!hasChanges || !updated.name) {
       return;
     }
-    actions.questions.update(updated);
-  },
-   [updated]);
+    onQuestionChange();
+  }, [updated]);
 
   return [edit, hasChanges, isPersisted];
 };

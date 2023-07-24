@@ -11,6 +11,7 @@ const List: React.FunctionComponent = () => {
 
   // Question parameters
   const [name, setName] = React.useState<string>(question.name);
+  const [description, setDescription] = React.useState(question.description);
 
   // Question validation
   const [required, toggleRequired] = useToggle(question.options?.validation?.required ?? false);
@@ -18,19 +19,30 @@ const List: React.FunctionComponent = () => {
   React.useEffect(() => {
     editQuestion({
       name,
+      description,
       options: {
         validation: {
           required,
         }
       }
     });
-  }, [name, required]);
+  }, [name, required, description]);
 
   return <>
     <div className="form-group row">
       <label className="col-sm-1 col-form-label">Question</label>
-      <div className="col-sm-7">
+      <div className="col-sm-10">
         <TextField placeholder="Question" value={name} onChange={setName} />
+      </div>
+    </div>
+    <div className="form-group row">
+      <label className="col-sm-1 col-form-label">Description</label>
+      <div className="col-sm-10">
+        <TextField 
+          placeholder="Optionally your can add a description for your question"
+          value={description} 
+          onChange={setDescription} 
+        />
       </div>
     </div>
     <div className="form-group row">

@@ -37,6 +37,7 @@ const MultipleChoice: React.FunctionComponent = () => {
 
   // Question parameters
   const [name, setName] = React.useState<string>(question.name);
+  const [description, setDescription] = React.useState(question.description);
   const [using, setUsing] = React.useState<NonNullable<QuestionOptions['multipleChoice']>['using']>(question.options?.multipleChoice?.using ?? 'VALUE_LIST');
   const [valueListID, setValueListID] = React.useState<Identifier | undefined>(question.options?.multipleChoice?.valueListID);
 
@@ -45,7 +46,7 @@ const MultipleChoice: React.FunctionComponent = () => {
   const [allowMultipleAnswers, toggleAllowMultipleAnswers] = useToggle(question.options?.validation?.allowMultipleAnswers ?? false);
 
   React.useEffect(() => {
-  const editedQuestion ={ name,
+  const editedQuestion ={ name, description,
   options: {
     multipleChoice: {
       using,
@@ -58,7 +59,7 @@ const MultipleChoice: React.FunctionComponent = () => {
     }
   }};
     editQuestion(editedQuestion);
-  }, [name, using, valueListID, required, allowMultipleAnswers, updatedValues]);
+  }, [name, description, using, valueListID, required, allowMultipleAnswers, updatedValues]);
 
 
 
@@ -86,7 +87,16 @@ const MultipleChoice: React.FunctionComponent = () => {
       </div>
     </div>
     <div className="form-group row">
-
+      <label className="col-sm-1 col-form-label">Description</label>
+      <div className="col-sm-10">
+        <TextField 
+          placeholder="Optionally your can add a description for your question"
+          value={description} 
+          onChange={setDescription} 
+        />
+      </div>
+    </div>
+    <div className="form-group row">
       <label className="col-sm-1 col-form-label">Values</label>
       <div className="col-sm-4 ">
         <div>

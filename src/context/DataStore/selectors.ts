@@ -164,7 +164,7 @@ export default class Selectors {
       .filter(q => q.section_id === section.id)
       .map(stored => {
 
-        const question = new Question(stored.id, section, stored.name, stored.answer_type, stored.options, stored.sort_order, []);
+        const question = new Question(stored.id, section, stored.description || '', stored.name, stored.answer_type, stored.options, stored.sort_order, []);
 
         return question;
       });

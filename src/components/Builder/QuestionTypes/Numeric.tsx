@@ -8,6 +8,7 @@ const Numeric: React.FunctionComponent = () => {
   const question = useQuestion();
   const { removeQuestion } = React.useContext(UnsavedQuestionsContext);
   const [editQuestion] = useQuestionEdit(question);
+  const [description, setDescription] = React.useState(question.description);
 
   // Question parameters
   const [name, setName] = React.useState(question.name);
@@ -18,19 +19,30 @@ const Numeric: React.FunctionComponent = () => {
   React.useEffect(() => {
     editQuestion({
       name,
+      description,
       options: {
         validation: {
           required,
         }
       }
     });
-  }, [name, required]);
+  }, [name, required, description]);
 
   return <>
       <div className="form-group row">
         <label className="col-sm-1 col-form-label">Question</label>
         <div className="col-sm-10">
           <TextField placeholder="Question" value={name} onChange={setName} />
+        </div>
+      </div>
+      <div className="form-group row">
+        <label className="col-sm-1 col-form-label">Description</label>
+        <div className="col-sm-10">
+          <TextField
+            placeholder="Optionally your can add a description for your question"
+            value={description} 
+            onChange={setDescription} 
+          />
         </div>
       </div>
 

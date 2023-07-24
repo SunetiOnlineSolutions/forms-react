@@ -8,6 +8,7 @@ export default class Question {
   constructor(
     public id: Identifier,
     public section: Section,
+    public description: string,
     public name: string,
     public answerType: AnswerType,
     public options: QuestionOptions,
@@ -28,6 +29,7 @@ export default class Question {
       id: this.id,
       section_id: this.section.id,
       name: this.name,
+      description: this.description,
       answer_type: this.answerType,
       options: this.options,
       sort_order: this.sortOrder,

@@ -46,6 +46,7 @@ export type QuestionOptions = {
 
 export type StoredQuestion = {
   id: Identifier,
+  description?: string,
   section_id: Identifier,
   name: string,
   answer_type: AnswerType,

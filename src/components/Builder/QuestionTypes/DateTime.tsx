@@ -12,6 +12,7 @@ const DateTime: React.FunctionComponent = () => {
 
   // Question parameters
   const [name, setName] = React.useState<string>(question.name);
+  const [description, setDescription] = React.useState(question.description);
   const [type, setType] = React.useState<NonNullable<QuestionOptions['datetime']>['type']>(question.options?.datetime?.type ?? 'DATETIME');
 
   // Question validation
@@ -22,6 +23,7 @@ const DateTime: React.FunctionComponent = () => {
   React.useEffect(() => {
     editQuestion({
       name,
+      description,
       options: {
         datetime: {
           type,
@@ -31,24 +33,36 @@ const DateTime: React.FunctionComponent = () => {
         }
       }
     });
-  }, [name, type, required]);
+  }, [name, type, required, description]);
 
   return <>
     <div className="form-group row">
-      <label className="col-sm-1 col-form-label">Question</label>
-      <div className="col-sm-7">
-        <TextField placeholder="Question" value={name} onChange={setName} />
-      </div>
+        <label className="col-sm-1 col-form-label">Question</label>
+        <div className="col-sm-10 mr-2">
+          <TextField placeholder="Question" value={name} onChange={setName} />
+        </div>
+        <label className="col-sm-1 col-form-label">Description</label>
+        <div className="col-sm-10 mr-2">
+          <TextField
+            placeholder="Optionally your can add a description for your question"
+            value={description} 
+            onChange={setDescription} 
+          />
+        </div>
         <label className="col-sm-1 col-form-label">Type</label>
-        <div className="col-sm-3 ">
+        <div className="col-sm-2">
           <div className="radio radio-css radio-inline no-select" onClick={() => setType('DATE')}>
             <input type="radio" readOnly checked={isRadioSelected('DATE')} />
             <label>Date</label>
           </div>
+        </div>
+        <div className="col-sm-2">
           <div className="radio radio-css radio-inline no-select" onClick={() => setType('TIME')}>
             <input type="radio" readOnly checked={isRadioSelected('TIME')} />
             <label>Time</label>
           </div>
+        </div>
+        <div className="col-sm-2">
           <div className="radio radio-css radio-inline no-select" onClick={() => setType('DATETIME')}>
             <input type="radio" readOnly checked={isRadioSelected('DATETIME')} />
             <label>Date + time</label>

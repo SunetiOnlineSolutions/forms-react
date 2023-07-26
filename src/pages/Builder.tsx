@@ -223,6 +223,9 @@ const Builder: React.FunctionComponent = () => {
           <div className="form-group col-md-2">
             <TextField label="Form version status" value={version.versionStatusType[0].toUpperCase() + version.versionStatusType.substring(1).toLowerCase()} onChange={() => { }} readOnly />
           </div>
+          <div className="form-group col-md-3">
+            {sections.length > 0 && <TextField label="Save status" value={'Unpublished changes saved'} readOnly  onChange={() => {}} />}
+          </div>
         </div>
 
         <DragDropContext onDragEnd={onDragEnd}>

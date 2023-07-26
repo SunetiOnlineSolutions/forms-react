@@ -32,7 +32,7 @@ const Question: React.FunctionComponent = () => {
         {question.name}
         {question.options?.validation?.required && <span className="text-danger">&nbsp;*</span>}
       </h6>
-      <h6 style={{color: '#9b9b9b', fontSize: '13px'}}>
+      <h6 style={{color: '#9b9b9b', fontSize: '14px', fontWeight: 'normal'}}>
         {question.description}
       </h6>
       {/* <sub>{question.friendlyAnswerType()}</sub> */}

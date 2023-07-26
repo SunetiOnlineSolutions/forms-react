@@ -67,14 +67,22 @@ export const UnsavedAnswersProvider = ({ children }: any) => {
       return 'invalid_answer';
     }
 
-  const form = await actions.forms.store({ form_template_version_id: version.id });
-   await actions.answers.bulkStore(unsavedAnswers.map(unsaved => ({
-  form_id: form.id,
-     question_id: unsaved.questionID,
-      value: unsaved.value,
- })));
+//   const form = await actions.forms.store({ form_template_version_id: version.id });
+//    await actions.answers.bulkStore(unsavedAnswers.map(unsaved => ({
+//   form_id: form.id,
+//      question_id: unsaved.questionID,
+//       value: unsaved.value,
+//  })));
 
-  return true;
+//   return true;
+
+    await actions.answers.bulkStore(unsavedAnswers.map(unsaved => ({
+      form_id: version.forms[0].id, // check if this is correct
+      question_id: unsaved.questionID,
+      value: unsaved.value,
+    })));
+    return true;
+
   };
 
   const registerBeforeSaveCallback = (callback: () => boolean | void) => {

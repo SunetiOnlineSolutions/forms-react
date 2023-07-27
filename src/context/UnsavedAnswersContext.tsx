@@ -13,7 +13,7 @@ export type UnsavedAnswersContextParams<T> = {
   unsavedAnswers: UnsavedAnswer<T>[];
   setUnsavedAnswers: (value: UnsavedAnswer<T>[]) => void;
   setUnsavedAnswer: (questionID: Identifier, answer: T) => void;
-  saveAnswers: (version: FormTemplateVersion | undefined, unsavedAnswers: UnsavedAnswer<unknown>[]) => Promise<true | 'no_version' | 'false_callback' | 'invalid_answer'>;
+  saveAnswers: (version: FormTemplateVersion | undefined, unsavedAnswers: UnsavedAnswer<unknown>[]) => Promise<true | 'no_version' | 'false_callback' | 'invalid_answer' >;
   registerBeforeSaveCallback: (callback: () => boolean | void) => () => void;
 };
 
@@ -42,7 +42,7 @@ export const UnsavedAnswersProvider = ({ children }: any) => {
   };
 
   // TODO: Either move this function outside the component body or make use of useCallback.
-  const saveAnswers = async (version: FormTemplateVersion | undefined, unsavedAnswers: UnsavedAnswer<unknown>[]): Promise<true | 'no_version' | 'false_callback' | 'invalid_answer'> => {
+  const saveAnswers = async (version: FormTemplateVersion | undefined, unsavedAnswers: UnsavedAnswer<unknown>[]): Promise<true | 'no_version' | 'false_callback' | 'invalid_answer' > => {
     if (!version) {
       console.warn('No version found. Cannot save answers.', version);
       return 'no_version';
@@ -67,17 +67,14 @@ export const UnsavedAnswersProvider = ({ children }: any) => {
       return 'invalid_answer';
     }
 
-//   const form = await actions.forms.store({ form_template_version_id: version.id });
-//    await actions.answers.bulkStore(unsavedAnswers.map(unsaved => ({
-//   form_id: form.id,
-//      question_id: unsaved.questionID,
-//       value: unsaved.value,
-//  })));
-
-//   return true;
+    var formID = parseInt(new URLSearchParams(window.location.search).get('formID') as string, 10);
+    if (!formID) {
+      console.warn('No form found, using temp solution.', formID);
+      formID = parseInt(version.forms[0].id.toString(), 10)
+    }
 
     await actions.answers.bulkStore(unsavedAnswers.map(unsaved => ({
-      form_id: version.forms[0].id, // check if this is correct
+      form_id: formID,
       question_id: unsaved.questionID,
       value: unsaved.value,
     })));

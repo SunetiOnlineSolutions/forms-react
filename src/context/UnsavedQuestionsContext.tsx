@@ -3,6 +3,8 @@ import { StoredQuestion } from '../DataPersistence';
 
 export type UnsavedQuestionsContextParams = {
   questions: StoredQuestion[],
+  isEditing: boolean,
+  setEditing: (_arg1:boolean) => void,
   setQuestions: (questions: StoredQuestion[]) => void,
   addQuestion: (question: StoredQuestion) => void,
   editQuestion: (question: StoredQuestion) => void,
@@ -13,6 +15,7 @@ const UnsavedQuestionsContext = React.createContext<UnsavedQuestionsContextParam
 
 export const UnsavedQuestionsProvider = ({ children }: any) => {
   const [questions, setQuestions] = React.useState<Array<StoredQuestion>>([]);
+  const [isEditing, setEditing] = React.useState(false);
 
   const addQuestion = React.useCallback((question: StoredQuestion) => setQuestions([...questions, question]), [questions]);
   const editQuestion = React.useCallback((updated: StoredQuestion) => setQuestions(questions.map(original => original.id === updated.id ? updated : original)), [questions]);
@@ -28,6 +31,8 @@ export const UnsavedQuestionsProvider = ({ children }: any) => {
     <UnsavedQuestionsContext.Provider value={{
       questions,
       setQuestions,
+      isEditing,
+      setEditing,
       addQuestion,
       editQuestion,
       removeQuestion,

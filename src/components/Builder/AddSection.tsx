@@ -1,22 +1,27 @@
 import React from 'react';
 import UnsavedSectionsContext from '../../context/UnsavedSectionsContext';
 import { useCurrentVersion } from '../../hooks';
+import { DataStore } from '../../context/DataStore';
+import UnsavedQuestionsContext from '../../context/UnsavedQuestionsContext';
 
-interface Props {
-
-}
-
-const AddSection: React.FunctionComponent<Props> = ({ }) => {
+const AddSection: React.FunctionComponent = () => {
 
   const version = useCurrentVersion();
+  const { actions } = React.useContext(DataStore);
   const { sections, addSection } = React.useContext(UnsavedSectionsContext);
+  const { setEditing } = React.useContext(UnsavedQuestionsContext);
 
   const hasAtLeastOneSection = !!version && version.sections.length > 0;
 
-  const add = () => {
+  const add = async () => {
     if (!version) {
       return;
     }
+    setEditing(true);
+    await actions.sections.store({
+      form_template_version_id: version.id,
+      name: 'Section ' + (sections.length + 1),
+    }).then(() => setEditing(false));
 
     addSection({
       id: ('temp__' + Math.random()).replace('.', ''),

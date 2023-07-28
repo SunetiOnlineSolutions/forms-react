@@ -217,7 +217,7 @@ const Builder: React.FunctionComponent = () => {
           <div className="form-group col-md-2">
             <HorizontalTextField label="Status" value={version.versionStatusType[0].toUpperCase() + version.versionStatusType.substring(1).toLowerCase()} onChange={() => { }} readOnly />
           </div>
-          <div className="col-md-3">
+          <div className="form-group col-md-7" style={{ display: 'flex', justifyContent: 'end' }}>
             {sections.length > 0 && <HorizontalTextField value={isEditing ? 'UNPUBLISHED CHANGES PENDING' : 'UNPUBLISHED CHANGES SAVED'} readOnly  onChange={() => {}} />}
           </div>
         </div>

@@ -24,6 +24,7 @@ const HorizontalTextField: React.FunctionComponent<TextFieldProps> = ({ label, v
       {label && <label style={{ paddingRight: '0.5rem' }}>{label}</label>}
       <input
         type="text"
+        style={{width: '14rem'}}
         className={"form-control" + (shouldShowInvalid ? ' is-invalid' : '')}
         placeholder={placeholder}
         value={value ?? ''}

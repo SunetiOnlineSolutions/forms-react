@@ -10,28 +10,39 @@ const Signature: React.FunctionComponent = () => {
   const [editQuestion] = useQuestionEdit(question);
 
   const [name, setName] = React.useState<string>(question.name);
+  const [description, setDescription] = React.useState(question.description);
   const [required, toggleRequired] = useToggle(question.options?.validation?.required ?? false);
 
   React.useEffect(() => {
     editQuestion({
       name,
+      description,
       options: {
         validation: {
           required,
         }
       }
     });
-  }, [name, required]);
+  }, [name, required, description]);
 
 
   return <>
     <div className="form-group row">
-        <label className="col-sm-1 col-form-label">Question</label>
-        <div className="col-sm-10">
-          <TextField placeholder="What would you like to ask?" value={name} onChange={setName} />
-        </div>
+      <label className="col-sm-1 col-form-label">Question</label>
+      <div className="col-sm-10">
+        <TextField placeholder="What would you like to ask?" value={name} onChange={setName} />
       </div>
-
+    </div>
+    <div className="form-group row">
+      <label className="col-sm-1 col-form-label">Description</label>
+      <div className="col-sm-10">
+        <TextField 
+          placeholder="Optionally your can add a description for your question"
+          value={description} 
+          onChange={setDescription} 
+        />
+      </div>
+    </div>
       <div className="form-group row">
         <label className="col-sm-1 col-form-label">Validation</label>
         <div className="col-sm-10">

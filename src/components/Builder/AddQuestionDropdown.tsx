@@ -1,22 +1,20 @@
 import React from 'react';
-import UnsavedQuestionsContext from '../../context/UnsavedQuestionsContext';
 import { useSection } from '../../hooks';
 import { AnswerType } from '../../types';
+import { DataStore } from '../../context/DataStore';
 
 const AddQuestionDropdown: React.FunctionComponent = () => {
 
   const section = useSection();
-  const { questions, addQuestion } = React.useContext(UnsavedQuestionsContext);
+  const { actions } = React.useContext(DataStore);
 
   const add = (type: AnswerType) => {
-    addQuestion({
+    actions.questions.store({
       section_id: section.id,
       answer_type: type,
       options: {},
-      name: '',
-      id: ('temp__' + Math.random()).replace('.', ''),
-      sort_order: Math.max(...questions.filter(q => q.section_id === section.id).map(q => q.sort_order), 0) + 1,
-    });
+      name: 'question',
+    })
   };
 
   return (

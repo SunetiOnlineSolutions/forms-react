@@ -12,6 +12,8 @@ import { StoredQuestion, StoredSection } from './DataPersistence';
 import EntityNotFoundError from './errors/EntityNotFoundError';
 import { areObjectsDeepEqual, deepMerge } from './helpers';
 import { AnswerType, Identifier } from './types';
+import { useDebouncedCallback } from 'use-debounce';
+
 
 export const useToggle = (initialValue = false): [boolean, () => void, (newVal: boolean) => void] => {
   const [value, setValue] = React.useState(initialValue);
@@ -142,10 +144,11 @@ export const useCurrentVersion = (): FormTemplateVersion | undefined => {
 
 export const useQuestionEdit = (original: StoredQuestion): [(updated: Partial<StoredQuestion>) => void, boolean, boolean] => {
   const { editQuestion } = React.useContext(UnsavedQuestionsContext);
-
   const [updated, setUpdated] = React.useState<StoredQuestion>(original);
   const [hasChanges, setHasChanges] = React.useState(false);
   const isPersisted = React.useMemo(() => typeof original.id === 'number', [original]);
+  const { actions } = React.useContext(DataStore);
+
 
   const edit = (updated: Partial<StoredQuestion>) => {
     if (original.options.multipleChoice?.customValues) {
@@ -156,8 +159,23 @@ export const useQuestionEdit = (original: StoredQuestion): [(updated: Partial<St
     );
   };
 
+  const onQuestionChange = useDebouncedCallback(
+    async () => {
+      await actions.questions.update(updated).then(() => setEditing(false));
+    }, 4000,
+  );
+
+  const {setEditing} = React.useContext(UnsavedQuestionsContext);
+
   React.useEffect(() => setHasChanges(areObjectsDeepEqual(original, updated)), [original, updated]);
-  React.useEffect(() => editQuestion(updated), [updated]);
+  React.useEffect(() => { 
+    editQuestion(updated);
+    if (!hasChanges || !updated.name) {
+      return;
+    }
+    setEditing(true);
+    onQuestionChange();
+  }, [updated]);
 
   return [edit, hasChanges, isPersisted];
 };

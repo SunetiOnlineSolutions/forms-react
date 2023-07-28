@@ -1,5 +1,4 @@
 import React from 'react';
-import UnsavedQuestionsContext from '../../context/UnsavedQuestionsContext';
 import { useSection } from '../../hooks';
 import { AnswerType } from '../../types';
 import { DataStore } from '../../context/DataStore';
@@ -9,15 +8,13 @@ const AddQuestionDropdown: React.FunctionComponent = () => {
   const section = useSection();
   const { actions } = React.useContext(DataStore);
 
-  const {addQuestion } = React.useContext(UnsavedQuestionsContext);
-
   const add = (type: AnswerType) => {
     actions.questions.store({
       section_id: section.id,
       answer_type: type,
       options: {},
       name: 'question',
-    }).then(res => addQuestion(res));
+    })
   };
 
   return (

@@ -4,6 +4,7 @@ import TextField from './../FormElements/TextField';
 import { useSection, useSectionEdit } from '../../hooks';
 import UnsavedSectionsContext from '../../context/UnsavedSectionsContext';
 import { DataStore } from '../../context/DataStore';
+import UnsavedQuestionsContext from '../../context/UnsavedQuestionsContext';
 
 const SectionHamburgerMenu: React.FunctionComponent = () => {
   const section = useSection();
@@ -14,6 +15,7 @@ const SectionHamburgerMenu: React.FunctionComponent = () => {
 
   const [isRenameModalOpen, setIsRenameModalOpen] = React.useState(false);
   const [newName, setNewName] = React.useState(section.name);
+  const { setEditing } = React.useContext(UnsavedQuestionsContext);
 
   const renameSection = () => {
     editSection({
@@ -31,6 +33,11 @@ const SectionHamburgerMenu: React.FunctionComponent = () => {
     editSection(section)
   }
 
+  const deleteSection = async () => {
+    setEditing(true)
+    await actions.sections.delete(section).then(() => setEditing(false));
+  };
+
   return (<>
     <div className="dropdown section--hamburger-menu">
       <button className="btn btn-light dropdown-toggle hide-dropdown-toggle" id={"section--hamburger-menu_" + section.id} data-toggle="dropdown" aria-expanded="false">
@@ -45,7 +52,7 @@ const SectionHamburgerMenu: React.FunctionComponent = () => {
           <span className="text-primary fal fa-fw fa-lg fa-copy m-r-5"></span>
           Duplicate section
         </button>
-        <button className="dropdown-item" onClick={() => actions.sections.delete(section)}>
+        <button className="dropdown-item" onClick={() => deleteSection()}>
           <span className="text-danger fal fa-fw fa-lg fa-trash-alt m-r-5"></span>
           Delete section
         </button>

@@ -160,10 +160,12 @@ export const useQuestionEdit = (original: StoredQuestion): [(updated: Partial<St
   };
 
   const onQuestionChange = useDebouncedCallback(
-    () => {
-      actions.questions.update(updated);
-    }, 2000,
+    async () => {
+      await actions.questions.update(updated).then(() => setEditing(false));
+    }, 4000,
   );
+
+  const {setEditing} = React.useContext(UnsavedQuestionsContext);
 
   React.useEffect(() => setHasChanges(areObjectsDeepEqual(original, updated)), [original, updated]);
   React.useEffect(() => { 
@@ -171,6 +173,7 @@ export const useQuestionEdit = (original: StoredQuestion): [(updated: Partial<St
     if (!hasChanges || !updated.name) {
       return;
     }
+    setEditing(true);
     onQuestionChange();
   }, [updated]);
 

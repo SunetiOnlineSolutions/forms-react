@@ -5,12 +5,12 @@ import { DataStore } from '../context/DataStore';
 import { DragDropContext, DropResult, Droppable, Draggable } from '@react-forked/dnd'
 import { useCurrentVersion } from '../hooks';
 import AddSection from '../components/Builder/AddSection';
-import TextField from '../components/FormElements/TextField';
 import UnsavedQuestionsContext from '../context/UnsavedQuestionsContext';
 import UnsavedSectionsContext from '../context/UnsavedSectionsContext';
 import CurrentSectionContext from '../context/CurrentSectionContext';
 import { Identifier } from '../types';
 import { StoredQuestion, StoredSection } from '../DataPersistence';
+import HorizontalTextField from '../components/FormElements/HorizontalTextField';
 
 const defaultFooterButtonStyle: React.CSSProperties = {
   cursor: 'pointer',
@@ -28,7 +28,7 @@ interface DropResultWithType extends DropResult {
 const Builder: React.FunctionComponent = () => {
 
   const { actions } = React.useContext(DataStore);
-  const { setQuestions, questions } = React.useContext(UnsavedQuestionsContext);
+  const { setQuestions, questions, isEditing } = React.useContext(UnsavedQuestionsContext);
   const { sections, setSections } = React.useContext(UnsavedSectionsContext);
 
   const version = useCurrentVersion();
@@ -212,22 +212,15 @@ const Builder: React.FunctionComponent = () => {
 
         <div className="row mt-3 px-3">
           <div className="form-group col-md-3">
-            <TextField label="Name" value={name} onChange={newVal => setName(newVal)}></TextField>
+            <HorizontalTextField label="Name" value={name} onChange={newVal => setName(newVal)} />
           </div>
           <div className="form-group col-md-2">
-            <TextField label="Current version" value={'v' + version.formTemplate.versions.length.toString()} onChange={() => { }} readOnly />
+            <HorizontalTextField label="Status" value={version.versionStatusType[0].toUpperCase() + version.versionStatusType.substring(1).toLowerCase()} onChange={() => { }} readOnly />
           </div>
-          <div className="form-group col-md-2">
-            <TextField label="Total number of fillouts across all versions" value={version.formTemplate.versions.flatMap(version => version.forms).length.toString()} onChange={() => { }} readOnly />
-          </div>
-          <div className="form-group col-md-2">
-            <TextField label="Form version status" value={version.versionStatusType[0].toUpperCase() + version.versionStatusType.substring(1).toLowerCase()} onChange={() => { }} readOnly />
-          </div>
-          <div className="form-group col-md-3">
-            {sections.length > 0 && <TextField label="Save status" value={'Unpublished changes saved'} readOnly  onChange={() => {}} />}
+          <div className="col-md-3">
+            {sections.length > 0 && <HorizontalTextField value={isEditing ? 'UNPUBLISHED CHANGES PENDING' : 'UNPUBLISHED CHANGES SAVED'} readOnly  onChange={() => {}} />}
           </div>
         </div>
-
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId={'version__' + version.id} type="section">
             {(provided) => (

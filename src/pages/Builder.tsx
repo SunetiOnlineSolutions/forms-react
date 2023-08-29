@@ -133,10 +133,10 @@ const Builder: React.FunctionComponent = () => {
 
     if (originSection == destinationSection) {
       // If re-ordering within the same section:
-      if (dropResult.destination.index < question.sort_order) {
+      if ((dropResult.destination.index < question.sort_order)) {
         // If re-ordering up: add one to the sort order of all items with a sort order greater than or equal to the destination sort order and less than the origin sort order
         reorderedQuestions = questions.map(question => {
-          if (question.sort_order >= destinationSortOrder && question.sort_order < originSortOrder) {
+          if (question.sort_order >= destinationSortOrder && question.sort_order < originSortOrder && question.section_id == destinationSection){
             question.sort_order++;
           }
 
@@ -145,7 +145,7 @@ const Builder: React.FunctionComponent = () => {
       } else {
         // If re-ordering down: remove one from the sort order of all items with a sort order greater than to the origin sort order and less than or equal to the destination sort order
         reorderedQuestions = questions.map(question => {
-          if (question.sort_order > originSortOrder && question.sort_order <= destinationSortOrder) {
+          if (question.sort_order > originSortOrder && question.sort_order <= destinationSortOrder && question.section_id == destinationSection) {
             question.sort_order--;
           }
 
@@ -177,13 +177,13 @@ const Builder: React.FunctionComponent = () => {
 
     reorderedQuestions = reorderedQuestions.map(question => {
       if (question.id == questionID) {
-        question.section_id = destinationSection;
+        question.section_id = parseInt(destinationSection);
         question.sort_order = destinationSortOrder;
       }
 
       return question;
     });
-
+    actions.questions.bulkUpdate(reorderedQuestions);
     setQuestions(reorderedQuestions);
   };
 

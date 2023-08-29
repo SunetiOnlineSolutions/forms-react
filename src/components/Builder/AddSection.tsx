@@ -21,14 +21,9 @@ const AddSection: React.FunctionComponent = () => {
     await actions.sections.store({
       form_template_version_id: version.id,
       name: 'Section ' + (sections.length + 1),
-    }).then(() => setEditing(false));
-
-    addSection({
-      id: ('temp__' + Math.random()).replace('.', ''),
-      form_template_version_id: version.id,
-      name: 'Section ' + (sections.length + 1),
-      sort_order: Math.max(...sections.map(s => s.sort_order), 0) + 1,
-    });
+    }).then((res) => {
+      addSection(res);
+      setEditing(false)});
   };
 
   return <>

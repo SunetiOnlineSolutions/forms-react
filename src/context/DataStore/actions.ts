@@ -129,6 +129,7 @@ export const createActions = (dispatch: (param: Action) => void) => ({
     async store(question: Without<StoredQuestion, "id" | "sort_order">) {
       const stored = await storage.storeQuestion({
         name: question.name,
+        description: question.description,
         section_id: question.section_id,
         answer_type: question.answer_type,
         options: question.options,
@@ -142,6 +143,7 @@ export const createActions = (dispatch: (param: Action) => void) => ({
       const updated = await storage.updateQuestion({
         id: question.id,
         name: question.name,
+        description: question.description,
         answer_type: question.answer_type,
         section_id: question.section_id,
         options: question.options,

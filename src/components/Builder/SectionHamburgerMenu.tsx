@@ -9,6 +9,7 @@ import UnsavedQuestionsContext from '../../context/UnsavedQuestionsContext';
 const SectionHamburgerMenu: React.FunctionComponent = () => {
   const section = useSection();
   const { sections } = React.useContext(UnsavedSectionsContext);
+  const { questions } = React.useContext(UnsavedQuestionsContext);
   const [editSection] = useSectionEdit(section);
   const { actions } = React.useContext(DataStore);
 
@@ -27,10 +28,26 @@ const SectionHamburgerMenu: React.FunctionComponent = () => {
   };
 
   const duplicateSection = () => {
-    const duplicateSection = {...section, id:('temp__' + Math.random()).replace('.', '')}
-    const currentSectionIndex = sections.findIndex((sec) => sec.id === section.id)
-    sections.splice(currentSectionIndex, 0, duplicateSection)
-    editSection(section)
+    const duplicateSection = {...section, id:('temp__' + Math.random()).replace('.', '')};
+    const currentSectionIndex = sections.findIndex((sec) => sec.id === section.id);
+    sections.splice(currentSectionIndex, 0, duplicateSection);
+    actions.sections.store(
+      {
+        form_template_version_id:duplicateSection.form_template_version_id,
+        name:`${duplicateSection.name} - Duplicate`
+      }).then((res) => {
+        const sectionQuestions = questions.filter(q => q.section_id == section.id);
+        sectionQuestions.forEach((question) => {
+          const newSectionQuestion = {
+            answer_type:question.answer_type, 
+            options: question.options,
+            name: question.name,
+            description: question.description,
+            section_id:res.id
+          };
+          actions.questions.store(newSectionQuestion);
+        });
+      });
   }
 
   const deleteSection = async () => {

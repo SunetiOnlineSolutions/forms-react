@@ -45,7 +45,7 @@ const SectionHamburgerMenu: React.FunctionComponent = () => {
             description: question.description,
             section_id:res.id
           };
-          actions.questions.store(newSectionQuestion);
+          actions.questions.store(newSectionQuestion); 
         });
       });
   }
